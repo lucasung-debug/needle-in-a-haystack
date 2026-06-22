@@ -46,7 +46,7 @@ def analyze(text):
         # verdict = last bracketed token if any (e.g. "... [PASS]"), else the bare
         # trailing text (e.g. "[FINAL]:  VALID", which carries no brackets).
         verdict = (br[-1] if br else remainder).strip().upper()
-        gates[gate] = {"verdict": verdict, "tokens": [t.strip().upper() for t in br], "line": line}
+        gates[gate] = {"verdict": verdict, "tokens": [t.strip().upper() for t in br]}
 
     # 2. Block presence + required gates.
     if not gates:
@@ -70,7 +70,7 @@ def analyze(text):
         if gates["NULL"]["verdict"] not in ("PASS", "NA"):
             violations.append(f"[NULL] is {gates['NULL']['verdict'] or 'empty'} — must be PASS or NA")
     if "COST" in gates:
-        toks = [t for t in gates["COST"]["tokens"] if t not in ("COST",)]
+        toks = gates["COST"]["tokens"]
         # paid used = YES but consent recorded = NO  -> spending without consent
         if "YES" in toks and "NO" in toks:
             violations.append("[COST] paid source used (YES) without recorded consent (NO) — consent interlock breached")

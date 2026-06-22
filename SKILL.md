@@ -30,7 +30,7 @@ triggers:
   - research philosophy
   - analytic standards
   - methodic doubt
-allowed-tools: [Read, Write, Edit, Bash, WebSearch, WebFetch, AskUserQuestion]
+allowed-tools: [Read, Write, Bash, WebSearch, WebFetch, AskUserQuestion]
 ---
 
 # needle-in-a-haystack — Full-Cycle Research Skill
