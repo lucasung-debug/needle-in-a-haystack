@@ -18,11 +18,14 @@ The skill's reasoning mode is **abduction** (inference to the best explanation f
 
 **Creed:** *Find the needle by generating candidate explanations, then trying to destroy them — and declare "not found" before fabricating one.*
 
-Peirce is the root, but not the whole tree. The wider philosophy-of-science backbone that disciplines each stage of
-the loop — Popper (falsification), Kuhn (paradigms), Lakatos (research programmes), Duhem–Quine (underdetermination),
-Bayesian updating, Dewey (the pattern of inquiry) — and the **research paradigm** a run must declare before choosing a
-method live in `paradigm.md`, with verified citations. The staged dialogue that frames a question *before* searching
-(constructive Cartesian doubt + Socratic elenchus) lives in `dialogue.md`.
+Peirce is the **root**, but not the whole tree. Popper is the sharpest *branch* (falsification — Peirce's fallibilism
+honed to an edge); Socrates is the *headwater* (knowing that one doesn't know → calibration; elenchus → self-review);
+Hume/Clifford (evidentialism) and Bacon (idols of the mind) are *tributaries*. The wider philosophy-of-science
+backbone that disciplines each stage of the loop — Popper, Kuhn, Lakatos, Duhem–Quine, Bayesian updating, Dewey — the
+**10-paradigm landscape** a run must declare from before choosing a method, and the **operating standard** (4 layers /
+13 enforceable directives that turn this philosophy into checkable gates) all live in `paradigm.md`, with verified
+citations. The staged dialogue that frames a question *before* searching (constructive Cartesian doubt + Socratic
+elenchus) lives in `dialogue.md`.
 
 ---
 

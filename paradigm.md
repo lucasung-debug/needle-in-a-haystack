@@ -5,9 +5,13 @@
 > paradigm decides **what counts as a valid needle and as valid evidence at all.** You cannot choose a method
 > honestly until you have declared the paradigm it serves.
 >
-> This skill does not invent a paradigm — it **borrows the philosophers'**. The grounding below was itself produced
-> by running this skill's own discipline (abduction + LAW 0 provenance) over the literature; every claim carries a
-> live source in §4. Read the verification note there before treating any citation as byte-level provenance.
+> Three things live here: **§1–2** the research-paradigm selector (the 10-paradigm landscape); **§3** the operating
+> standard that turns this philosophy into *enforceable gates* (4 layers, 13 directives); **§4** the
+> philosophy-of-science backbone that disciplines the abduction loop.
+>
+> This skill does not invent a paradigm — it **borrows the philosophers'**. The grounding was itself produced by
+> running this skill's own discipline (abduction + LAW 0 provenance) over the literature; every claim carries a live
+> source in §6. Read the verification note there before treating any citation as byte-level provenance.
 
 ---
 
@@ -16,83 +20,168 @@
 A research worldview is a stack — **ontology → epistemology → methodology → axiology** — and "the first step in any
 research initiative is to expose philosophical assumptions by identifying the philosophical worldview adopted by the
 researcher," because those assumptions direct the later choice of methods (ontology/epistemology are the "footings
-to a house").[¹] Major methods texts frame the research approach by worldview first — Postpositivist, Constructivist,
-Transformative, Pragmatic — and only then select methods.[²]
+to a house").[¹][¹⁵] Major methods texts frame the research approach by worldview first, then select methods.[³²]
 
-**Gate (FRAME):** declare the governing paradigm *before* picking a design. If the question spans paradigms, say so
-and treat each strand under its own rules of evidence. The paradigm you declare is what `NEEDLE NOT FOUND` is measured
-against — a needle that counts as found under positivism may not count under critical realism, and vice versa.
-
----
-
-## 2. The research-paradigm selector
-
-Declare one (or a justified blend). Each row fixes *what a valid finding is* — i.e., what the "needle" even means here.
-
-| Paradigm | Reality / knowledge | What counts as a valid needle / evidence | Source |
-|----------|---------------------|------------------------------------------|--------|
-| **Positivism** | one objective reality, fully apprehensible; value-free | an objective, measurable regularity; reproducible, unbiased observation and hypothesis test | [¹][³] |
-| **Postpositivism** | one reality, only *imperfectly/probabilistically* knowable; observers are fallible | a conjecture that **survived rigorous attempts at refutation**; falsifiable claims, risky tests, probabilistic support | [⁴][¹] |
-| **Interpretivism / Constructivism** | no single reality; socially constructed, multiple, context-relative | a *credible interpretation* of participants' meanings/lived experience (double hermeneutic); thick description, not generalizable measurement | [¹] |
-| **Critical / Transformative** | reality is shaped by power relations; axiology (justice) leads | knowledge that **exposes and helps redress** oppression; judged partly by engagement with affected communities and emancipatory value, not neutrality | [⁵][¹] |
-| **Pragmatism** | declines a single ontology; meaning/truth lie in practical consequences | *whatever mix of methods best resolves the practical problem*; warranted by usefulness and "what works" | [⁶][⁷] |
-| **Critical realism** (Bhaskar) | stratified: **real** (mechanisms) → **actual** (events) → **empirical** (observed) | explanation by the underlying **generative mechanism**; collapsing being into the observed is the "epistemic fallacy" | [⁸][⁹] |
+**Gate (FRAME):** declare the governing paradigm *before* picking a design. The paradigm is not "chosen" by taste —
+**back-trace it from what the research question requires** and align coherently. "Why/how does a causal mechanism
+work" → critical realism; "solve a field problem with quant+qual" → pragmatism; "make change for a marginalized
+group" → transformative. The paradigm you declare is what `NEEDLE NOT FOUND` is measured against.
 
 ---
 
-## 3. The philosophy-of-science backbone — the gates that discipline abduction
+## 2. The research-paradigm selector — the 10-paradigm landscape
 
-The abduction loop in `philosophy.md` is not free-floating; each stage inherits a discipline from the philosophers
-this skill borrows. Apply the matching gate at the matching stage.
+Declare one (or a justified blend). Each row fixes *what a valid finding is* — i.e., what the "needle" means here.
+Arranged: **traditional mainstream (①–⑥) → current applied-strongest (⑦) → recently surging frontier (⑧–⑩).**
 
-| Thinker | Contribution | Operating gate (and which loop stage) | Source |
-|---------|-------------|----------------------------------------|--------|
-| **Peirce** | abduction = *generation* of explanatory hypotheses; modern "inference to the best explanation" = *justification*. Fallibilism; self-correcting inquiry. | Keep generation and justification **separate**: ABDUCT generatively (don't pre-rank), then run a distinct evaluative step before committing. Never collapse "I thought of it" into "it's best." | [¹⁰][¹¹] |
-| **Dewey** | inquiry = controlled transformation of an *indeterminate situation* into a resolved one; problems don't pre-exist inquiry; goal = *warranted assertibility*. | At **FRAME**, invest in *formulating the problem* before hypothesizing; a vague "something's wrong" is not yet researchable. At **REPORT**, label outputs *warranted assertions*, not fixed truths. | [¹²] |
-| **Popper** | falsificationism: theories are conjectures, demarcated by *falsifiability*; corroboration counts only from *risky* tests. | At **FRAME/FALSIFY**, state in advance what observation would refute the claim; prefer tests that could plausibly fail. A claim that forbids nothing isn't yet doing work. | [⁴] |
-| **Lakatos** | research programmes: hard core + protective belt; *progressive* (predicts novel facts) vs *degenerating* (ad hoc patches). | At **SELF-CORRECT**, when evidence bites ask whether the fix is *progressive* (yields a new checkable prediction) or merely *ad hoc*. Abandon lines that survive only by face-saving patches. | [¹³] |
-| **Kuhn** | normal vs revolutionary science; the "disciplinary matrix"; incommensurability (methodological, observational, semantic). | At **FRAME**, make the governing assumptions explicit and **track set-aside anomalies**; when they pile up past patching, reframe rather than add a fix. When comparing rivals, don't assume both sides mean the same by the same terms. | [¹⁴] |
-| **Duhem–Quine** | confirmational holism / underdetermination: hypotheses are tested only in *bundles*; no single experiment is fully crucial. | At **FALSIFY**, when a test fails, blame the *whole bundle* — enumerate auxiliary, background, and instrument assumptions before assigning fault. Grant no "crucial experiment" sole authority. | [¹⁵][¹⁶] |
-| **Bayesian epistemology** | rational belief in *degrees* (credences) obeying probability; update by conditionalization. | At **REPORT**, hold confidence as calibrated degrees, not binaries; **update proportionally** (strong evidence on a low prior still yields a modest posterior). Maps directly to the low/med/high confidence + what-would-change-it line. | [¹⁷] |
+### Traditional mainstream (textbook foundations)
+
+| # | Paradigm | Reality / knowledge | Valid needle / evidence | Key figures | Src |
+|---|----------|---------------------|--------------------------|-------------|-----|
+| ① | **Positivism** | one objective reality, fully apprehensible; value-free | a measurable, law-like regularity; reproducible observation & measurement | Comte; Vienna Circle (Ayer) | [¹⁶][¹] |
+| ② | **Post-positivism** | one reality, only *imperfectly/probabilistically* knowable; observers fallible | a conjecture that **survived rigorous refutation**; falsifiable claims, risky tests | Popper; Kuhn | [⁴][⁶] |
+| ③ | **Interpretivism / Verstehen** | social ≠ natural; meaning, motive, context are primary | a credible *interpretive understanding* (Verstehen) of actors' meaning, not generalizable measurement | Weber; Dilthey; Schutz | [¹⁷][¹⁸] |
+| ④ | **Constructivism / Social constructionism** | reality is constructed, multiple, relative (individual=cognitive; social=language/discourse) | a credible account of *how* meaning/reality is constructed; naturalistic inquiry, constructivist grounded theory | Berger & Luckmann; Guba & Lincoln; Charmaz | [²¹][²²] |
+| ⑤ | **Critical theory** | reality shaped by power/ideology; **value-driven** (not merely value-laden) | knowledge that **exposes oppression and serves emancipation** | Frankfurt School; Habermas; Freire | [¹⁵][¹] |
+| ⑥ | **Phenomenology / Hermeneutics** | the essence of lived experience / the process of understanding | rich description of lived experience (epoché) or a defensible interpretation | Husserl; Heidegger; Gadamer (applied: IPA, van Manen, Moustakas) | [¹⁹][²⁰] |
+
+### Current applied-strongest
+
+| # | Paradigm | Reality / knowledge | Valid needle / evidence | Key figures | Src |
+|---|----------|---------------------|--------------------------|-------------|-----|
+| ⑦ | **Pragmatism & Mixed methods** | declines a single ontology; meaning/truth lie in practical consequences | *whatever method-mix best resolves the problem*; warranted by "what works"; quant+qual as a "third methodological movement" | Peirce, James, Dewey; Morgan; Tashakkori & Teddlie | [²³][²⁴] |
+
+### Recently surging (the frontier — fastest-growing citations)
+
+| # | Paradigm | Reality / knowledge | Valid needle / evidence | Key figures | Src |
+|---|----------|---------------------|--------------------------|-------------|-----|
+| ⑧ | **Critical realism** | stratified: **real** (mechanisms) → **actual** (events) → **empirical** (observed); ontological realism + epistemic fallibility | explanation by the underlying **generative mechanism**; collapsing being into the observed is the "epistemic fallacy" | Bhaskar; Archer; Sayer | [²⁵][²⁶] |
+| ⑨ | **Transformative / Decolonial / Indigenous** | axiology (social justice, self-determination, relational accountability) **leads** ontology/epistemology | emancipatory knowledge; judged by engagement with affected/Indigenous communities, not neutrality | Mertens; L.T. Smith; Wilson; Chilisa; Kovach | [²⁷][²⁸][²⁹] |
+| ⑩ | **Post-qualitative / New materialism / Posthumanism** | the "ontological turn": matter & meaning **intra-act**; decenters the human and representation | relational, emergent accounts; **no preset method** — refuses prescribed procedure after the ontological turn | Barad; St. Pierre; Deleuze & Guattari; Braidotti; Haraway | [³⁰][³¹] |
+
+> Practical alignment: a single pure paradigm rarely fits a real question. Mixed/critical-realist blends are common
+> and legitimate — state the blend and which strand governs which sub-question.
 
 ---
 
-## 4. How the paradigm layer wires into the loop
+## 3. The operating standard — philosophy as enforceable gates (4 layers · 13 directives)
 
-- **FRAME** → declare paradigm (§2) + Dewey problem-formulation + the staged framing dialogue (`dialogue.md`).
-- **ABDUCT** → generate plurally (Peirce generation/justification split); cultivate *surprise* — the needle often lives at the anomaly existing theory can't explain (abductive analysis: Timmermans & Tavory; Charmaz "pursue doubt and surprise").[¹⁸][¹⁹]
-- **FALSIFY** → Popper (state the refuter) + Lakatos (progressive vs ad hoc) + Duhem–Quine (blame the bundle).
-- **SELF-CORRECT** → Kuhn (anomaly accumulation → reframe) + Lakatos (abandon degenerating lines).
-- **REPORT** → Dewey warranted assertibility + Bayesian-calibrated confidence.
+> **Meta-principle (the bridge from philosophy to engineering):** a philosophical commitment is useless as a
+> *declaration* ("be objective," "be accurate"). It only works when **encoded as a checkable gate on the output**
+> (e.g. "tag every fact with a source type," "hold ≥2 competing hypotheses before concluding"). The skill's
+> `research.md` compliance block is the **enforced subset** of the standard below; this table is the full charter and
+> shows which existing gate carries each directive, or marks it `[ADD]`.
+
+Layer 2 borrows from intelligence-analysis tradecraft — Heuer's *Psychology of Intelligence Analysis* / ACH[¹²] and
+ODNI **ICD 203** Analytic Standards[¹³] — the same adversarial discipline this skill already runs at FALSIFY.
+
+| # | Directive | Blocks (LLM failure mode) | Enforced by |
+|---|-----------|---------------------------|-------------|
+| **Layer 1 — Epistemological foundations** | | | |
+| 1 | **Fallibilism** — every conclusion is provisional/revisable | overconfidence, false closure | `philosophy.md` §0; confidence + what-would-change line |
+| 2 | **Evidentialism** — proportion belief to evidence; no ungrounded claim[¹⁰] | hallucination, fabricated facts/citations | LAW 0; `[C]`, `[L1]` |
+| 3 | **Provenance / evidence hierarchy** — distinguish 1°/2° source · retrieved fact · model memory · inference | source confusion (memory passed off as retrieval), stale info | LAW 0 + `[retrieved\|inferred\|assumed]` tags |
+| 4 | **Calibration** — stated confidence must match actual confidence (per ICD 203)[¹³] | both over-assertion and weasel-hedging | confidence low/med/high + `[NULL]` |
+| **Layer 2 — Analytic integrity (tradecraft)** | | | |
+| 5 | **Competing hypotheses / falsification** — ≥2 hypotheses; seek *disconfirming* evidence first (Heuer ACH)[¹²] | anchoring on the first plausible fit; confirmation bias | `[ABDUCT]` (≥2), `[FALSIFY]` |
+| 6 | **Observation ≠ inference** — don't smuggle interpretation into data | inference disguised as fact | `[retrieved\|inferred\|assumed]` tags; report separates data from reading **`[ADD]`** |
+| 7 | **Preservation of dissent** — don't average away conflicting/outlier evidence | false consensus, flattening | Axis 3 (conflicts flagged, never silently resolved); report's "Conflicts/Gaps" |
+| 8 | **Adversarial self-review** — red-team your own conclusion before shipping | overconfidence in self-consistency | `[FALSIFY]` (survive an explicit disconfirmation attempt) |
+| **Layer 3 — Axiology & objectivity** | | | |
+| 9 | **Independence / anti-sycophancy** — serve the evidence, not the user's expectation (ICD 203: independence)[¹³] | sycophancy, amplifying the user's bias | new hard rule + `[INDEP]` **`[ADD]`** |
+| 10 | **Reflexivity** — state your own assumptions, limits, potential bias | invisible premises, over-generalization | report's `[assumptions]` / `[limits]` / what-would-change |
+| 11 | **Framing scrutiny** — don't accept the question's frame uncritically (whose interest does it serve, what does it exclude?) | amplifying a flawed premise into an answer | `dialogue.md` (doubt the framing before searching) |
+| **Layer 4 — Reporting ethics** | | | |
+| 12 | **Traceability / BLUF** — conclusion first, every key judgment audit-traceable to a source | unauditable assertion | report format (BLUF + provenance) |
+| 13 | **Proportionality** — don't compensate weak evidence with strong rhetoric; quantify where possible | cherry-picking, overstatement | Axis 2 (claim strength ≤ evidence strength) |
+
+The two `[ADD]` items are wired into `research.md` (an `[INDEP]` compliance line; an explicit data-vs-interpretation
+split in the report). Everything else was already enforced — the standard mostly *names and grounds* gates the skill
+already runs.
 
 ---
 
-## 5. References (LAW 0 — the skill's own evidence)
+## 4. The philosophy-of-science backbone — the gates that discipline abduction
+
+**Root, branches, tributaries.** The *root* of this skill's reasoning is **Peirce** — he alone fathered abduction,
+fallibilism, pragmatism, and self-correcting inquiry (the community of inquiry that converges by erasing error).
+**Popper** is the sharpest *branch* (falsification — Peirce's fallibilism honed to its cutting edge). **Socrates** is
+the *headwater*: *docta ignorantia* (knowing that one doesn't know → calibration) and *elenchus* (refutation →
+self-review + framing scrutiny) — an ancestor of the critical posture, not the inference engine. Tributaries:
+**Hume/Clifford** feed evidentialism (directive 2)[¹⁰]; **Bacon's** idols of the mind are an early theory of
+cognitive bias feeding framing scrutiny (directive 11)[¹¹].
+
+| Thinker | Contribution | Operating gate (loop stage) | Src |
+|---------|-------------|------------------------------|-----|
+| **Peirce** | abduction = *generation* of hypotheses; modern IBE = *justification*. Fallibilism; self-correction. | Keep generation/justification **separate**; ABDUCT plurally, evaluate after. Never collapse "I thought of it" into "it's best." (ABDUCT) | [¹][²] |
+| **Dewey** | inquiry transforms an *indeterminate situation*; problems don't pre-exist inquiry; goal = *warranted assertibility*. | Invest in *formulating the problem* before hypothesizing; label outputs warranted assertions, not truths. (FRAME/REPORT) | [³] |
+| **Popper** | falsificationism; demarcation; corroboration only from *risky* tests. | State in advance what would refute the claim; prefer tests that could fail. (FRAME/FALSIFY) | [⁴] |
+| **Lakatos** | research programmes; *progressive* (novel facts) vs *degenerating* (ad hoc patches). | Ask whether a fix is progressive or merely ad hoc; abandon face-saving patch-lines. (SELF-CORRECT) | [⁵] |
+| **Kuhn** | normal vs revolutionary science; disciplinary matrix; incommensurability. | Make assumptions explicit; track set-aside anomalies; reframe when they pile up; watch term-mismatch across rivals. (FRAME/SELF-CORRECT) | [⁶] |
+| **Duhem–Quine** | confirmational holism; no single experiment is fully crucial. | On a failed test, blame the *whole bundle* (auxiliary/background/instrument), not just the headline. (FALSIFY) | [⁷][⁸] |
+| **Bayesian epistemology** | belief in *degrees*; update by conditionalization. | Hold confidence as calibrated degrees; update proportionally (strong evidence on a low prior → modest posterior). (REPORT) | [⁹] |
+
+---
+
+## 5. How the paradigm layer wires into the loop
+
+- **FRAME** → declare paradigm (§2) + Dewey problem-formulation + the staged framing dialogue (`dialogue.md`); run framing scrutiny (directive 11).
+- **ABDUCT** → generate plurally (Peirce split; Heuer ACH directive 5); cultivate *surprise* — the needle often lives at the anomaly existing theory can't explain (abductive analysis: Timmermans & Tavory; Charmaz "pursue doubt and surprise").[³³][³⁴]
+- **FALSIFY** → Popper (state the refuter) + Lakatos (progressive vs ad hoc) + Duhem–Quine (blame the bundle) + adversarial self-review (directive 8) + preservation of dissent (directive 7).
+- **SELF-CORRECT** → Kuhn (anomaly → reframe) + Lakatos (abandon degenerating lines).
+- **REPORT** → Dewey warranted assertibility + Bayesian calibration (directive 4) + traceability/BLUF (12) + proportionality (13) + reflexivity (10) + independence/anti-sycophancy (9).
+
+---
+
+## 6. References (LAW 0 — the skill's own evidence)
 
 **Verification note (honest disclosure, dogfooding L1/L4):** every URL below was confirmed **live and
 content-matched via domain-scoped web-search retrieval on 2026-06-22**. Raw byte-level fetch (`WebFetch`/`curl`) was
-blocked environment-wide (uniform 403 on every host) during this research, so liveness is confirmed at the
+blocked environment-wide (uniform HTTP 403, confirmed on `plato.stanford.edu`), so liveness is confirmed at the
 search-index/extraction level, **not** via a rendered fetch. Re-verify in an unrestricted network before treating
 these as byte-level provenance. Weaker links are flagged inline.
 
-1. Selecting a research paradigm; ontology→epistemology→methodology→axiology hierarchy; paradigm-before-method — https://pmc.ncbi.nlm.nih.gov/articles/PMC8368685/
-2. Creswell & Creswell, *Research Design*, Ch.1 (four worldviews framed before method) — https://fad.umi.ac.ma/pluginfile.php/192783/mod_resource/content/1/John%20W.%20Creswell%20%20J.%20David%20Creswell%20-%20Research%20Design_%20Qualitative%2C%20Quantitative%2C%20and%20Mixed%20Methods%20Approaches_40-61.pdf  *(flag: third-party course PDF, may move; ref 1 is the durable anchor)*
-3. SEP, *Scientific Objectivity* (positivist value-free/observation ideal) — https://plato.stanford.edu/entries/scientific-objectivity/
+**Backbone & tributaries**
+1. SEP, *Abduction* (Peirce abduction = generation vs IBE = justification) — https://plato.stanford.edu/entries/abduction/
+2. SEP, *Charles Sanders Peirce* (three-stage method, fallibilism, self-correction, community of inquiry) — https://plato.stanford.edu/entries/peirce/
+3. SEP, *John Dewey* (pattern of inquiry, warranted assertibility) — https://plato.stanford.edu/entries/dewey/
 4. SEP, *Karl Popper* (falsifiability, demarcation, risky corroboration) — https://plato.stanford.edu/entries/popper/
-5. Transformative paradigm (Mertens), axiology-led — https://pmc.ncbi.nlm.nih.gov/articles/PMC10857753/
-6. SEP, *Pragmatism* (pragmatic maxim — meaning via practical consequences) — https://plato.stanford.edu/entries/pragmatism/
-7. Pragmatism as a named research paradigm (mixed methods) — https://pmc.ncbi.nlm.nih.gov/articles/PMC8849373/
-8. Critical realism — stratified real/actual/empirical ontology — https://en.wikipedia.org/wiki/Critical_realism_(philosophy_of_the_social_sciences)  *(flag: no dedicated SEP entry found; Wikipedia used as encyclopedic anchor)*
-9. Roy Bhaskar — epistemic fallacy, transitive/intransitive — https://en.wikipedia.org/wiki/Roy_Bhaskar
-10. SEP, *Abduction* (Peirce abduction = generation vs IBE = justification) — https://plato.stanford.edu/entries/abduction/
-11. SEP, *Charles Sanders Peirce* (three-stage method, fallibilism, self-correction) — https://plato.stanford.edu/entries/peirce/
-12. SEP, *John Dewey* (five-phase pattern of inquiry, warranted assertibility) — https://plato.stanford.edu/entries/dewey/
-13. SEP, *Imre Lakatos* (research programmes, progressive vs degenerating) — https://plato.stanford.edu/entries/lakatos/
-14. SEP, *Thomas Kuhn* (normal/revolutionary science, disciplinary matrix, incommensurability) — https://plato.stanford.edu/entries/thomas-kuhn/
-15. SEP, *Underdetermination of Scientific Theory* (holism, no crucial experiment) — https://plato.stanford.edu/entries/scientific-underdetermination/
-16. SEP, *Pierre Duhem* (confirmational holism) — https://plato.stanford.edu/entries/duhem/
-17. SEP, *Bayesian Epistemology* (credences, conditionalization, Dutch Book) — https://plato.stanford.edu/entries/epistemology-bayesian/
-18. Timmermans & Tavory, abduction in theory construction — https://journals.sagepub.com/doi/abs/10.1177/0735275112457914
-19. Charmaz, constructivist grounded theory + abduction — https://journals.sagepub.com/doi/10.1177/1077800416657105
+5. SEP, *Imre Lakatos* (research programmes, progressive vs degenerating) — https://plato.stanford.edu/entries/lakatos/
+6. SEP, *Thomas Kuhn* (normal/revolutionary science, incommensurability) — https://plato.stanford.edu/entries/thomas-kuhn/
+7. SEP, *Underdetermination of Scientific Theory* (holism, no crucial experiment) — https://plato.stanford.edu/entries/scientific-underdetermination/
+8. SEP, *Pierre Duhem* (confirmational holism) — https://plato.stanford.edu/entries/duhem/
+9. SEP, *Bayesian Epistemology* (credences, conditionalization) — https://plato.stanford.edu/entries/epistemology-bayesian/
+10. SEP, *The Ethics of Belief* (Hume/Clifford — proportion belief to evidence) — https://plato.stanford.edu/entries/ethics-belief/
+11. SEP, *Francis Bacon* (idols of the mind — early theory of cognitive bias) — https://plato.stanford.edu/entries/francis-bacon/
 
-*Not cited as live:* Guba & Lincoln (1994), "Competing Paradigms" — only bibliographic/abstract records surfaced; it is the seminal origin of the four-paradigm framing carried by ref 1, but no confirmable open full-text URL was found.
+**Analytic-integrity tradecraft**
+12. CIA Center for the Study of Intelligence — Heuer, *Psychology of Intelligence Analysis* / ACH — https://www.cia.gov/resources/csi/books-monographs/psychology-of-intelligence-analysis-2/
+13. ODNI, *ICD 203 — Analytic Standards* (objectivity, independence, expression of confidence, analysis vs source) — https://www.dni.gov/files/documents/ICD/ICD-203.pdf  *(FAS mirror: https://irp.fas.org/dni/icd/icd-203.pdf)*
+
+**Research paradigms**
+14. Selecting a research paradigm; ontology→epistemology→methodology→axiology — https://pmc.ncbi.nlm.nih.gov/articles/PMC8368685/
+15. Navigating the research landscape — recent (2025) six-paradigm overview — https://pmc.ncbi.nlm.nih.gov/articles/PMC12686763/
+16. SEP, *Scientific Objectivity* (positivist value-free/observation ideal) — https://plato.stanford.edu/entries/scientific-objectivity/
+17. SEP, *Hermeneutics* (Verstehen vs Erklären; Dilthey) — https://plato.stanford.edu/entries/hermeneutics/
+18. SEP, *Alfred Schutz* (phenomenological foundations of interpretive sociology) — https://plato.stanford.edu/entries/schutz/
+19. SEP, *Phenomenology* (Husserl's epoché; Heidegger) — https://plato.stanford.edu/entries/phenomenology/
+20. SEP, *Hans-Georg Gadamer* (philosophical hermeneutics, *Truth and Method*) — https://plato.stanford.edu/entries/gadamer/
+21. SEP, *Naturalistic Approaches to Social Construction* — https://plato.stanford.edu/entries/social-construction-naturalistic/
+22. SEP, *Social Ontology* (cites Berger & Luckmann 1966) — https://plato.stanford.edu/entries/social-ontology/
+23. SEP, *Pragmatism* (the pragmatic maxim — meaning via practical consequences) — https://plato.stanford.edu/entries/pragmatism/
+24. Pragmatism as a named research paradigm (mixed methods) — https://pmc.ncbi.nlm.nih.gov/articles/PMC8849373/
+25. Critical realism — stratified real/actual/empirical ontology — https://en.wikipedia.org/wiki/Critical_realism_(philosophy_of_the_social_sciences)  *(flag: no dedicated SEP entry found)*
+26. Roy Bhaskar — epistemic fallacy — https://en.wikipedia.org/wiki/Roy_Bhaskar
+27. Transformative paradigm (Mertens), axiology-led — https://pmc.ncbi.nlm.nih.gov/articles/PMC10857753/
+28. Indigenous methodology (Wilson "relational accountability"; Chilisa; Kovach) — https://pmc.ncbi.nlm.nih.gov/articles/PMC10309174/
+29. *Decolonizing Methodologies* (L.T. Smith) — https://en.wikipedia.org/wiki/Decolonizing_Methodologies  *(flag: no open full-text / SEP entry; Wikipedia anchor)*
+30. SEP, *Feminist Perspectives on the Body* (Barad — entanglement of matter & meaning, new materialism) — https://plato.stanford.edu/entries/feminist-body/  *(flag: no dedicated SEP "Karen Barad" entry)*
+31. St. Pierre, *Writing Post Qualitative Inquiry* (peer-reviewed) — https://journals.sagepub.com/doi/10.1177/1077800417734567
+
+**Methodology bridge** (shared with `methodology.md`/`dialogue.md`)
+32. Creswell & Creswell, *Research Design*, Ch.1 (worldview framed before method) — https://fad.umi.ac.ma/pluginfile.php/192783/mod_resource/content/1/John%20W.%20Creswell%20%20J.%20David%20Creswell%20-%20Research%20Design_%20Qualitative%2C%20Quantitative%2C%20and%20Mixed%20Methods%20Approaches_40-61.pdf  *(flag: third-party course PDF; ref 14 is the durable anchor)*
+33. Timmermans & Tavory — abduction in theory construction — https://journals.sagepub.com/doi/abs/10.1177/0735275112457914
+34. Charmaz — constructivist grounded theory + abduction — https://journals.sagepub.com/doi/10.1177/1077800416657105
+
+*Not cited as live:* Guba & Lincoln (1994), "Competing Paradigms" — seminal origin of the four-paradigm framing
+carried by ref 14, but no confirmable open full-text URL surfaced.

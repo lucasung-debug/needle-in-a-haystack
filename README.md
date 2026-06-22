@@ -33,7 +33,7 @@ An output that skips framing, provenance, or falsification is invalid.
 | `SKILL.md` | Entry point — load `research.md` first. |
 | `research.md` | The system directive (constitution): the 7-phase full cycle, LAW 0 provenance, the 4 reliability layers, BYOK + cost, modes, and the compliance block. |
 | `philosophy.md` | The reasoning root — Peirce's Abduction Loop (FRAME→…→REPORT) and the epistemic commitments everything derives from. |
-| `paradigm.md` | The paradigm layer — a research-paradigm selector (positivism → critical realism) declared in FRAME, plus the philosophy-of-science backbone (Peirce, Popper, Kuhn, Lakatos, Duhem–Quine, Bayes, Dewey) that disciplines each loop stage. Carries verified citations. Loaded during FRAME/FALSIFY. |
+| `paradigm.md` | The paradigm layer — the **10-paradigm landscape** (traditional → applied-strongest → surging frontier) declared in FRAME; the **operating standard** (4 layers / 13 enforceable directives, grounded in intelligence-analysis tradecraft — Heuer ACH, ICD 203); and the philosophy-of-science backbone (Peirce, Popper, Kuhn, Lakatos, Duhem–Quine, Bayes, Dewey) that disciplines each loop stage. Carries 34 verified citations. Loaded during FRAME/FALSIFY. |
 | `dialogue.md` | The staged framing dialogue — constructive Cartesian doubt + Socratic elenchus (adapted from the `doubt` skill) that turns a request into a real question before any search. Loaded at the start of FRAME. |
 | `methodology.md` | Domain-general research-design reference (사회조사 + medical, engineering, natural-science, humanities) — turns a framed question into a falsifiable research plan; loaded on demand during DESIGN. |
 | `sources.md` | Research-data source catalog + BYOK discovery — scholarly, clinical, patent, and dataset APIs (mostly free/keyless), with the NICE-TO-HAVE recommendation; loaded on demand during ROUTE & COST. |
@@ -80,10 +80,12 @@ ISO-8601 UTC retrieval timestamp, and a live-link status — or it is labeled a 
 The skill's reasoning is not asserted from memory — it was **built by running the skill's own discipline** (abduction
 + LAW 0 provenance) over the literature. `paradigm.md` and `dialogue.md` carry verified citations to primary sources:
 the Stanford Encyclopedia of Philosophy (Peirce, Popper, Kuhn, Lakatos, Duhem–Quine, Bayesian epistemology, Dewey,
-Descartes, Socratic elenchus) and peer-reviewed methodology literature (research paradigms; FINER/PICO; abductive
-analysis). Honest caveat, recorded as the skill itself would require: during this research raw byte-level fetch was
-blocked environment-wide, so sources were confirmed *live and content-matched via search retrieval*, not via a
-rendered fetch — re-verify in an unrestricted network before treating as byte-level provenance.
+Descartes, Socratic elenchus, Hume/Clifford, Bacon, hermeneutics/phenomenology, social construction, new materialism),
+official intelligence-analysis standards (CIA — Heuer's *Psychology of Intelligence Analysis* / ACH; ODNI ICD 203),
+and peer-reviewed methodology literature (the 10 research paradigms; FINER/PICO; abductive analysis). Honest caveat,
+recorded as the skill itself would require: during this research raw byte-level fetch was blocked environment-wide, so
+sources were confirmed *live and content-matched via search retrieval*, not via a rendered fetch — re-verify in an
+unrestricted network before treating as byte-level provenance.
 
 ## License
 

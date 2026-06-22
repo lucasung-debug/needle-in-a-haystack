@@ -16,6 +16,8 @@ triggers:
   - unanswerable over fabrication
   - clarify research question
   - research paradigm
+  - research philosophy
+  - analytic standards
   - methodic doubt
 ---
 
