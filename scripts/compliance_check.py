@@ -98,6 +98,23 @@ def analyze(text):
     if final_valid and re.search(r"(?im)^#{1,6}.*\bsources?\b|key sources", text) and not ISO_TS.search(text):
         violations.append("a Sources section is present but no ISO-8601 UTC retrieval timestamp (LAW 0)")
 
+    # 7. Per-source live-link discipline (LAW 0 status vocabulary: live|dead|throttled|paywalled|unverified).
+    c_pass = gates.get("C", {}).get("verdict") == "PASS"
+    for raw in text.splitlines():
+        line = raw.strip()
+        if not URL.search(line):
+            continue
+        low_line = line.lower()
+        is_ruled_out = bool(re.search(r"ruled[ -]?out|contradict", low_line))
+        # (a) a cited source is dead/4xx while [C]=PASS claims every claim maps to a LIVE source.
+        if final_valid and c_pass and not is_ruled_out and re.search(r"\b(dead|404|4xx)\b", low_line):
+            violations.append("a cited source is dead/4xx while [C]=PASS claims live sources (LAW 0)")
+        # (b) a [retrieved] source line without an ISO-8601 UTC timestamp.
+        if final_valid and "[retrieved" in low_line and not ISO_TS.search(line):
+            violations.append("a [retrieved] source URL lacks an ISO-8601 UTC timestamp on its line (LAW 0 [C])")
+
+    # de-duplicate while preserving order
+    violations = list(dict.fromkeys(violations))
     return violations, gates
 
 

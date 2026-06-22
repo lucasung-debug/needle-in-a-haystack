@@ -7,5 +7,7 @@
   "bad-gate-fail": 1,
   "bad-fabricated": 1,
   "bad-missing-block": 1,
-  "bad-sycophantic": 1
+  "bad-sycophantic": 1,
+  "bad-dead-link": 1,
+  "bad-no-timestamp": 1
 }

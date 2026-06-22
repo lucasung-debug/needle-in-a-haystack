@@ -66,6 +66,8 @@ Obey `references/research.md` before producing, planning, executing, merging, or
 6. REPORT from `templates/report.template.md`, then **gate**: `python ${CLAUDE_SKILL_DIR}/scripts/compliance_check.py <output.md>` must exit 0. If it exits non-zero, fix the output (do not ship). Mark outputs that skip framing, provenance, or falsification as INVALID and redo.
 
 ## 참조 자료 (라우팅 테이블)
+If unsure which reference a phase needs, read `references/_index.md` first, then open **exactly one** file.
+
 | Topic | Reference | Load When |
 |---|---|---|
 | system directive (정전) | references/research.md | always, first — runs the full cycle + compliance |
