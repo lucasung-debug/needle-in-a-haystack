@@ -21,6 +21,11 @@
 `paid`. Never invent an endpoint or a result. If a source is `paid`, or `free-key` and the user has no key, do not
 silently drop the need — proceed with the free fallback **and** emit the NICE-TO-HAVE block in §7.
 
+> **This catalog is a curated starter set, not a closed list.** If the best-fit source for an evidence need isn't
+> here (a niche domain — legal/case-law, financial filings, geospatial/earth-observation, news archives…), recommend
+> it the *same way*: name it, its tier, the env var (§7) — then BYOK and **use it**. Grow the recommendation to fit
+> the question; never cap the research at the rows below.
+
 > No secrets live here. All keys are read from environment variables only (BYOK); every row degrades to a fallback.
 
 ---
