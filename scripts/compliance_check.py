@@ -83,6 +83,7 @@ def analyze(text):
 
     fv = gates.get("FINAL", {}).get("verdict", "")
     final_valid = bool(re.search(r"\bVALID\b", fv)) and not re.search(r"\bINVALID\b", fv)
+    c_pass = gates.get("C", {}).get("verdict") == "PASS"
 
     # 5. Fabrication smells (placeholder/fake citations).
     low = text.lower()
@@ -95,11 +96,12 @@ def analyze(text):
     urls = URL.findall(text)
     if final_valid and has_retrieved and not urls:
         violations.append("output tags claims [retrieved] but carries no source URL (LAW 0)")
+    if final_valid and c_pass and not urls:
+        violations.append("[C]=PASS asserts every claim maps to a live source URL, but the output carries no URL at all (LAW 0)")
     if final_valid and re.search(r"(?im)^#{1,6}.*\bsources?\b|key sources", text) and not ISO_TS.search(text):
         violations.append("a Sources section is present but no ISO-8601 UTC retrieval timestamp (LAW 0)")
 
     # 7. Per-source live-link discipline (LAW 0 status vocabulary: live|dead|throttled|paywalled|unverified).
-    c_pass = gates.get("C", {}).get("verdict") == "PASS"
     for raw in text.splitlines():
         line = raw.strip()
         if not URL.search(line):
