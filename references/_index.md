@@ -10,6 +10,6 @@
 | `paradigm.md` | The **directional lens** (10-paradigm landscape, to *branch* the question's direction — not declare a worldview), the **operating standard** (4 layers / 13 enforceable directives; Heuer ACH, ICD 203), and the philosophy-of-science backbone that *disciplines* the one loop. 34 citations. |
 | `dialogue.md` | The **staged framing dialogue** (constructive Cartesian doubt + Socratic elenchus) that turns a request into a real question + a negative condition. |
 | `methodology.md` | **Domain-general research design** (social/medical/engineering/natural-science/humanities): question taxonomy, design menu, validity/bias/ethics — the 조사계획서 generator. |
-| `sources.md` | **Research-data source catalog + BYOK discovery** (scholarly/clinical/patent/dataset APIs, mostly free/keyless) and the NICE-TO-HAVE recommendation. |
+| `sources.md` | **Research-data source catalog + BYOK discovery** (scholarly/clinical/patent/dataset + legal/finance/geospatial/news APIs, mostly free/keyless) and the NICE-TO-HAVE recommendation. |
 
 For **when** to load each — and for the `scripts/` gate, `eval/` judge, and `templates/` skeletons — see SKILL.md's routing table and "Templates & gates" (single source of truth).

@@ -19,11 +19,11 @@
 
 **Rule (ROUTE phase):** for each evidence need, pick the narrowest authoritative source, `keyless` → `free-key` →
 `paid`. Never invent an endpoint or a result. If a source is `paid`, or `free-key` and the user has no key, do not
-silently drop the need — proceed with the free fallback **and** emit the NICE-TO-HAVE block in §7.
+silently drop the need — proceed with the free fallback **and** emit the NICE-TO-HAVE block in §11.
 
 > **This catalog is a curated starter set, not a closed list.** If the best-fit source for an evidence need isn't
 > here (a niche domain — legal/case-law, financial filings, geospatial/earth-observation, news archives…), recommend
-> it the *same way*: name it, its tier, the env var (§7) — then BYOK and **use it**. Grow the recommendation to fit
+> it the *same way*: name it, its tier, the env var (§11) — then BYOK and **use it**. Grow the recommendation to fit
 > the question; never cap the research at the rows below.
 
 > No secrets live here. All keys are read from environment variables only (BYOK); every row degrades to a fallback.
@@ -105,7 +105,56 @@ Naver (`free-key`, Korean) · xAI/Grok, ScrapeCreators, YouTube, Groq-Whisper (s
 
 ---
 
-## 7. The NICE-TO-HAVE output (emit during ROUTE when a key is missing)
+## 7. Law, legislation & regulation
+
+A statute or ruling is a **primary source** — cite the official text, never a summary of it. Pair with the analytic-standards discipline in `paradigm.md`.
+
+| Source | Unlocks | Tier | Env / note | Free fallback |
+|--------|---------|------|-----------|----------------|
+| **CourtListener (Free Law Project)** | US case law, opinions, oral arguments, PACER dockets (RECAP) | `free-key` | `COURTLISTENER_API_TOKEN` (token from your profile; many endpoints open by default) | the court's official opinion page |
+| **Federal Register** | US federal rules, proposed rules, notices, executive orders | `keyless` | — | — |
+| **GovInfo (US GPO)** | bills, public laws, US Code, CFR, Congressional record | `free-key` | `GOVINFO_API_KEY` (a free api.data.gov key) | Federal Register + official PDFs |
+
+> EU law (EUR-Lex), UK legislation (legislation.gov.uk), and most national gazettes publish official, web-fetchable pages — cite those directly when no clean API exists.
+
+---
+
+## 8. Finance, company filings & economics
+
+| Source | Unlocks | Tier | Env / note | Free fallback |
+|--------|---------|------|-----------|----------------|
+| **SEC EDGAR** | US public-company filings (10-K/10-Q/8-K), full-text search, company facts | `keyless` | `SEC_EDGAR_USER_AGENT` — SEC policy requires a `Name email` User-Agent (the polite-pool analogue); no key | — |
+| **FRED (St. Louis Fed)** | US & international economic / financial time series | `free-key` | `FRED_API_KEY` (free, instant) | World Bank / OECD (§4) |
+
+> Market/company data beyond filings (live prices, fundamentals) is mostly `paid` — route there only on the §11 consent interlock. Official statistics live in §4.
+
+---
+
+## 9. Geospatial & earth observation
+
+| Source | Unlocks | Tier | Env / note | Free fallback |
+|--------|---------|------|-----------|----------------|
+| **USGS Earthquake (FDSN event)** | global seismic event catalog (GeoJSON / QuakeML) | `keyless` | — | — |
+| **NASA Open APIs** | earth imagery, EONET natural-event feed, planetary data | `free-key` | `NASA_API_KEY` (`DEMO_KEY` works for trials at a lower rate) | `DEMO_KEY` (rate-limited) |
+| **Copernicus Data Space (Sentinel)** | EU Sentinel satellite imagery & products (STAC / OData / Sentinel Hub) | `free-key` | `CDSE_CLIENT_ID` / `CDSE_CLIENT_SECRET` (free OAuth registration) | NASA imagery |
+
+> US weather (`api.weather.gov`) and base maps (OpenStreetMap / Overpass / Nominatim) are keyless — fetch directly, no key.
+
+---
+
+## 10. News & media archives
+
+| Source | Unlocks | Tier | Env / note | Free fallback |
+|--------|---------|------|-----------|----------------|
+| **GDELT DOC 2.0** | global news across 65 languages, rolling ~3-month full-text + tone/themes | `keyless` | — | WebSearch |
+| **The Guardian Open Platform** | Guardian/Observer articles since 1999, full body text + tags | `free-key` | `GUARDIAN_API_KEY` (free developer key) | WebSearch |
+| **Chronicling America (loc.gov API)** | historic US newspaper pages (12M+); served via the loc.gov JSON API since 2025 | `keyless` | — | — |
+
+> News is reporting, not ground truth — corroborate a claim across ≥2 outlets in FALSIFY and prefer the primary document the article cites.
+
+---
+
+## 11. The NICE-TO-HAVE output (emit during ROUTE when a key is missing)
 
 When the best-fit source for an evidence need is `paid`, or `free-key` and unset, append this to the routing plan —
 never silently drop the evidence:
@@ -124,7 +173,7 @@ respects the cost interlock by never spending without consent.
 
 ---
 
-## 8. .env
+## 12. .env
 
 All env vars above are optional and listed in `.env.example`. Absent key → free fallback. Paid tiers (`SCOPUS_API_KEY`,
 `WOS_API_KEY`, `IEEE_API_KEY`, `COCHRANE_API_KEY`, Perplexity-sonar) require the explicit per-run consent recorded in
