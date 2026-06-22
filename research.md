@@ -1,8 +1,9 @@
 # research.md — Needle-in-a-Haystack · Full-Cycle Research Directive
 
 > **The system directive every run of this skill obeys.** Public-safe, BYOK (Bring Your Own Key).
-> Derived from `philosophy.md` (the reasoning root) and supported by `methodology.md` (domain-general design
-> reference) and `sources.md` (research-data source catalog + BYOK discovery).
+> Derived from `philosophy.md` (the reasoning root) and supported by `dialogue.md` (the staged framing dialogue),
+> `paradigm.md` (the worldview + philosophy-of-science layer), `methodology.md` (domain-general design reference),
+> and `sources.md` (research-data source catalog + BYOK discovery). Each loads only when its phase needs it.
 > This is a GATE, not prose: an output that skips it is INVALID and must be redone.
 >
 > What this skill is: not a keyword search and a summary glued on. It is the **full cycle** — philosophically frame
@@ -19,7 +20,7 @@ Each phase carries the enforceable gate from `philosophy.md` §1. Loop back on a
 
 | Phase | Stage (loop) | Do | Gate |
 |-------|-------------|----|------|
-| **0 · FRAME** | FRAME | Interrogate the request *philosophically*: what is truly asked, why it matters, unit of analysis, what would count as an answer, and the **negative condition** (what shows there is no answerable needle). Don't fix a topic on reflex. | Sharpened question + success criteria + negative condition written **before** any search. |
+| **0 · FRAME** | FRAME | Run the **staged framing dialogue** (`dialogue.md`): doubt the request, surface assumptions, extract the real question with no premature topic/method, then **declare the governing paradigm** (`paradigm.md`) — which fixes what counts as evidence. Output the negative condition (what shows there is no answerable needle). Don't fix a topic on reflex. | Framed-question object produced; paradigm declared; sharpened question + success criteria + negative condition written **before** any search. |
 | **1 · DESIGN** | ABDUCT → DEDUCE | Generate **≥2** candidate answers *or* research designs. For a planning request, load `methodology.md` and emit the research proposal (조사계획서); for a quick question, just hold ≥2 hypotheses. | ≥2 candidates held; each with checkable predictions / operationalized indicators. |
 | **2 · ROUTE & COST** | DEDUCE | Map each evidence need → source/API via `sources.md` (free/keyless first, then BYOK). Estimate calls + cost; apply the paid-consent interlock. When the best-fit source needs a key the user lacks, surface a **NICE-TO-HAVE** note (what it unlocks, tier, env var) instead of silently skipping the evidence. | Routing + cost plan stated; no paid call without recorded consent; missing-key sources surfaced, not dropped. |
 | **3 · COLLECT** | INDUCE | Retrieve. Test predictions against actual source text with exact locus. Run L3 isolation on everything fetched. Tag each fact `[retrieved | inferred]`. | Judgment uses retrieved evidence, never memory. |
@@ -101,9 +102,10 @@ The full cycle is the default; the abduction loop is *mandatory at every size*. 
 - **Plan mode** — request asks for a study/investigation/조사계획서. Run all 7 phases; load `methodology.md`; Phase 1
   emits the full research proposal; Phase 6 may ship the proposal alone (plan deliverable) or proposal + executed findings.
 - **Full-cycle mode** — open research question. All 7 phases; `methodology.md` loaded only if a design decision needs it.
-- **Lite / chat mode** — a single factual question in conversation. Compress Phases 1–2 (hold ≥2 hypotheses in-head,
-  skip the formal proposal and routing table), but **never drop**: a one-line FRAME + negative condition, ≥2 candidates,
-  a falsification pass, provenance on every claim, the `NEEDLE NOT FOUND` option, and a confidence + what-would-change-it line.
+- **Lite / chat mode** — a single factual question in conversation. Compress the framing dialogue to one pass
+  (`dialogue.md` §5) and Phases 1–2 (hold ≥2 hypotheses in-head, skip the formal proposal and routing table), but
+  **never drop**: a one-line FRAME + an implied paradigm + negative condition, ≥2 candidates, a falsification pass,
+  provenance on every claim, the `NEEDLE NOT FOUND` option, and a confidence + what-would-change-it line.
 
 ---
 
@@ -116,7 +118,8 @@ When a router/query-planner merges sub-results, it checks this compliance before
 Every research output MUST close with this compliance block:
 
 ```text
-[FRAME]:   Needle + negative condition defined before any search            [PASS/FAIL]
+[FRAME]:   Framing dialogue run; needle + negative condition before search  [PASS/FAIL]
+[PARADIGM]: Governing research paradigm declared (what counts as evidence)  [PASS/FAIL]
 [ABDUCT]:  ≥2 candidates held before committing                             [PASS/FAIL]
 [FALSIFY]: Leading candidate survived an explicit disconfirmation attempt   [PASS/FAIL]
 [C]:       Every claim maps to a live source URL + ISO-8601 UTC timestamp   [PASS/FAIL]
@@ -156,3 +159,4 @@ the native tool in the right column.
 - v0.1 (2026-06-22) — created as a research governance gate from a 9-family adversarial design review. Frozen gates: PROVENANCE first, 4 layers, free-first.
 - v0.2 (2026-06-22) — reframed as the **Needle-in-a-Haystack full-cycle research skill**. Added the 7-phase Abduction-Loop spine (derived from `philosophy.md`), the FRAME/ABDUCT/FALSIFY/NULL compliance gates, plan/full/lite modes, and `methodology.md` for research design. Governance content retained as the execution discipline.
 - v0.3 (2026-06-22) — generalized `methodology.md` across domains (social, medical/clinical, engineering/CS, natural sciences, humanities) with per-domain design families, evidence hierarchies, and reporting standards. Added `sources.md`: a research-data source catalog (mostly free/keyless — OpenAlex, Crossref, arXiv, PubMed, ClinicalTrials.gov, patents, datasets) with BYOK discovery (the NICE-TO-HAVE recommendation in ROUTE).
+- v0.4 (2026-06-22) — **grounded beyond methodology, at the paradigm level**, built by running the skill's own discipline (abduction + LAW 0) over the literature. Added `paradigm.md`: a research-paradigm selector (positivism → critical realism) declared in FRAME because it fixes what counts as evidence, plus the philosophy-of-science backbone (Peirce, Popper, Kuhn, Lakatos, Duhem–Quine, Bayes, Dewey) as the gates that discipline abduction — all with verified SEP/peer-reviewed citations. Added `dialogue.md`: a staged framing dialogue (adapted from the `doubt` skill's constructive Cartesian doubt + Socratic elenchus + FINER/PICO) that concretizes purpose and direction with the user before any search. Compliance gains `[PARADIGM]`; `[FRAME]` now covers the dialogue.
