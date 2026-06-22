@@ -43,8 +43,8 @@
 | **1** | *Assumption ledger* | For each surfaced assumption record `{claim · how load-bearing (criticality) · how fragile (evidence so far) · cost to check}`. Rank. | The **Critical few** identified — assumptions that, if false, collapse the whole inquiry. These become the first falsification targets. |
 | **2** | *Purpose (왜)* | What decision or action does the answer serve? Who is the audience? What is at stake, and by when? | Purpose + stakes pinned → fixes the **mode** (lite/full/plan) and the report altitude. |
 | **3** | *Indubitable Question Core* (Cogito) | Strip the request to the **real need, with no premature topic / method / source words.** (As `doubt`'s Cogito forbids solution words: *"I want to regain a sense of financial control,"* not *"a budgeting app."*) | A one-sentence question core that names the **needle** by what it *is*, not by the first keyword that came to mind. |
-| **4** | *Scope & unit* | Boundaries, unit of analysis, time/place, inclusion/exclusion. Separate **Justified** decisions (the question or paradigm decides them) from **Taste** decisions (values, audience, scope trade-offs — the user must choose). | Scope fixed; Taste decisions put to the user, Justified ones deduced and shown. |
-| **5** | *Paradigm & domain* | Declare the governing **paradigm** (load `paradigm.md` §2) and the **domain** adapter (load `methodology.md` §2). | What counts as valid evidence / a valid needle is now fixed. |
+| **4** | *Scope & unit* | Boundaries, unit of analysis, time/place, inclusion/exclusion. Separate **Justified** decisions (the question or its direction decides them) from **Taste** decisions (values, audience, scope trade-offs — the user must choose). | Scope fixed; Taste decisions put to the user, Justified ones deduced and shown. |
+| **5** | *Direction (paradigm lens) & domain* | Use the **paradigm lens** (`paradigm.md` §2) not as a label to declare but as a **menu of directions** to branch the questioning — *regularity/measurement · meaning & lived experience · underlying mechanism · what-works · power & change*. Ask the one branching question that fixes direction; load the **domain** adapter (`methodology.md` §2). | Inquiry **direction** set (it steers what counts as evidence and which design fits) — no formal paradigm commitment required. |
 | **6** | *Answerability + negative condition* (Experior) | Pressure-test the question: **FINER** — Feasible, Interesting, Novel, Ethical, Relevant[³]; for empirical/clinical questions shape with **PICO(T)**[⁴]. Define success criteria **and** the **negative condition** (what observation would mean `NEEDLE NOT FOUND`). Name the **cheapest disconfirming check**. | Question passes FINER; success criteria + negative condition + cheapest-disconfirmation written. |
 | **7** | *Provisional direction & confirm* (Construo) | Present **≥2 candidate inquiry directions** (abduction never commits to one) + a plan sketch + the Critical assumptions to test first. Get explicit **go / redirect**. | User confirms direction (or it is `[assumed]` and stated). Only now proceed to DESIGN. |
 
@@ -58,7 +58,7 @@ The dialogue ends by emitting this compact block — the handoff `methodology.md
 PURPOSE        : <decision/action it serves> · audience · stakes · deadline
 QUESTION CORE  : <one sentence, no premature method/topic/source words>
 SCOPE & UNIT   : <boundaries · unit of analysis · time/place · in/out>
-PARADIGM       : <positivist | postpositivist | interpretivist | critical | pragmatist | critical-realist>
+DIRECTION      : <regularity/measurement | meaning | mechanism | what-works | power/change>  (paradigm lens; optional: name the paradigm if useful)
 DOMAIN         : <social | medical | engineering | natural-science | humanities | cross>
 SUCCESS        : <what counts as the needle found>
 NEGATIVE COND. : <what observation = NEEDLE NOT FOUND>

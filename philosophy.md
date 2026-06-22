@@ -22,9 +22,9 @@ Peirce is the **root**, but not the whole tree. Popper is the sharpest *branch* 
 honed to an edge); Socrates is the *headwater* (knowing that one doesn't know → calibration; elenchus → self-review);
 Hume/Clifford (evidentialism) and Bacon (idols of the mind) are *tributaries*. The wider philosophy-of-science
 backbone that disciplines each stage of the loop — Popper, Kuhn, Lakatos, Duhem–Quine, Bayesian updating, Dewey — the
-**10-paradigm landscape** a run must declare from before choosing a method, and the **operating standard** (4 layers /
-13 enforceable directives that turn this philosophy into checkable gates) all live in `paradigm.md`, with verified
-citations. The staged dialogue that frames a question *before* searching (constructive Cartesian doubt + Socratic
+**10-paradigm landscape** used as a *directional lens* to branch framing questions (never a worldview the run must
+declare), and the **operating standard** (4 layers / 13 enforceable directives that turn this philosophy into
+checkable gates) all live in `paradigm.md`, with verified citations. The staged dialogue that frames a question *before* searching (constructive Cartesian doubt + Socratic
 elenchus) lives in `dialogue.md`.
 
 ---
@@ -35,7 +35,7 @@ Run per query / per retrieval cell / per research phase. Each stage carries an e
 
 | # | Stage | Action | Enforceable gate |
 |---|-------|--------|------------------|
-| 0 | **FRAME** | Run the staged framing dialogue (`dialogue.md`), declare the governing paradigm (`paradigm.md`), and define the needle, its discriminating features, and the *negative condition* ("what would prove no needle exists"). | Framed-question object + paradigm + target spec written **before** any search. |
+| 0 | **FRAME** | Run the staged framing dialogue (`dialogue.md`), use the paradigm lens (`paradigm.md`) to set the inquiry's direction, and define the needle, its discriminating features, and the *negative condition* ("what would prove no needle exists"). | Framed-question object + direction + target spec written **before** any search. |
 | 1 | **ABDUCT** | Generate **≥2** candidate answers / locations / designs. | Never proceed on a single hypothesis. |
 | 2 | **DEDUCE** | For each candidate, list evidence that **must** be present if it is true. | Every candidate has explicit, checkable predictions. |
 | 3 | **INDUCE** | Retrieve, then test predictions against actual source text with exact locus (quote / line / section). | Judgment uses **retrieved evidence**, never model memory. |
@@ -106,8 +106,8 @@ Two consequences for this skill specifically:
   inquiry altitude it means "this question, as posed, is not answerable with available evidence — here is what would
   make it answerable." Both are honest, valid terminal states. Neither is ever replaced with a fabricated answer.
 
-This file states the *why*. `paradigm.md` states the *frame of reference* (which worldview governs and which
-philosophers discipline each loop stage). `dialogue.md` states the *how-to-begin* (the staged doubt that turns a
+This file states the *why*. `paradigm.md` states the *directional lens* (which direction the inquiry takes) and the
+*discipline* (which philosophers sharpen each stage of the one loop). `dialogue.md` states the *how-to-begin* (the staged doubt that turns a
 request into a real question). `methodology.md` states the *what* (how to turn ABDUCT/DEDUCE into a rigorous research
 design across domains — social, medical, engineering, natural-science, humanities). `sources.md` states the *where*
 (which data source answers each evidence need, free-first). `research.md` states the *how* (how to run the loop

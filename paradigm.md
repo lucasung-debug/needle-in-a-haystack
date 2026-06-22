@@ -1,38 +1,47 @@
-# paradigm.md — The Paradigm Layer (declare the worldview before the method)
+# paradigm.md — The Directional Lens & Discipline Layer (abduction is the root)
 
-> Derived from `philosophy.md`. Loaded during **FRAME** (to declare the governing paradigm) and consulted in
-> **DESIGN/FALSIFY**. This file answers the demand: *go beyond methodology to a paradigm.* A method is a tool; a
-> paradigm decides **what counts as a valid needle and as valid evidence at all.** You cannot choose a method
-> honestly until you have declared the paradigm it serves.
+> **Abduction is the single root of this skill** (`philosophy.md`). This file does **not** add rival foundations.
+> It does two subordinate jobs that *serve* the one abduction loop:
+> 1. **§1–2 · the directional lens** — the 10-paradigm landscape, used **not** as a worldview to declare, but as a
+>    *menu of directions the inquiry can take*, so the framing dialogue (`dialogue.md`) can **branch its questions**
+>    in the right direction. You never "apply all ten," and you are never required to pin a formal paradigm label.
+> 2. **§3–4 · the discipline** — the operating standard (4 layers / 13 enforceable directives, §3) and the
+>    philosophy-of-science backbone (§4) that **sharpen the one loop** (Popper, Kuhn, … are branches of abduction's
+>    fallibilism, not competitors to it).
 >
-> Three things live here: **§1–2** the research-paradigm selector (the 10-paradigm landscape); **§3** the operating
-> standard that turns this philosophy into *enforceable gates* (4 layers, 13 directives); **§4** the
-> philosophy-of-science backbone that disciplines the abduction loop.
->
-> This skill does not invent a paradigm — it **borrows the philosophers'**. The grounding was itself produced by
-> running this skill's own discipline (abduction + LAW 0 provenance) over the literature; every claim carries a live
-> source in §6. Read the verification note there before treating any citation as byte-level provenance.
+> Loaded during **FRAME** (for the directional lens) and **FALSIFY** (for the discipline). The grounding was itself
+> produced by running this skill's own discipline (abduction + LAW 0 provenance) over the literature; every claim
+> carries a live source in §6. Read the verification note there before treating any citation as byte-level provenance.
 
 ---
 
-## 1. Why paradigm precedes method
+## 1. The lens, not a foundation — how direction gets used
 
-A research worldview is a stack — **ontology → epistemology → methodology → axiology** — and "the first step in any
-research initiative is to expose philosophical assumptions by identifying the philosophical worldview adopted by the
-researcher," because those assumptions direct the later choice of methods (ontology/epistemology are the "footings
-to a house").[¹][¹⁵] Major methods texts frame the research approach by worldview first, then select methods.[³²]
+Abduction runs the same way regardless of worldview, so a paradigm is **never the root**. But the *kind* of question
+being asked points the inquiry in a direction, and that direction quietly fixes **what would count as evidence**.
+Research methodology captures this as the ontology → epistemology → methodology stack, where exposing the worldview
+*informs* (not dictates) the later choice of method.[¹][¹⁵][³²]
 
-**Gate (FRAME):** declare the governing paradigm *before* picking a design. The paradigm is not "chosen" by taste —
-**back-trace it from what the research question requires** and align coherently. "Why/how does a causal mechanism
-work" → critical realism; "solve a field problem with quant+qual" → pragmatism; "make change for a marginalized
-group" → transformative. The paradigm you declare is what `NEEDLE NOT FOUND` is measured against.
+So in **FRAME**, the dialogue uses the lens to ask **one branching question**, not to demand a label:
+
+| If the question is really after… | …the inquiry direction is | (paradigm family, for reference) |
+|-----------------------------------|---------------------------|----------------------------------|
+| an objective, measurable regularity | **regularity / measurement** | positivist · post-positivist |
+| the meaning people make / lived experience | **meaning** | interpretivist · constructivist · phenomenological |
+| the hidden mechanism that generates events | **mechanism** | critical realist |
+| what works to solve a practical problem | **what-works** | pragmatist / mixed |
+| who is harmed and how to change it | **power / change** | critical · transformative · decolonial |
+
+Naming the paradigm is *optional* — useful shorthand, never a gate. The direction is what steers the design
+(`methodology.md`) and what `NEEDLE NOT FOUND` is measured against.
 
 ---
 
-## 2. The research-paradigm selector — the 10-paradigm landscape
+## 2. The directional lens — the 10-paradigm landscape (reference)
 
-Declare one (or a justified blend). Each row fixes *what a valid finding is* — i.e., what the "needle" means here.
-Arranged: **traditional mainstream (①–⑥) → current applied-strongest (⑦) → recently surging frontier (⑧–⑩).**
+Consult this to set direction and to know what counts as evidence *in that direction* — not to pick a camp. Each row
+names a direction the inquiry can take. Arranged: **traditional mainstream (①–⑥) → current applied-strongest (⑦) →
+recently surging frontier (⑧–⑩).**
 
 ### Traditional mainstream (textbook foundations)
 
@@ -125,7 +134,7 @@ cognitive bias feeding framing scrutiny (directive 11)[¹¹].
 
 ## 5. How the paradigm layer wires into the loop
 
-- **FRAME** → declare paradigm (§2) + Dewey problem-formulation + the staged framing dialogue (`dialogue.md`); run framing scrutiny (directive 11).
+- **FRAME** → set the inquiry *direction* via the lens (§2) + Dewey problem-formulation + the staged framing dialogue (`dialogue.md`); run framing scrutiny (directive 11).
 - **ABDUCT** → generate plurally (Peirce split; Heuer ACH directive 5); cultivate *surprise* — the needle often lives at the anomaly existing theory can't explain (abductive analysis: Timmermans & Tavory; Charmaz "pursue doubt and surprise").[³³][³⁴]
 - **FALSIFY** → Popper (state the refuter) + Lakatos (progressive vs ad hoc) + Duhem–Quine (blame the bundle) + adversarial self-review (directive 8) + preservation of dissent (directive 7).
 - **SELF-CORRECT** → Kuhn (anomaly → reframe) + Lakatos (abandon degenerating lines).
