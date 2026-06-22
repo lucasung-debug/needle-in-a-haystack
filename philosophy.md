@@ -97,6 +97,8 @@ Two consequences for this skill specifically:
   inquiry altitude it means "this question, as posed, is not answerable with available evidence — here is what would
   make it answerable." Both are honest, valid terminal states. Neither is ever replaced with a fabricated answer.
 
-This file states the *why*. `methodology.md` states the *what* (how to turn ABDUCT/DEDUCE into a rigorous social-research
-design). `research.md` states the *how* (how to run the loop end-to-end under provenance, BYOK, cost, and reporting
-discipline, and how to compress it for simple chat-type research without dropping any hard rule).
+This file states the *why*. `methodology.md` states the *what* (how to turn ABDUCT/DEDUCE into a rigorous research
+design across domains — social, medical, engineering, natural-science, humanities). `sources.md` states the *where*
+(which data source answers each evidence need, free-first). `research.md` states the *how* (how to run the loop
+end-to-end under provenance, BYOK, cost, and reporting discipline, and how to compress it for simple chat-type
+research without dropping any hard rule).

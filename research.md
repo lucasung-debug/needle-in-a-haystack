@@ -1,7 +1,8 @@
 # research.md — Needle-in-a-Haystack · Full-Cycle Research Directive
 
 > **The system directive every run of this skill obeys.** Public-safe, BYOK (Bring Your Own Key).
-> Derived from `philosophy.md` (the reasoning root) and supported by `methodology.md` (the design reference).
+> Derived from `philosophy.md` (the reasoning root) and supported by `methodology.md` (domain-general design
+> reference) and `sources.md` (research-data source catalog + BYOK discovery).
 > This is a GATE, not prose: an output that skips it is INVALID and must be redone.
 >
 > What this skill is: not a keyword search and a summary glued on. It is the **full cycle** — philosophically frame
@@ -20,7 +21,7 @@ Each phase carries the enforceable gate from `philosophy.md` §1. Loop back on a
 |-------|-------------|----|------|
 | **0 · FRAME** | FRAME | Interrogate the request *philosophically*: what is truly asked, why it matters, unit of analysis, what would count as an answer, and the **negative condition** (what shows there is no answerable needle). Don't fix a topic on reflex. | Sharpened question + success criteria + negative condition written **before** any search. |
 | **1 · DESIGN** | ABDUCT → DEDUCE | Generate **≥2** candidate answers *or* research designs. For a planning request, load `methodology.md` and emit the research proposal (조사계획서); for a quick question, just hold ≥2 hypotheses. | ≥2 candidates held; each with checkable predictions / operationalized indicators. |
-| **2 · ROUTE & COST** | DEDUCE | Map each evidence need → source/API (free-first, BYOK). Estimate calls + cost. Apply the paid-consent interlock. | Routing + cost plan stated; no paid call without recorded consent. |
+| **2 · ROUTE & COST** | DEDUCE | Map each evidence need → source/API via `sources.md` (free/keyless first, then BYOK). Estimate calls + cost; apply the paid-consent interlock. When the best-fit source needs a key the user lacks, surface a **NICE-TO-HAVE** note (what it unlocks, tier, env var) instead of silently skipping the evidence. | Routing + cost plan stated; no paid call without recorded consent; missing-key sources surfaced, not dropped. |
 | **3 · COLLECT** | INDUCE | Retrieve. Test predictions against actual source text with exact locus. Run L3 isolation on everything fetched. Tag each fact `[retrieved | inferred]`. | Judgment uses retrieved evidence, never memory. |
 | **4 · FALSIFY** | FALSIFY | Try to break the leading candidate: decoys, distractors, lost-in-the-middle, primacy/recency, single-source, confirmation bias. Seek a contradicting line; require trust-convergence. | Leading candidate survived an explicit disconfirmation attempt. |
 | **5 · SELF-CORRECT** | SELF-CORRECT | Survivor → Phase 6. Tie/contradiction → back to Phase 1 or 3. No survivor → `NEEDLE NOT FOUND / UNANSWERABLE`. | Fabrication forbidden; "not found" is a valid, required terminal state. |
@@ -79,6 +80,11 @@ richer as the user adds their own.
 | `GROQ_API_KEY` | free Whisper transcription (caption-less video) | skip transcription |
 
 Paid/metered (use only on explicit deep research): Firecrawl, Tavily/Exa beyond free tier, Perplexity-sonar (via OpenRouter), ScrapeCreators beyond 10K free calls.
+
+**Domain research-data APIs** (scholarly, clinical, patents, datasets — across engineering, medicine, social and natural
+sciences) live in `sources.md`. Most are **free or keyless** (OpenAlex, Crossref, arXiv, PubMed, ClinicalTrials.gov,
+World Bank, …), so a zero-key user already reaches most of the literature. The ROUTE phase consults `sources.md` and,
+when a useful source needs a key the user lacks, emits a NICE-TO-HAVE recommendation rather than dropping the evidence.
 
 ### Paid-source consent interlock (HARD GATE)
 
@@ -148,4 +154,5 @@ the native tool in the right column.
 ## History
 
 - v0.1 (2026-06-22) — created as a research governance gate from a 9-family adversarial design review. Frozen gates: PROVENANCE first, 4 layers, free-first.
-- v0.2 (2026-06-22) — reframed as the **Needle-in-a-Haystack full-cycle research skill**. Added the 7-phase Abduction-Loop spine (derived from `philosophy.md`), the FRAME/ABDUCT/FALSIFY/NULL compliance gates, plan/full/lite modes, and `methodology.md` for social-research design (사회조사). Governance content retained as the execution discipline.
+- v0.2 (2026-06-22) — reframed as the **Needle-in-a-Haystack full-cycle research skill**. Added the 7-phase Abduction-Loop spine (derived from `philosophy.md`), the FRAME/ABDUCT/FALSIFY/NULL compliance gates, plan/full/lite modes, and `methodology.md` for research design. Governance content retained as the execution discipline.
+- v0.3 (2026-06-22) — generalized `methodology.md` across domains (social, medical/clinical, engineering/CS, natural sciences, humanities) with per-domain design families, evidence hierarchies, and reporting standards. Added `sources.md`: a research-data source catalog (mostly free/keyless — OpenAlex, Crossref, arXiv, PubMed, ClinicalTrials.gov, patents, datasets) with BYOK discovery (the NICE-TO-HAVE recommendation in ROUTE).

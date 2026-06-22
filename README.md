@@ -1,7 +1,8 @@
 # needle-in-a-haystack — Full-Cycle Research Skill
 
 A Claude skill (Claude Code CLI / app) that runs research as a **full cycle**, not a keyword search with a summary
-glued on. BYOK (Bring Your Own Key) — works with zero keys, gets richer as you add your own.
+glued on — across any domain (social science, engineering, medicine, natural sciences, humanities). BYOK (Bring
+Your Own Key) — works with zero keys, gets richer as you add your own.
 
 ## What
 
@@ -9,8 +10,8 @@ Most research fails before retrieval, at the framing: it fixes a topic on reflex
 before asking *what is actually being investigated, and why.* This skill refuses that. It:
 
 1. **FRAME** — philosophically interrogates the request (what is truly asked, why it matters, what would count as an answer, and the *negative condition* — what would show there's no answerable needle).
-2. **DESIGN** — generates ≥2 candidate answers or research designs, and for a study request produces a rigorous, falsifiable **research proposal** (조사계획서) spanning question type, operationalization, sampling, validity/reliability, bias register, and ethics.
-3. **ROUTE & COST** — maps each evidence need to a source/API under free-first discipline and estimates cost (paid sources gated by explicit consent).
+2. **DESIGN** — generates ≥2 candidate answers or research designs, and for a study request produces a rigorous, falsifiable **research plan** (조사계획서 / protocol). Domain-aware: it carries the design families, evidence hierarchies, and reporting standards for social science, medicine/clinical (PICO, GRADE, PRISMA), engineering/CS (reproducibility, benchmarks, prior art), natural sciences, and the humanities.
+3. **ROUTE & COST** — maps each evidence need to the right data source free-first (most scholarly/clinical/patent/dataset APIs are free or keyless — OpenAlex, Crossref, arXiv, PubMed, ClinicalTrials.gov, World Bank…), estimates cost, and **recommends useful APIs you could add** ("이런 API 있으면 좋아요") instead of silently dropping evidence. Paid sources are gated by explicit consent.
 4. **COLLECT** — retrieves under PROVENANCE, isolating fetched content as data, not instructions.
 5. **FALSIFY** — tries to break the leading finding (decoys, position bias, single-source, confirmation bias).
 6. **SELF-CORRECT** — loops on contradiction; outputs **`NEEDLE NOT FOUND`** rather than fabricate.
@@ -32,7 +33,8 @@ An output that skips framing, provenance, or falsification is invalid.
 | `SKILL.md` | Entry point — load `research.md` first. |
 | `research.md` | The system directive (constitution): the 7-phase full cycle, LAW 0 provenance, the 4 reliability layers, BYOK + cost, modes, and the compliance block. |
 | `philosophy.md` | The reasoning root — Peirce's Abduction Loop (FRAME→…→REPORT) and the epistemic commitments everything derives from. |
-| `methodology.md` | Social-research design reference (사회조사) — turns a framed question into a falsifiable research proposal; loaded on demand during DESIGN. |
+| `methodology.md` | Domain-general research-design reference (사회조사 + medical, engineering, natural-science, humanities) — turns a framed question into a falsifiable research plan; loaded on demand during DESIGN. |
+| `sources.md` | Research-data source catalog + BYOK discovery — scholarly, clinical, patent, and dataset APIs (mostly free/keyless), with the NICE-TO-HAVE recommendation; loaded on demand during ROUTE & COST. |
 
 ## Install
 
@@ -60,6 +62,11 @@ No secrets are stored in this repository. All keys are optional and read from en
 | `GROQ_API_KEY` | Whisper transcription for caption-less video | Skip transcription |
 
 Paid or metered providers require explicit per-run consent even when a key exists. Key presence is not spending permission.
+
+**Research-data APIs** (scholarly, clinical, patents, datasets) are catalogued separately in `sources.md` — most are
+free or keyless (OpenAlex, Crossref, arXiv, PubMed, ClinicalTrials.gov, OpenFDA, PatentsView, World Bank…). Optional
+free keys (`SEMANTIC_SCHOLAR_API_KEY`, `NCBI_API_KEY`, `CORE_API_KEY`, `EPO_OPS_KEY`, …) only raise rate limits or
+unlock extras; paid indexes (Scopus, Web of Science, IEEE, Cochrane) stay consent-gated. See `.env.example`.
 
 ## Output Contract
 
