@@ -22,12 +22,12 @@ Each phase carries the enforceable gate from `philosophy.md` §1. Loop back on a
 | Phase | Stage (loop) | Do | Gate |
 |-------|-------------|----|------|
 | **0 · FRAME** | FRAME | Run the **staged framing dialogue** (`dialogue.md`): doubt the request, surface assumptions, extract the real question with no premature topic/method. Use the **paradigm lens** (`paradigm.md`) to *branch the direction* of questioning — regularity/measurement · meaning · mechanism · what-works · power/change — which steers what counts as evidence. Output the negative condition (what shows there is no answerable needle). Don't fix a topic on reflex. | Framed-question object produced; inquiry direction set; sharpened question + success criteria + negative condition written **before** any search. |
-| **1 · DESIGN** | ABDUCT → DEDUCE | Generate **≥2** candidate answers *or* research designs. For a planning request, load `methodology.md` and emit the research proposal (조사계획서); for a quick question, just hold ≥2 hypotheses. | ≥2 candidates held; each with checkable predictions / operationalized indicators. |
+| **1 · DESIGN** | ABDUCT → DEDUCE | Generate **≥2** candidate answers *or* research designs. For a planning request, load `methodology.md` and emit the research proposal (조사계획서) from `../templates/proposal.template.md`; for a quick question, just hold ≥2 hypotheses. | ≥2 candidates held; each with checkable predictions / operationalized indicators. |
 | **2 · ROUTE & COST** | DEDUCE | Map each evidence need → source/API via `sources.md` (free/keyless first, then BYOK). Estimate calls + cost; apply the paid-consent interlock. When the best-fit source needs a key the user lacks, surface a **NICE-TO-HAVE** note (what it unlocks, tier, env var) instead of silently skipping the evidence. | Routing + cost plan stated; no paid call without recorded consent; missing-key sources surfaced, not dropped. |
 | **3 · COLLECT** | INDUCE | Retrieve. Test predictions against actual source text with exact locus. Run L3 isolation on everything fetched. Tag each fact `[retrieved | inferred]`. | Judgment uses retrieved evidence, never memory. |
 | **4 · FALSIFY** | FALSIFY | Try to break the leading candidate: decoys, distractors, lost-in-the-middle, primacy/recency, single-source, confirmation bias. Seek a contradicting line; require trust-convergence. | Leading candidate survived an explicit disconfirmation attempt. |
 | **5 · SELF-CORRECT** | SELF-CORRECT | Survivor → Phase 6. Tie/contradiction → back to Phase 1 or 3. No survivor → `NEEDLE NOT FOUND / UNANSWERABLE`. | Fabrication forbidden; "not found" is a valid, required terminal state. |
-| **6 · REPORT** | REPORT | Run L1 verification, then ship the report format below. | Claim strength ≤ evidence strength. |
+| **6 · REPORT** | REPORT | Run L1 verification, draft from `../templates/report.template.md`, then **gate the output**: `python ${CLAUDE_SKILL_DIR}/scripts/compliance_check.py <output.md>` must exit 0 before shipping. | Claim strength ≤ evidence strength; the gate script passes. |
 
 ---
 
@@ -120,10 +120,20 @@ The full cycle is the default; the abduction loop is *mandatory at every size*. 
 ## Enforcement (how the gate bites)
 
 Every run: **Load** this file → **FRAME** before searching → run the **Full Cycle** under LAW 0 + the 6 axes →
-run the **4 layers** before output → **self-check** the compliance block. If any gate fails → output is INVALID, redo.
-When a router/query-planner merges sub-results, it checks this compliance before merging.
+run the **4 layers** before output → close with the compliance block → **run the gate script**. If any gate fails →
+output is INVALID, redo. When a router/query-planner merges sub-results, it checks this compliance before merging.
 
-Every research output MUST close with this compliance block:
+The compliance block is **not a prose honour-system** — it is enforced by a deterministic gate (the skill-enhancer
+"validator-as-gate, not verify-by-hand" rule). After writing the output, run:
+
+```bash
+python ${CLAUDE_SKILL_DIR}/scripts/compliance_check.py <output.md>   # exit 0 required; non-zero = do not ship
+```
+
+It rejects unresolved `[PASS/FAIL]` placeholders, any gate left FAIL, `[FINAL] INVALID`, paid use without consent,
+and fabrication smells / missing provenance. The frozen regression `eval/runner.py` proves the gate catches seeded
+defects (incl. the no-needle case) at detection==1.0 & FP==0. Every research output MUST close with this block
+(also in `../templates/compliance-block.snippet.md`):
 
 ```text
 [FRAME]:   Framing dialogue run; inquiry direction set; needle + negative condition before search [PASS/FAIL]
@@ -170,3 +180,4 @@ the native tool in the right column.
 - v0.4 (2026-06-22) — **grounded beyond methodology, at the paradigm level**, built by running the skill's own discipline (abduction + LAW 0) over the literature. Added `paradigm.md`: a research-paradigm selector (positivism → critical realism) declared in FRAME because it fixes what counts as evidence, plus the philosophy-of-science backbone (Peirce, Popper, Kuhn, Lakatos, Duhem–Quine, Bayes, Dewey) as the gates that discipline abduction — all with verified SEP/peer-reviewed citations. Added `dialogue.md`: a staged framing dialogue (adapted from the `doubt` skill's constructive Cartesian doubt + Socratic elenchus + FINER/PICO) that concretizes purpose and direction with the user before any search. Compliance gains `[PARADIGM]`; `[FRAME]` now covers the dialogue.
 - v0.5 (2026-06-22) — expanded `paradigm.md` to the full **10-paradigm landscape** (traditional ①–⑥ · applied-strongest ⑦ · surging frontier ⑧–⑩: adds interpretivism/Verstehen, phenomenology/hermeneutics, social constructionism, decolonial/Indigenous, post-qualitative/new materialism). Added the **operating standard — 4 layers / 13 enforceable directives** (the philosophy-as-gates charter), grounded in intelligence-analysis tradecraft (Heuer ACH, ODNI ICD 203) plus evidentialism (Hume/Clifford) and Bacon's idols. Wired the two previously-unenforced directives into this file: `[INDEP]` (independence / anti-sycophancy) and an explicit observation-vs-inference split in the report format.
 - v0.6 (2026-06-22) — **corrected the altitude: abduction is the single root.** The 10 paradigms were over-elevated in v0.4–v0.5 (a mandatory "declare a paradigm" FRAME gate, set co-equal with the loop). Demoted them to a **directional lens** the framing dialogue consults to *branch the direction of questioning* (regularity · meaning · mechanism · what-works · power/change) — never a required declaration, never "apply all ten." Removed the `[PARADIGM]` compliance gate; `[FRAME]` now records the inquiry direction. The operating standard and the philosophy-of-science backbone remain — they *discipline the one abduction loop*, they don't rival it.
+- v0.7 (2026-06-22) — **hardened against the `skill-enhancer` rubric (validator-as-gate + frozen eval + templates + structure).** The compliance block is no longer a prose honour-system: `scripts/compliance_check.py` enforces it (exit non-zero on unresolved placeholders, FAIL gates, `[FINAL] INVALID`, paid-without-consent, fabrication/provenance gaps), and `eval/` is a frozen judge (seeded-defect + honest fixtures incl. the no-needle case) at detection==1.0 & FP==0. Added `templates/` (proposal · report · framed-question · compliance-block · AskUserQuestion snippet), moved the six reference docs under `references/`, and gave `SKILL.md` an anti-trigger, a MUST/MUST-NOT block, `allowed-tools`, a Pipeline Context header, and a handoff path.

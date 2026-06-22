@@ -26,7 +26,7 @@
 
 ## 1. Hard rules for the dialogue
 
-- Use **AskUserQuestion** for every interactive question. Batch related questions; offer a recommended default per question.
+- Use **AskUserQuestion** for every interactive question — copy-fill the blocks in `../templates/askuserquestion.snippet.json` (Stage 5 direction lens, Stage 7 confirm) and map each option label 1:1 to a real next action; never print a choice as plain text and wait. Batch related questions; offer a recommended default.
 - Ask the **minimum** needed to pin each gate — do not interrogate. *If the dialogue grows longer than the research
   would, it has become the haystack* (`philosophy.md` §3). The Stop Rule (§4) enforces this.
 - **Socratic, not leading:** questions surface the user's assumptions; they never smuggle in your preferred answer.
@@ -52,7 +52,7 @@
 
 ## 3. The framed-question object (the FRAME deliverable → DESIGN / ROUTE)
 
-The dialogue ends by emitting this compact block — the handoff `methodology.md` and `sources.md` consume:
+The dialogue ends by emitting this compact block (draft from `../templates/framed-question.template.md`) — the handoff `methodology.md` and `sources.md` consume:
 
 ```text
 PURPOSE        : <decision/action it serves> · audience · stakes · deadline

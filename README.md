@@ -28,22 +28,36 @@ An output that skips framing, provenance, or falsification is invalid.
 
 ## Files
 
-| File | Role |
+| Path | Role |
 |------|------|
-| `SKILL.md` | Entry point — load `research.md` first. |
-| `research.md` | The system directive (constitution): the 7-phase full cycle, LAW 0 provenance, the 4 reliability layers, BYOK + cost, modes, and the compliance block. |
-| `philosophy.md` | The reasoning root — Peirce's Abduction Loop (FRAME→…→REPORT) and the epistemic commitments everything derives from. |
-| `paradigm.md` | Subordinate to the abduction root — the **directional lens** (the 10-paradigm landscape used to *branch* the framing question's direction, not a worldview to declare); the **operating standard** (4 layers / 13 enforceable directives, grounded in intelligence-analysis tradecraft — Heuer ACH, ICD 203); and the philosophy-of-science backbone (Popper, Kuhn, Lakatos, Duhem–Quine, Bayes, Dewey) that *disciplines* the one loop. Carries 34 verified citations. Loaded during FRAME/FALSIFY. |
-| `dialogue.md` | The staged framing dialogue — constructive Cartesian doubt + Socratic elenchus (adapted from the `doubt` skill) that turns a request into a real question before any search. Loaded at the start of FRAME. |
-| `methodology.md` | Domain-general research-design reference (사회조사 + medical, engineering, natural-science, humanities) — turns a framed question into a falsifiable research plan; loaded on demand during DESIGN. |
-| `sources.md` | Research-data source catalog + BYOK discovery — scholarly, clinical, patent, and dataset APIs (mostly free/keyless), with the NICE-TO-HAVE recommendation; loaded on demand during ROUTE & COST. |
+| `SKILL.md` | Entry point (router) — Pipeline Context, MUST/MUST-NOT, the run steps, the routing table; loads `references/research.md` first. |
+| `references/research.md` | The system directive (constitution): the 7-phase full cycle, LAW 0 provenance, the 4 reliability layers, BYOK + cost, modes, and the compliance block. |
+| `references/philosophy.md` | The single reasoning root — Peirce's Abduction Loop (FRAME→…→REPORT) and the epistemic commitments everything derives from. |
+| `references/paradigm.md` | Subordinate to the abduction root — the **directional lens** (the 10-paradigm landscape used to *branch* the framing question's direction, not a worldview to declare); the **operating standard** (4 layers / 13 enforceable directives, grounded in intelligence-analysis tradecraft — Heuer ACH, ICD 203); and the philosophy-of-science backbone that *disciplines* the one loop. 34 verified citations. Loaded during FRAME/FALSIFY. |
+| `references/dialogue.md` | The staged framing dialogue — constructive Cartesian doubt + Socratic elenchus (adapted from the `doubt` skill) that turns a request into a real question before any search. Loaded at the start of FRAME. |
+| `references/methodology.md` | Domain-general research-design reference (사회조사 + medical, engineering, natural-science, humanities) — turns a framed question into a falsifiable research plan; loaded during DESIGN. |
+| `references/sources.md` | Research-data source catalog + BYOK discovery — scholarly, clinical, patent, and dataset APIs (mostly free/keyless), with the NICE-TO-HAVE recommendation; loaded during ROUTE & COST. |
+| `scripts/compliance_check.py` | **Validator-as-gate**: lints a finished output against the compliance contract; exits non-zero if it can't ship. |
+| `eval/` | **Frozen judge**: seeded-defect + honest fixtures and `runner.py` (exit 0 = detection==1.0 & FP==0) proving the gate catches fabrication and honours the no-needle case. |
+| `templates/` | Fill-in skeletons: research proposal (조사계획서), report, framed-question object, compliance block, AskUserQuestion snippet. |
 
 ## Install
 
-1. Copy this folder to `~/.claude/skills/needle-in-a-haystack/`.
-2. The skill auto-loads `research.md`; `philosophy.md` and `methodology.md` are loaded on demand (progressive disclosure — minimal scaffolding).
+1. Copy this folder to `~/.claude/skills/needle-in-a-haystack/` (it is a self-contained skill directory).
+2. The skill auto-loads `references/research.md`; the other references load on demand (progressive disclosure — minimal scaffolding). Bundled scripts run via `python ${CLAUDE_SKILL_DIR}/scripts/...`.
 3. Copy `.env.example` to `.env` only if your runtime loads environment files; otherwise set the variables in your shell or secret manager.
 4. Leave any missing key blank. Missing sources degrade to free fallback behavior.
+
+## Quality gates (the skill eats its own cooking)
+
+```bash
+python scripts/compliance_check.py <a-finished-report.md>   # output gate: exit 0 required to ship
+python eval/runner.py                                        # frozen regression: exit 0 = detection 1.0 & FP 0
+```
+
+The compliance block is enforced by a script, not by eye; `eval/` proves the gate catches a fabricated needle and
+passes an honest `NEEDLE NOT FOUND`. After editing the validator, rerun `eval/runner.py`; raise the bar by adding
+adversarial fixtures, never by editing the judge.
 
 ## BYOK
 

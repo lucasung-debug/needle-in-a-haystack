@@ -1,0 +1,32 @@
+{
+  "_comment": "Copy-fill blocks for the framing dialogue (dialogue.md). Every human decision goes through AskUserQuestion; each option label maps 1:1 to a downstream action. These are EXAMPLES — regenerate options to fit the actual request; never print a choice as plain text and wait.",
+
+  "stage5_direction_lens": {
+    "questions": [{
+      "header": "Direction",
+      "question": "What is this inquiry really after? (sets what counts as evidence — paradigm lens, not a label to commit to)",
+      "multiSelect": false,
+      "options": [
+        {"label": "Regularity / measurement", "description": "An objective, measurable pattern → positivist–postpositivist; design toward measurement/test (methodology.md)."},
+        {"label": "Meaning / lived experience", "description": "How people interpret/experience it → interpretivist/constructivist/phenomenological; design toward interpretation."},
+        {"label": "Underlying mechanism", "description": "Why/how it is generated → critical realist; design toward explaining the generative mechanism."},
+        {"label": "What works in practice", "description": "Resolve a practical problem → pragmatist/mixed; whatever method-mix best answers it."},
+        {"label": "Power / change", "description": "Who is harmed and how to change it → critical/transformative/decolonial; judged by emancipatory value."}
+      ]
+    }]
+  },
+
+  "stage7_confirm_direction": {
+    "questions": [{
+      "header": "Confirm",
+      "question": "Here is the framed question + ≥2 candidate directions + the critical assumptions to test first. Proceed, or redirect?",
+      "multiSelect": false,
+      "options": [
+        {"label": "Proceed to DESIGN", "description": "Frame is right → run methodology.md (plan) or go straight to ROUTE/COLLECT."},
+        {"label": "Adjust scope/purpose", "description": "Reopen Stage 2–4 (purpose, scope, unit) before designing."},
+        {"label": "Change direction", "description": "Reopen Stage 5 (the paradigm lens) — wrong kind of evidence."},
+        {"label": "Stop — not answerable", "description": "Negative condition is already met → report NEEDLE NOT FOUND with what would make it answerable."}
+      ]
+    }]
+  }
+}

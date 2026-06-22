@@ -1,6 +1,17 @@
 ---
 name: needle-in-a-haystack
-description: Full-cycle research skill for any domain (social, engineering, medical, natural sciences, humanities), with abductive reasoning (Peirce) as its single root. Don't fix a topic on reflex — run a staged framing dialogue (constructive Cartesian doubt + Socratic questioning), using a paradigm lens to branch the inquiry's direction (regularity/meaning/mechanism/what-works/power), design a falsifiable research plan (조사계획서/protocol), route data sources under BYOK + free-first cost discipline (and recommend useful research APIs the user could add), collect under PROVENANCE, try to break the finding, and report what survives. Scales from a formal study design down to simple chat-type research. Outputs "NEEDLE NOT FOUND" before fabricating an answer.
+description: >
+  Full-cycle research skill for any domain (social, engineering, medical, natural sciences, humanities),
+  with abductive reasoning (Peirce) as its single root. Don't fix a topic on reflex — run a staged framing
+  dialogue (constructive Cartesian doubt + Socratic questioning), use a paradigm lens to branch the inquiry's
+  direction (regularity/meaning/mechanism/what-works/power), design a falsifiable research plan (조사계획서/protocol),
+  route data sources under BYOK + free-first cost discipline (recommend useful research APIs the user could add),
+  collect under PROVENANCE, try to break the finding, and report what survives. Scales from a formal study design
+  down to simple chat-type research. Outputs "NEEDLE NOT FOUND" before fabricating an answer.
+  Triggers — "research", "조사", "research plan/proposal", "조사계획서", "literature review", "study design",
+  "find the needle", "is this true / verify this", "deep research", "byok research".
+  Skip when — the user wants a quick non-research answer or creative writing; a more specific collector skill
+  already owns the task (e.g. a dedicated web-search/news/video skill); or they explicitly opt out of sourcing.
 triggers:
   - needle in a haystack
   - full-cycle research
@@ -19,18 +30,54 @@ triggers:
   - research philosophy
   - analytic standards
   - methodic doubt
+allowed-tools: [Read, Write, Edit, Bash, WebSearch, WebFetch, AskUserQuestion]
 ---
 
 # needle-in-a-haystack — Full-Cycle Research Skill
 
-Obey `research.md` before producing, planning, executing, merging, or validating any research output.
+Obey `references/research.md` before producing, planning, executing, merging, or validating any research output.
 
-1. Load `research.md` (the system directive). It runs the full cycle: **FRAME → DESIGN → ROUTE & COST → COLLECT → FALSIFY → SELF-CORRECT → REPORT.**
-2. At the start of FRAME, run `dialogue.md` (the staged framing dialogue) to turn the request into a real question, using the **paradigm lens** in `paradigm.md` to branch the inquiry's *direction* (regularity/meaning/mechanism/what-works/power) — a directional cue, not a worldview to declare.
-3. The single reasoning root is `philosophy.md` (the Abduction Loop — Peirce); `paradigm.md` adds the directional lens and the philosophers who *discipline* (don't rival) that one loop. Load when FRAME or FALSIFY needs the *why*.
-4. For a research-plan / study-design request, load `methodology.md` (domain-general design — social/medical/engineering/natural-science/humanities) during DESIGN.
-5. During ROUTE & COST, consult `sources.md` (research-data source catalog) to route each evidence need free-first, and recommend useful APIs the user could add (NICE-TO-HAVE) instead of silently dropping evidence.
-6. Enforce the hard rules at every size: define the needle **and** the negative condition first; set the inquiry direction; hold **≥2 candidates**; attach provenance to every claim; **try to falsify** before reporting; output **`NEEDLE NOT FOUND`** rather than fabricate; state confidence + what would change the answer.
-7. Close every output with the compliance block in `research.md`. Mark outputs that skip framing, provenance, or falsification as INVALID and redo them.
+## Pipeline Context
+| 항목 | 내용 |
+|---|---|
+| **Position** | Self-contained full-cycle research skill: FRAME → DESIGN → ROUTE & COST → COLLECT → FALSIFY → SELF-CORRECT → REPORT. |
+| **Input** | A research request / question (one line to a full brief). |
+| **Output** | A research plan (조사계획서) and/or a cited report, always closing with the compliance block. cwd-relative artifact paths. |
+| **Companions** | Optional collector skills (web-search/news/video/social) if installed; this skill governs them under LAW 0. |
+| **Handoff** | plan → execute may split sessions: write `.claude/handoffs/handoff-<ts>.json` (framed-question object + plan path + mode), resume by reading it. |
 
-Keep scaffolding minimal — load depth (`dialogue.md`, `paradigm.md`, `philosophy.md`, `methodology.md`, `sources.md`) only when the phase needs it. If the scaffolding becomes the haystack, the needle gets missed.
+## MUST DO / MUST NOT DO (above the steps)
+- ✅ Define the **needle AND the negative condition** before searching; set the inquiry **direction**.
+- ✅ Hold **≥2 candidates**; **try to falsify** the leader before reporting.
+- ✅ Attach **provenance** to every factual claim, tagged `[retrieved | inferred | assumed]` (LAW 0).
+- ✅ Ask via **`AskUserQuestion`** (templates/askuserquestion.snippet.json); map each option 1:1 to a real next action.
+- ✅ Gate the output with the **script**, not by eye: `python ${CLAUDE_SKILL_DIR}/scripts/compliance_check.py <output.md>`.
+- ⛔ Never fabricate a needle — output **`NEEDLE NOT FOUND`** when nothing survives.
+- ⛔ Never tune a finding to the user's expectation (independence / anti-sycophancy).
+- ⛔ Never let paradigms become co-equal foundations — **abduction is the single root**; they are a directional lens.
+- ⛔ Never dump SKILL/report internals into chat — write to a file and summarize.
+
+## Run
+1. Load `references/research.md` (the system directive). It runs the full cycle and carries LAW 0, the 4 layers, BYOK/cost, modes, and the compliance block.
+2. At the start of FRAME, run `references/dialogue.md` (staged framing dialogue) to turn the request into a real question; use the **paradigm lens** in `references/paradigm.md` to branch the inquiry's *direction* (not a worldview to declare). Ask with `templates/askuserquestion.snippet.json`.
+3. The single reasoning root is `references/philosophy.md` (the Abduction Loop — Peirce); `references/paradigm.md` adds the directional lens + the philosophers who *discipline* (don't rival) that one loop. Load when FRAME/FALSIFY needs the *why*.
+4. For a research-plan / study-design request, load `references/methodology.md` (domain-general design) during DESIGN; draft from `templates/proposal.template.md`.
+5. During ROUTE & COST, consult `references/sources.md` to route each evidence need free-first and surface NICE-TO-HAVE API recommendations instead of silently dropping evidence.
+6. REPORT from `templates/report.template.md`, then **gate**: `python ${CLAUDE_SKILL_DIR}/scripts/compliance_check.py <output.md>` must exit 0. If it exits non-zero, fix the output (do not ship). Mark outputs that skip framing, provenance, or falsification as INVALID and redo.
+
+## 참조 자료 (라우팅 테이블)
+| Topic | Reference | Load When |
+|---|---|---|
+| system directive (정전) | references/research.md | always, first — runs the full cycle + compliance |
+| the *why* (abduction root) | references/philosophy.md | FRAME/FALSIFY need the reasoning root |
+| directional lens + discipline | references/paradigm.md | FRAME (set direction) · FALSIFY (apply the gates) |
+| staged framing dialogue | references/dialogue.md | start of FRAME (plan/full); compressed in lite |
+| research-design (조사계획서) | references/methodology.md | DESIGN, when producing a plan/protocol |
+| data-source catalog + BYOK | references/sources.md | ROUTE & COST, mapping evidence → source |
+
+## Templates & gates
+- `templates/` — fill placeholders only: `proposal.template.md` (조사계획서), `report.template.md`, `framed-question.template.md`, `compliance-block.snippet.md`, `askuserquestion.snippet.json`.
+- `scripts/compliance_check.py` — the validator-as-gate for every output (exit non-zero = don't ship).
+- `eval/runner.py` — frozen regression: `python ${CLAUDE_SKILL_DIR}/eval/runner.py` (exit 0 = detection==1.0 & FP==0). After editing `compliance_check.py`, rerun it; raise the bar by adding adversarial fixtures, never by editing the judge.
+
+Keep scaffolding minimal — load depth only when the phase needs it. If the scaffolding becomes the haystack, the needle gets missed.
