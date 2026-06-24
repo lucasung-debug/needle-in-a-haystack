@@ -1,6 +1,8 @@
 <!-- REPORT skeleton (research.md REPORT phase). Fill {{...}}; keep the section order and
      the compliance block. Tag every claim [retrieved | inferred | assumed] and keep observed
-     data visually separate from interpretation. Gate with scripts/compliance_check.py. -->
+     data visually separate from interpretation. Gate with scripts/compliance_check.py.
+     A "needle found" output must keep a real Ruled-out candidates / contrary-evidence entry —
+     the gate requires recorded falsification (an honest NEEDLE NOT FOUND is exempt). -->
 
 # BLUF — {{one-line answer, or "NEEDLE NOT FOUND / UNANSWERABLE"}}
 

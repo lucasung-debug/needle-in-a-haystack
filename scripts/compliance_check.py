@@ -101,6 +101,15 @@ def analyze(text):
     if final_valid and re.search(r"(?im)^#{1,6}.*\bsources?\b|key sources", text) and not ISO_TS.search(text):
         violations.append("a Sources section is present but no ISO-8601 UTC retrieval timestamp (LAW 0)")
 
+    # 6b. Falsification discipline: a needle FOUND (not a null result) marked [FALSIFY]=PASS must record
+    #     what it ruled out. Confirmation with no recorded disconfirmation is the over-association failure
+    #     mode; an honest NEEDLE NOT FOUND ([NULL]=PASS) is exempt.
+    falsify_pass = gates.get("FALSIFY", {}).get("verdict") == "PASS"
+    null_pass = gates.get("NULL", {}).get("verdict") == "PASS"
+    considered_alternatives = bool(re.search(r"ruled[ -]?out|contradict|rejected|refuted|disprov", low))
+    if final_valid and falsify_pass and not null_pass and not considered_alternatives:
+        violations.append("[FALSIFY]=PASS but no ruled-out alternative or contrary evidence is recorded — confirmation, not falsification (ABDUCT holds >=2 candidates; FALSIFY must break the leader)")
+
     # 7. Per-source live-link discipline (LAW 0 status vocabulary: live|dead|throttled|paywalled|unverified).
     for raw in text.splitlines():
         line = raw.strip()
