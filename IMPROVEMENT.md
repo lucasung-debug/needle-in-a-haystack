@@ -36,6 +36,7 @@ the loop that makes that repeatable instead of ad hoc.
 | eval fixtures | stability | 10 | 11 |
 | source-catalog domains | coverage | 6 | 10 |
 | skill-enhancer audit | quality | 100 | 100 |
+| FALSIFY failure modes (skeptic-judge) | trust | 0 | 7 (red-team 11/11) |
 
 ## Backlog (ranked; move the top item each cycle)
 
@@ -43,10 +44,10 @@ Done: ✓ unsourced-but-VALID gap (Cycle 1) · ✓ negative-evidence / falsifica
 Items below are seeded from the 2026-06-22 analysis of five reference skills (storm-research, bizplan,
 news-for-beginner, im-designer, im-human).
 
-- **Trust — skeptic-scorecard FALSIFY** (storm-research peer-review keyed to named failure modes; bizplan
-  `12-verification.md` 4-persona audit): turn FALSIFY into a skeptic persona with scripted attacks + a numeric
-  pass threshold; each named failure mode gets an adversarial fixture. **Now also owns "was falsification
-  *recorded*?"** — reassigned from Cycle 2's reverted regex; a judge can read for substance a keyword cannot.
+- **✓ Trust — skeptic-scorecard FALSIFY (done Cycle 3)** — `references/falsify-skeptic.md` +
+  `templates/skeptic-scorecard.snippet.md`: author ≠ reviewer skeptic across 7 named failure modes with a
+  PASS/REWORK scorecard gating `[FALSIFY]=PASS`. Red-teamed 11/11 (fixed all 6 Cycle-2 misses). Absorbed "was
+  falsification *recorded*?" from Cycle 2's reverted regex — a judge reads substance a keyword cannot.
 - **Refinement — self-contained HTML report skeleton** (im-designer `visualization.md`; storm zero-dep build):
   add `templates/report.html` (inline CSS, CSS-variable theme, system fonts) + option-compare rules for competing
   hypotheses (2–3 options, vary one variable, mark the recommendation). Closes our visualization gap.
@@ -92,7 +93,10 @@ news-for-beginner, im-designer, im-human).
 - **DO** — added `references/falsify-skeptic.md` + `templates/skeptic-scorecard.snippet.md`; wired into `research.md`
   (Phase 4/5 + v0.9), `SKILL.md` (routing + Run step 6 + templates), `_index.md`. **No new deterministic regex**
   (Cycle 2 lesson) — the judge is semantic; its check is the red-team. eval 9/9, audit 100/0/0 unchanged.
-- **CHECK** — adversarial **red-team in flight** (11 cases): the 3 Cycle-2 false-positives must now PASS and the
-  3 Cycle-2 bypasses must now REWORK, plus 4 fresh failure-mode cases (over-association, source-bias, sycophancy,
-  single-source). Results + any protocol tuning recorded in the follow-up commit.
-- **ACT** — pending red-team.
+- **CHECK** — adversarial **red-team: 11/11 correct**. honest→PASS **4/4** (all 3 Cycle-2 false-positives now PASS —
+  the synonym reports the regex wrongly blocked); bad→REWORK **7/7** (all 3 Cycle-2 bypasses now caught — the judge
+  named the planted lexeme a "decoy with no substance" and scored modes 1+2 fatal), plus over-association→mode 3,
+  source-bias→mode 4, sycophancy→mode 6, single-source→mode 2. **Cycle-2 cases fixed 6/6**; all 7 failure modes
+  exercised. eval 9/9, audit 100/0/0.
+- **ACT** — shipped. The judge corrects the Cycle-2 regex *both ways* — exactly the semantic read a keyword cannot do.
+  Next: visualization (zero-dep HTML report skeleton, im-designer pattern), or per-claim "confirmed vs unconfirmed".
