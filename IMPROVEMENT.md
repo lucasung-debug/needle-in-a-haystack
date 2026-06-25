@@ -38,6 +38,7 @@ the loop that makes that repeatable instead of ad hoc.
 | skill-enhancer audit | quality | 100 | 100 |
 | FALSIFY failure modes (skeptic-judge) | trust | 0 | 7 (red-team 11/11) |
 | report formats | refinement | 1 (md) | 2 (md + html) |
+| CI regression guard | stability | none | GitHub Actions (eval on push/PR) |
 
 ## Backlog (ranked; move the top item each cycle)
 
@@ -69,7 +70,8 @@ Standing plan; the top item moves each cycle.
   fixtures `good-report-html`, `bad-report-html-external`.
 - **✓ Cycle 8 — NEEDLE-NOT-FOUND ↔ [NULL] consistency gate**: a headline declaring no needle while `[NULL]=NA`
   (NA = a needle was found) is flagged; fixture `bad-nnf-contradiction`.
-- **Cycle 9 — eval into CI**: a SessionStart hook runs `eval/runner.py` every web session (stability).
+- **✓ Cycle 9 — eval into CI**: GitHub Actions (`.github/workflows/eval.yml`) runs `eval/runner.py` on every
+  push/PR (stability) — a true regression guard, stdlib-only.
 - **Cycle 10 — per-claim corroboration**: extend the skeptic-judge (a judge, not a regex) to score each
   load-bearing claim's independent-source count.
 - **Coverage**: keep adding verified, free-first source domains + recipes as questions demand them.
@@ -188,3 +190,11 @@ per cycle below.
   `[FINAL] INVALID`, and the paid-without-consent interlock, with no false-positive on a clean report. RT5 confirmed
   the **two-layer defense**: a confirmation-only report that passes the *format* gate (exit 0) is still REWORKed by
   the *judge* — format and substance are checked at different layers.
+
+### Cycle 9 — 2026-06-22 — Stability: eval in CI
+- **PLAN** — the frozen judge only ran when someone remembered to; make it automatic so the gate can't silently break.
+- **DO** — `.github/workflows/eval.yml`: on every push/PR, `py_compile` the scripts then run `python eval/runner.py`
+  (stdlib-only, no deps). CI fails if detection ≠ 1.0 or FP ≠ 0.
+- **CHECK** — `eval/runner.py` green locally (11/11, FP 0/3); the workflow is the standing guard on GitHub. No
+  red-team — this is CI infra, not a gate on research outputs.
+- **ACT** — shipped.
