@@ -36,7 +36,7 @@ the loop that makes that repeatable instead of ad hoc.
 | eval fixtures | stability | 10 | 14 |
 | source-catalog domains | coverage | 6 | 10 |
 | skill-enhancer audit | quality | 100 | 100 |
-| FALSIFY failure modes (skeptic-judge) | trust | 0 | 7 (red-team 11/11) |
+| FALSIFY failure modes (skeptic-judge) | trust | 0 | 7, per-claim (red-team 11/11 · 6/6) |
 | report formats | refinement | 1 (md) | 2 (md + html) |
 | CI regression guard | stability | none | GitHub Actions (eval on push/PR) |
 
@@ -205,6 +205,9 @@ per cycle below.
 - **DO** — `falsify-skeptic.md`: before scoring, list the load-bearing claims (needle + the sub-claims it depends
   on); mode 2 now requires ≥2 independent live sources for EACH, scoring the weakest. Scorecard mode-2 row updated.
   A judge, not a regex (Cycle 2 lesson holds).
-- **CHECK** — eval/audit unaffected (the judge is a protocol, not the deterministic gate). Red-team **RT6** in
-  flight: single/unsourced sub-claim → REWORK; fully-corroborated → PASS; non-load-bearing aside → no false positive.
-- **ACT** — committed build; finalize after RT6.
+- **CHECK** — eval/audit unaffected (the judge is a protocol, not the deterministic gate). **RT6 6/6**: a well-cited
+  headline resting on a single-sourced or unsourced critical sub-claim → REWORK; sub-claim citation laundering (two
+  URLs, one origin) → REWORK; a fully-corroborated report → PASS; and crucially a non-load-bearing single-source
+  *aside* → PASS — no false positive, because the judge tested *load-bearing status* rather than mere single-sourcing;
+  honest NEEDLE NOT FOUND → PASS (modes 1-3 NA). Record: `eval/redteam-cycle10-per-claim.json`.
+- **ACT** — shipped.
