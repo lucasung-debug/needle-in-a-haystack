@@ -15,6 +15,10 @@ In **full/plan mode**, run this as a separate pass (ideally a sub-agent via `Tas
 context). In **lite mode**, run it inline but still fill the scorecard. It is reasoning only — **no paid calls, no new
 sources required**; if a mode can only be cleared by fetching more, that itself is a `weak`/`fatal`, not a pass.
 
+Before scoring, **list the load-bearing claims** — the needle *plus every sub-claim it depends on* — and apply the
+corroboration test (mode 2) to **each one**, not just the headline. A well-cited headline resting on an unsourced
+critical sub-claim has not survived falsification.
+
 ## The seven attacks (named failure modes)
 
 Score each: **clear** (attack fails, finding holds) · **weak** (a real soft spot — disclose it in Limits) · **fatal**
@@ -22,9 +26,10 @@ Score each: **clear** (attack fails, finding holds) · **weak** (a real soft spo
 
 1. **Confirmation-only** — Was a *competing* candidate genuinely broken, or was only the leader confirmed? ABDUCT must
    have held ≥2 candidates; FALSIFY must show ≥1 of them *failing a prediction*. No broken alternative ⇒ `fatal`.
-2. **Single-source / citation laundering** — Does the needle rest on **≥2 independent live sources**? One source — or
-   one source recited under different URLs/outlets that trace to the same origin — ⇒ `fatal` (or `weak` if the one
-   source is a primary authority and the claim is narrow).
+2. **Single-source / citation laundering (per load-bearing claim)** — Does **each** load-bearing claim rest on
+   **≥2 independent live sources**? One source — or one source recited under different URLs/outlets that trace to the
+   same origin — ⇒ `fatal` (or `weak` if that source is a primary authority and the claim is narrow). Score the
+   *weakest* load-bearing claim: a fully-sourced needle with one unsourced critical sub-claim is still `fatal`.
 3. **Over-association** — Is correlation / co-occurrence / name-match sold as **cause or identity**? Mechanism asserted
    without a mechanism shown ⇒ `weak`→`fatal` by how load-bearing it is.
 4. **Source-bias transfer** — Do the sources share one origin, vendor, or agenda, so the finding just inherits their

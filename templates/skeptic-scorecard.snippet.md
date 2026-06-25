@@ -9,7 +9,7 @@
 | # | Failure mode | Attack question | Verdict | One-line reason (cite line/source) |
 |---|--------------|-----------------|---------|------------------------------------|
 | 1 | Confirmation-only        | Was a *competing* candidate broken, not just the leader confirmed? | clear/weak/fatal/NA | |
-| 2 | Single-source/laundering | ≥2 *independent* live sources behind the needle?                   | clear/weak/fatal/NA | |
+| 2 | Single-source/laundering | ≥2 *independent* live sources behind EACH load-bearing claim (score the weakest)? | clear/weak/fatal/NA | |
 | 3 | Over-association         | Correlation/name-match sold as cause or identity?                  | clear/weak/fatal/NA | |
 | 4 | Source-bias transfer     | Do the sources share one origin/agenda? Any adversarial source?    | clear/weak/fatal    | |
 | 5 | Stale/retracted          | Newest authoritative source checked; nothing superseded/withdrawn? | clear/weak/fatal    | |

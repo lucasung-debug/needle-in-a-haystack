@@ -72,8 +72,8 @@ Standing plan; the top item moves each cycle.
   (NA = a needle was found) is flagged; fixture `bad-nnf-contradiction`.
 - **✓ Cycle 9 — eval into CI**: GitHub Actions (`.github/workflows/eval.yml`) runs `eval/runner.py` on every
   push/PR (stability) — a true regression guard, stdlib-only.
-- **Cycle 10 — per-claim corroboration**: extend the skeptic-judge (a judge, not a regex) to score each
-  load-bearing claim's independent-source count.
+- **✓ Cycle 10 — per-claim corroboration**: skeptic-judge mode 2 now scores EACH load-bearing claim's
+  independent-source count (weakest wins), not just the headline.
 - **Coverage**: keep adding verified, free-first source domains + recipes as questions demand them.
 
 **Hardening campaign:** every new deterministic check earns an adversarial red-team (FP + bypass). This round runs
@@ -195,6 +195,16 @@ per cycle below.
 - **PLAN** — the frozen judge only ran when someone remembered to; make it automatic so the gate can't silently break.
 - **DO** — `.github/workflows/eval.yml`: on every push/PR, `py_compile` the scripts then run `python eval/runner.py`
   (stdlib-only, no deps). CI fails if detection ≠ 1.0 or FP ≠ 0.
-- **CHECK** — `eval/runner.py` green locally (11/11, FP 0/3); the workflow is the standing guard on GitHub. No
-  red-team — this is CI infra, not a gate on research outputs.
+- **CHECK** — `eval/runner.py` green locally (11/11, FP 0/3); the workflow is the standing guard on GitHub. First
+  CI run on push: **success** (verified via the Actions API). No red-team — CI infra, not an output gate.
 - **ACT** — shipped.
+
+### Cycle 10 — 2026-06-22 — Trust: per-claim corroboration (skeptic-judge)
+- **PLAN** — mode 2 only checked the *headline* needle's sources; a well-cited headline could still rest on an
+  unsourced critical sub-claim. Deepen it to *every load-bearing claim*.
+- **DO** — `falsify-skeptic.md`: before scoring, list the load-bearing claims (needle + the sub-claims it depends
+  on); mode 2 now requires ≥2 independent live sources for EACH, scoring the weakest. Scorecard mode-2 row updated.
+  A judge, not a regex (Cycle 2 lesson holds).
+- **CHECK** — eval/audit unaffected (the judge is a protocol, not the deterministic gate). Red-team **RT6** in
+  flight: single/unsourced sub-claim → REWORK; fully-corroborated → PASS; non-load-bearing aside → no false positive.
+- **ACT** — committed build; finalize after RT6.
