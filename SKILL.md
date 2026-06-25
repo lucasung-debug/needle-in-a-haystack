@@ -63,7 +63,8 @@ Obey `references/research.md` before producing, planning, executing, merging, or
 3. The single reasoning root is `references/philosophy.md` (the Abduction Loop — Peirce); `references/paradigm.md` adds the directional lens + the philosophers who *discipline* (don't rival) that one loop. Load when FRAME/FALSIFY needs the *why*.
 4. For a research-plan / study-design request, load `references/methodology.md` (domain-general design) during DESIGN; draft from `templates/proposal.template.md`.
 5. During ROUTE & COST, consult `references/sources.md` to route each evidence need free-first and surface NICE-TO-HAVE API recommendations instead of silently dropping evidence.
-6. REPORT from `templates/report.template.md`, then **gate**: `python ${CLAUDE_SKILL_DIR}/scripts/compliance_check.py <output.md>` must exit 0. If it exits non-zero, fix the output (do not ship). Mark outputs that skip framing, provenance, or falsification as INVALID and redo.
+6. At FALSIFY, run `references/falsify-skeptic.md` (author ≠ reviewer) to attack the leading candidate across seven named failure modes; fill `templates/skeptic-scorecard.snippet.md`. Mark `[FALSIFY]=PASS` **only** on a PASS scorecard — otherwise loop back (REWORK the named mode) or output **NEEDLE NOT FOUND**.
+7. REPORT from `templates/report.template.md`, then **gate**: `python ${CLAUDE_SKILL_DIR}/scripts/compliance_check.py <output.md>` must exit 0. If it exits non-zero, fix the output (do not ship). Mark outputs that skip framing, provenance, or falsification as INVALID and redo.
 
 ## 참조 자료 (라우팅 테이블)
 If unsure which reference a phase needs, read `references/_index.md` first, then open **exactly one** file.
@@ -76,9 +77,10 @@ If unsure which reference a phase needs, read `references/_index.md` first, then
 | staged framing dialogue | references/dialogue.md | start of FRAME (plan/full); compressed in lite |
 | research-design (조사계획서) | references/methodology.md | DESIGN, when producing a plan/protocol |
 | data-source catalog + BYOK | references/sources.md | ROUTE & COST, mapping evidence → source |
+| skeptic-judge (반증) | references/falsify-skeptic.md | FALSIFY — attack the leader across 7 failure modes, fill the scorecard |
 
 ## Templates & gates
-- `templates/` — fill placeholders only: `proposal.template.md` (조사계획서), `report.template.md`, `framed-question.template.md`, `compliance-block.snippet.md`, `askuserquestion.snippet.json`.
+- `templates/` — fill placeholders only: `proposal.template.md` (조사계획서), `report.template.md`, `framed-question.template.md`, `compliance-block.snippet.md`, `skeptic-scorecard.snippet.md`, `askuserquestion.snippet.json`.
 - `scripts/compliance_check.py` — the validator-as-gate for every output (exit non-zero = don't ship).
 - `eval/runner.py` — frozen regression: `python ${CLAUDE_SKILL_DIR}/eval/runner.py` (exit 0 = detection==1.0 & FP==0). After editing `compliance_check.py`, rerun it; raise the bar by adding adversarial fixtures, never by editing the judge.
 

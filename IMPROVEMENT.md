@@ -84,3 +84,15 @@ news-for-beginner, im-designer, im-human).
   falsification-recording to the skeptic-scorecard cycle. The loop did its job — the red-team stopped a brittle
   gate from shipping — so the **red-team step is now a permanent part of CHECK**. The report template keeps the
   Ruled-out section as a quality cue.
+
+### Cycle 3 — 2026-06-22 — Trust: skeptic-judge for FALSIFY
+- **PLAN** — give FALSIFY the *substance-reading* review Cycle 2's regex couldn't: an **author ≠ reviewer skeptic**
+  across seven named failure modes (confirmation-only · single-source/laundering · over-association · source-bias ·
+  stale/retracted · sycophancy · scope) with a PASS/REWORK scorecard gating `[FALSIFY]=PASS`.
+- **DO** — added `references/falsify-skeptic.md` + `templates/skeptic-scorecard.snippet.md`; wired into `research.md`
+  (Phase 4/5 + v0.9), `SKILL.md` (routing + Run step 6 + templates), `_index.md`. **No new deterministic regex**
+  (Cycle 2 lesson) — the judge is semantic; its check is the red-team. eval 9/9, audit 100/0/0 unchanged.
+- **CHECK** — adversarial **red-team in flight** (11 cases): the 3 Cycle-2 false-positives must now PASS and the
+  3 Cycle-2 bypasses must now REWORK, plus 4 fresh failure-mode cases (over-association, source-bias, sycophancy,
+  single-source). Results + any protocol tuning recorded in the follow-up commit.
+- **ACT** — pending red-team.
