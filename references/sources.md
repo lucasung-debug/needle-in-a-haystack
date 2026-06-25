@@ -28,6 +28,16 @@ silently drop the need — proceed with the free fallback **and** emit the NICE-
 
 > No secrets live here. All keys are read from environment variables only (BYOK); every row degrades to a fallback.
 
+### Source recipe (when a source is tricky to crack)
+
+When a source needs a non-obvious move to work (an auth header, a sitemap-vs-API choice, a rate quirk), record a short
+recipe so the next run doesn't rediscover it — **boundary · why the generic path fails · the working path · the
+fallback · the pitfall**. Worked example (SEC EDGAR):
+
+> **boundary** data.sec.gov / efts.sec.gov · **generic fails** a plain GET returns 403 · **working** send a
+> `User-Agent: Name email` header (no key needed), ≤10 req/s · **fallback** the filing's index page on www.sec.gov ·
+> **pitfall** a missing User-Agent is the #1 cause of 403s.
+
 ---
 
 ## 1. Scholarly literature (all domains)
@@ -82,6 +92,7 @@ Pair these with the clinical evidence hierarchy in `methodology.md` §2 (PICO, G
 | **OECD / Eurostat** | OECD & EU official statistics | `keyless` | — | — |
 | **data.gov** & national open-data portals | government datasets | `keyless` | — | — |
 | **Our World in Data** | curated long-run global metrics | `keyless` | — | — |
+| **US EIA** | US & international energy statistics (production, prices, consumption) | `free-key` | `EIA_API_KEY` (free, instant) | data.gov / Our World in Data |
 | **Zenodo / figshare / OSF / Dryad** | research datasets & materials (DOIs) | `keyless` | optional token for upload only | — |
 
 ---
@@ -125,18 +136,21 @@ A statute or ruling is a **primary source** — cite the official text, never a 
 |--------|---------|------|-----------|----------------|
 | **SEC EDGAR** | US public-company filings (10-K/10-Q/8-K), full-text search, company facts | `keyless` | `SEC_EDGAR_USER_AGENT` — SEC policy requires a `Name email` User-Agent (the polite-pool analogue); no key | — |
 | **FRED (St. Louis Fed)** | US & international economic / financial time series | `free-key` | `FRED_API_KEY` (free, instant) | World Bank / OECD (§4) |
+| **GLEIF (LEI)** | Legal Entity Identifiers — who an entity legally is + parent/child corporate structure | `keyless` | — (no registration) | OpenCorporates / official registry |
 
 > Market/company data beyond filings (live prices, fundamentals) is mostly `paid` — route there only on the §11 consent interlock. Official statistics live in §4.
 
 ---
 
-## 9. Geospatial & earth observation
+## 9. Geospatial, earth observation & climate
 
 | Source | Unlocks | Tier | Env / note | Free fallback |
 |--------|---------|------|-----------|----------------|
 | **USGS Earthquake (FDSN event)** | global seismic event catalog (GeoJSON / QuakeML) | `keyless` | — | — |
 | **NASA Open APIs** | earth imagery, EONET natural-event feed, planetary data | `free-key` | `NASA_API_KEY` (`DEMO_KEY` works for trials at a lower rate) | `DEMO_KEY` (rate-limited) |
 | **Copernicus Data Space (Sentinel)** | EU Sentinel satellite imagery & products (STAC / OData / Sentinel Hub) | `free-key` | `CDSE_CLIENT_ID` / `CDSE_CLIENT_SECRET` (free OAuth registration) | NASA imagery |
+| **Open-Meteo** | weather forecast + historical reanalysis (ERA5, from 1940), climate | `keyless` | — (non-commercial; ~10k calls/day) | NOAA CDO |
+| **NOAA NCEI Climate Data Online** | US/global historical weather & climate station records | `free-key` | `NOAA_CDO_TOKEN` (free email signup; 10k/day, 5 req/s) | Open-Meteo (reanalysis) |
 
 > US weather (`api.weather.gov`) and base maps (OpenStreetMap / Overpass / Nominatim) are keyless — fetch directly, no key.
 

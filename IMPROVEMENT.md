@@ -125,3 +125,13 @@ news-for-beginner, im-designer, im-human).
   brittleness (legit "probably" in a quoted source = false positive; synonyms = bypass). This is template + discipline,
   judged in review, not by regex.
 - **ACT** — shipped.
+
+### Cycle 6 — 2026-06-22 — Coverage: more verified sources + a source-recipe format (goal item C)
+- **PLAN** — broaden reach into climate/energy + entity-identity, and capture *how* to crack a tricky source so it
+  isn't relearned each run.
+- **DO** — web-verified, free-first additions: **Open-Meteo** (keyless, ERA5 reanalysis from 1940) + **NOAA NCEI CDO**
+  (free token) in §9; **US EIA** (free key) in §4; **GLEIF LEI** (keyless) in §8 — env vars synced to `.env.example`.
+  Added a **Source-recipe** format to §0 (boundary · generic-fails · working · fallback · pitfall) with a worked
+  SEC-EDGAR example (news-for-beginner pattern).
+- **CHECK** — audit 100/0/0, eval 9/9. Every new source verified live against its official docs (LAW 0).
+- **ACT** — shipped. Goal items A·B·C all delivered.
