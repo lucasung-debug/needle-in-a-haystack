@@ -10,5 +10,8 @@
   "bad-sycophantic": 1,
   "bad-dead-link": 1,
   "bad-no-timestamp": 1,
-  "bad-unsourced-claim": 1
+  "bad-unsourced-claim": 1,
+  "good-report-html": 0,
+  "bad-report-html-external": 1,
+  "bad-nnf-contradiction": 1
 }

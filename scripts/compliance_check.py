@@ -115,9 +115,48 @@ def analyze(text):
         if final_valid and "[retrieved" in low_line and not ISO_TS.search(line):
             violations.append("a [retrieved] source URL lacks an ISO-8601 UTC timestamp on its line (LAW 0 [C])")
 
+    # 8. NEEDLE NOT FOUND vs [NULL] consistency: a headline/answer that declares no needle while [NULL]=NA
+    #    (NA = a needle WAS found, so null is not applicable) is self-contradictory. Checks only the heading/
+    #    Answer line, not prose or the NULL gate line itself, to stay structural (no false positives on mentions).
+    null_verdict = gates.get("NULL", {}).get("verdict", "")
+    headline_nnf = any(
+        (s.startswith("#") or s.lower().startswith("**answer"))
+        and re.search(r"needle not found|unanswerable", s, re.I)
+        for s in (raw.strip() for raw in text.splitlines())
+    )
+    if final_valid and headline_nnf and null_verdict == "NA":
+        violations.append("the answer declares NEEDLE NOT FOUND / UNANSWERABLE but [NULL]=NA (NA means a needle was found) — set [NULL]=PASS for a genuine null result")
+
     # de-duplicate while preserving order
     violations = list(dict.fromkeys(violations))
     return violations, gates
+
+
+def analyze_html(text):
+    """Structural self-containment check for an HTML report (templates/report.html). The file must depend on
+    NO external resource — only <a href> links to cited sources are allowed. Robust (structural, not semantic)."""
+    v = []
+    low = text.lower()
+    if "{{" in text:
+        v.append("HTML report has unfilled {{...}} placeholder(s) — fill or mark every slot before shipping")
+    if re.search(r"<link\b[^>]*stylesheet", text, re.I):
+        v.append("HTML uses an external <link> stylesheet — inline the CSS (report must be self-contained)")
+    if re.search(r"<script\b[^>]*\bsrc\s*=", text, re.I):
+        v.append("HTML loads an external <script src> — inline or drop it (report must be self-contained)")
+    for m in re.finditer(r"<img\b[^>]*\bsrc\s*=\s*[\"']?([^\"'>\s]+)", text, re.I):
+        if not m.group(1).lower().startswith("data:"):
+            v.append("HTML <img> uses a non-inline src — embed as a data: URI or omit (report must be self-contained)")
+            break
+    if re.search(r"@import\b", text, re.I):
+        v.append("HTML @import pulls external CSS — inline it (report must be self-contained)")
+    if re.search(r"url\(\s*[\"']?\s*(?:https?:)?//", text, re.I):
+        v.append("HTML CSS url(...) references an external resource — inline or drop it (report must be self-contained)")
+    for smell in FABRICATION_SMELLS:
+        if smell in low:
+            v.append(f"fabrication smell: '{smell}' present in a shippable output")
+    if "<!doctype html" not in low and "<html" not in low:
+        v.append("not a well-formed HTML document (missing <!doctype html> / <html>)")
+    return list(dict.fromkeys(v))
 
 
 def main():
@@ -133,7 +172,10 @@ def main():
         print(f"compliance_pass: 0\nerror: cannot read {args.path}: {exc}", file=sys.stderr)
         sys.exit(2)
 
-    violations, gates = analyze(text)
+    if args.path.lower().endswith((".html", ".htm")):
+        violations, gates = analyze_html(text), {}
+    else:
+        violations, gates = analyze(text)
     passed = not violations
 
     if args.json:

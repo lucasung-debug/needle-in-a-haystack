@@ -30,10 +30,10 @@ the loop that makes that repeatable instead of ad hoc.
 
 | Metric | Vector | Baseline | Now |
 |---|---|---|---|
-| detection rate | trust · stability | 1.00 (8/8) | 1.00 (9/9) |
-| false-positive rate | trust | 0.00 (0/2) | 0.00 (0/2) |
-| compliance checks | trust | 13 | 14 |
-| eval fixtures | stability | 10 | 11 |
+| detection rate | trust · stability | 1.00 (8/8) | 1.00 (11/11) |
+| false-positive rate | trust | 0.00 (0/2) | 0.00 (0/3) |
+| compliance checks | trust | 13 | 16 |
+| eval fixtures | stability | 10 | 14 |
 | source-catalog domains | coverage | 6 | 10 |
 | skill-enhancer audit | quality | 100 | 100 |
 | FALSIFY failure modes (skeptic-judge) | trust | 0 | 7 (red-team 11/11) |
@@ -60,6 +60,23 @@ news-for-beginner, im-designer, im-human).
 - **Refinement** — deepen a reference only where a phase repeatedly runs short; never scaffold ahead of need.
 - **Stability** — ≥2 adversarial fixtures per check; wire `eval/runner.py` into a SessionStart hook so the gate
   runs on every web session.
+
+## Next directions (goals)
+
+Standing plan; the top item moves each cycle.
+- **✓ Cycle 7 — HTML self-containment gate** (closes Cycle 4's deferred gap): `compliance_check.py` validates an
+  HTML report has no external resource (`<link>`/`<script src>`/`<img>`/`@import`/`url()`) and no leftover `{{ }}`;
+  fixtures `good-report-html`, `bad-report-html-external`.
+- **✓ Cycle 8 — NEEDLE-NOT-FOUND ↔ [NULL] consistency gate**: a headline declaring no needle while `[NULL]=NA`
+  (NA = a needle was found) is flagged; fixture `bad-nnf-contradiction`.
+- **Cycle 9 — eval into CI**: a SessionStart hook runs `eval/runner.py` every web session (stability).
+- **Cycle 10 — per-claim corroboration**: extend the skeptic-judge (a judge, not a regex) to score each
+  load-bearing claim's independent-source count.
+- **Coverage**: keep adding verified, free-first source domains + recipes as questions demand them.
+
+**Hardening campaign:** every new deterministic check earns an adversarial red-team (FP + bypass). This round runs
+five — RT1 HTML gate · RT2 NNF gate · RT3 deeper skeptic-judge · RT4 whole-gate sweep · RT5 end-to-end — recorded
+per cycle below.
 
 ## Cycle log
 
@@ -135,3 +152,22 @@ news-for-beginner, im-designer, im-human).
   SEC-EDGAR example (news-for-beginner pattern).
 - **CHECK** — audit 100/0/0, eval 9/9. Every new source verified live against its official docs (LAW 0).
 - **ACT** — shipped. Goal items A·B·C all delivered.
+
+### Cycle 7 — 2026-06-22 — Refinement · trust: HTML self-containment gate
+- **PLAN** — Cycle 4 shipped `report.html` but deferred its validator. Close the gap with a *structural* check
+  (the robust kind, unlike Cycle 2's semantic regex).
+- **DO** — `compliance_check.py` gains an HTML mode (routed by extension): flags external `<link>` stylesheet,
+  `<script src>`, non-`data:` `<img>`, `@import`, `url(...)` to an external/protocol-relative target, leftover
+  `{{ }}`, fabrication smells, and a malformed doc. `runner.py` now also picks up `report.html` fixtures; added
+  `good-report-html` + `bad-report-html-external`.
+- **CHECK** — eval 11/11, FP 0/3, audit 100/0/0. Red-team **RT1** pending (this round).
+- **ACT** — committed build; finalize after RT1.
+
+### Cycle 8 — 2026-06-22 — Trust: NEEDLE-NOT-FOUND ↔ [NULL] consistency
+- **PLAN** — a report whose headline says "NEEDLE NOT FOUND" yet marks `[NULL]=NA` is self-contradictory (NA means
+  a needle was found). Catch it structurally.
+- **DO** — `compliance_check.py` §8: if a heading/Answer line declares NEEDLE NOT FOUND / UNANSWERABLE while
+  `[NULL]=NA` and FINAL is VALID → violation. Targets only the headline/Answer line (not prose or the NULL gate
+  line) to stay false-positive-free; fixture `bad-nnf-contradiction`.
+- **CHECK** — eval 11/11, FP 0/3, audit 100/0/0. Red-team **RT2** pending (this round).
+- **ACT** — committed build; finalize after RT2.

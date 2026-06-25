@@ -35,7 +35,9 @@ def main():
     for name, want in sorted(expected.items()):
         report = FIXTURES / name / "report.md"
         if not report.exists():
-            print(f"MISSING fixture: {report}", file=sys.stderr)
+            report = FIXTURES / name / "report.html"   # HTML report fixtures (self-containment gate)
+        if not report.exists():
+            print(f"MISSING fixture: {FIXTURES / name}/report.{{md,html}}", file=sys.stderr)
             sys.exit(2)
         proc = subprocess.run(
             [sys.executable, str(CHECKER), str(report)],
