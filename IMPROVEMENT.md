@@ -37,6 +37,7 @@ the loop that makes that repeatable instead of ad hoc.
 | source-catalog domains | coverage | 6 | 10 |
 | skill-enhancer audit | quality | 100 | 100 |
 | FALSIFY failure modes (skeptic-judge) | trust | 0 | 7 (red-team 11/11) |
+| report formats | refinement | 1 (md) | 2 (md + html) |
 
 ## Backlog (ranked; move the top item each cycle)
 
@@ -100,3 +101,16 @@ news-for-beginner, im-designer, im-human).
   exercised. eval 9/9, audit 100/0/0.
 - **ACT** — shipped. The judge corrects the Cycle-2 regex *both ways* — exactly the semantic read a keyword cannot do.
   Next: visualization (zero-dep HTML report skeleton, im-designer pattern), or per-claim "confirmed vs unconfirmed".
+
+### Cycle 4 — 2026-06-22 — Refinement: self-contained HTML report view (goal item A)
+- **PLAN** — findings shipped as markdown only; no shareable visual layer. Add a zero-dep HTML view (im-designer's
+  token-themed self-contained skeleton + option-compare rules).
+- **DO** — `templates/report.html`: self-contained (inline CSS, system fonts, **no external resources** — only `<a>`
+  links to cited sources), theme entirely in `:root`, option-compare cards for competing hypotheses (exactly one
+  marked recommended), a confidence badge, a confirmed-vs-unconfirmed split, and the compliance block + skeptic
+  verdict. Wired into REPORT (optional) + the templates list.
+- **CHECK** — audit 100/0/0; eval 9/9 (unchanged — the markdown stays the gated artifact). *Deliberate skip:* no
+  deterministic HTML validator yet (the `.md` is what the gate reads; the template header encodes the self-contained
+  rule). Add an HTML structural check (no external `src`/stylesheet, no leftover `{{ }}`) when HTML becomes a
+  primary, gated output — logged here so the gap isn't silent.
+- **ACT** — shipped.
