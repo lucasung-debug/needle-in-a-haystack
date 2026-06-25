@@ -50,6 +50,7 @@ Obey `references/research.md` before producing, planning, executing, merging, or
 - ✅ Define the **needle AND the negative condition** before searching; set the inquiry **direction**.
 - ✅ Hold **≥2 candidates**; **try to falsify** the leader before reporting.
 - ✅ Attach **provenance** to every factual claim, tagged `[retrieved | inferred | assumed]` (LAW 0).
+- ✅ Separate **confirmed** (retrieved + corroborated) from **unconfirmed/unknown**; write "cannot confirm" over a hedge ("probably / maybe / 아마").
 - ✅ Ask via **`AskUserQuestion`** (templates/askuserquestion.snippet.json); map each option 1:1 to a real next action.
 - ✅ Gate the output with the **script**, not by eye: `python ${CLAUDE_SKILL_DIR}/scripts/compliance_check.py <output.md>`.
 - ⛔ Never fabricate a needle — output **`NEEDLE NOT FOUND`** when nothing survives.

@@ -114,3 +114,14 @@ news-for-beginner, im-designer, im-human).
   rule). Add an HTML structural check (no external `src`/stylesheet, no leftover `{{ }}`) when HTML becomes a
   primary, gated output — logged here so the gap isn't silent.
 - **ACT** — shipped.
+
+### Cycle 5 — 2026-06-22 — Trust · readability: confirmed-vs-unconfirmed + no hedging (goal item B)
+- **PLAN** — reports blurred what's *established* with what's *guessed*, and hedge words ("probably", "아마") let an
+  unsupported claim read as supported (im-human's failure mode).
+- **DO** — `templates/report.template.md` gains a **Confirmed vs. unconfirmed** section + a header rule: write
+  "cannot confirm / 확인할 수 없습니다" over a hedge. Added a MUST-DO bullet in `SKILL.md`; `report.html` already
+  carries the split.
+- **CHECK** — audit 100/0/0, eval 9/9. *Deliberate skip:* no hedge-word *gate* — a keyword ban would repeat Cycle 2's
+  brittleness (legit "probably" in a quoted source = false positive; synonyms = bypass). This is template + discipline,
+  judged in review, not by regex.
+- **ACT** — shipped.
