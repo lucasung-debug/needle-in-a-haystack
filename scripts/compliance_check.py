@@ -134,7 +134,9 @@ def analyze(text):
 
 def analyze_html(text):
     """Structural self-containment check for an HTML report (templates/report.html). The file must depend on
-    NO external resource — only <a href> links to cited sources are allowed. Robust (structural, not semantic)."""
+    NO external resource — only <a href> links to cited sources are allowed. Robust (structural, not semantic).
+    Self-containment ONLY: LAW 0 provenance (live URL + ISO timestamp + [C]/[COST] interlocks) is enforced on the
+    markdown path (analyze); render HTML FROM a report.md that already passed the gate — the extension is not a dodge."""
     v = []
     low = text.lower()
     if "{{" in text:

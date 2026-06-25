@@ -160,8 +160,14 @@ per cycle below.
   `<script src>`, non-`data:` `<img>`, `@import`, `url(...)` to an external/protocol-relative target, leftover
   `{{ }}`, fabrication smells, and a malformed doc. `runner.py` now also picks up `report.html` fixtures; added
   `good-report-html` + `bad-report-html-external`.
-- **CHECK** — eval 11/11, FP 0/3, audit 100/0/0. Red-team **RT1** pending (this round).
-- **ACT** — committed build; finalize after RT1.
+- **CHECK** — eval 11/11, FP 0/3, audit 100/0/0. **RT1 7/7**: external-dep bypasses (protocol-relative `//`,
+  `@import`, uppercase/spaced `<IMG SRC=>`) all caught; `data:` URIs, `url(#grad)`, and `<a href>` source links
+  correctly NOT flagged.
+- **ACT** — shipped. RT1 also surfaced a *latent gap*: the HTML path is self-containment-only and does not
+  re-enforce LAW 0 (an `.html` could ship with fabricated/dead/undated sources — the `.html` extension is the
+  cheapest dodge of the strict gate). **Closed by discipline, not duplication:** the markdown is the authoritative
+  gated artifact; render HTML *from* a gate-passing `report.md`. Documented in `report.html`, `analyze_html`, and
+  `research.md`.
 
 ### Cycle 8 — 2026-06-22 — Trust: NEEDLE-NOT-FOUND ↔ [NULL] consistency
 - **PLAN** — a report whose headline says "NEEDLE NOT FOUND" yet marks `[NULL]=NA` is self-contradictory (NA means
@@ -169,5 +175,16 @@ per cycle below.
 - **DO** — `compliance_check.py` §8: if a heading/Answer line declares NEEDLE NOT FOUND / UNANSWERABLE while
   `[NULL]=NA` and FINAL is VALID → violation. Targets only the headline/Answer line (not prose or the NULL gate
   line) to stay false-positive-free; fixture `bad-nnf-contradiction`.
-- **CHECK** — eval 11/11, FP 0/3, audit 100/0/0. Red-team **RT2** pending (this round).
-- **ACT** — committed build; finalize after RT2.
+- **CHECK** — eval 11/11, FP 0/3, audit 100/0/0. **RT2 4/4**: the NNF↔`[NULL]=NA` contradiction was caught
+  (including the "UNANSWERABLE" phrasing); a found-needle report mentioning "needle not found" only in *prose* was
+  correctly NOT false-positived.
+- **ACT** — shipped.
+
+### Red-team campaign — 2026-06-22 — 5 rounds, 21/21 (goal: "반증 5회")
+- **RT1 HTML gate 7/7 · RT2 NNF gate 4/4 · RT3 skeptic-judge 4/4 · RT4 whole-gate sweep 4/4 · RT5 end-to-end 2/2.**
+  Zero problems. Record: `eval/redteam-campaign-5.json`.
+- RT3 confirmed the skeptic-judge catches partial-falsification (mode 1), stale source (mode 5), and scope overreach
+  (mode 7), and passes a strong honest report. RT4 confirmed the markdown gate still catches unresolved placeholders,
+  `[FINAL] INVALID`, and the paid-without-consent interlock, with no false-positive on a clean report. RT5 confirmed
+  the **two-layer defense**: a confirmation-only report that passes the *format* gate (exit 0) is still REWORKed by
+  the *judge* — format and substance are checked at different layers.

@@ -4,7 +4,9 @@
           The ONLY external URLs allowed are <a href> to the cited sources — those are required (LAW 0), never resources.
        2. Fill every {{slot}} or mark it "해당 없음 / N/A" — never leave a slot or a {{ }} in a shipped file.
        3. Keep provenance: every claim row carries its [retrieved|inferred|assumed] tag + live source URL + ISO-8601 UTC.
-       4. The markdown report remains the gated artifact (scripts/compliance_check.py); this HTML is the shareable view of it.
+       4. PROVENANCE lives on the markdown path: render this HTML FROM a report.md that already PASSED
+          scripts/compliance_check.py. The .html self-containment check is a safety net, NOT a provenance gate —
+          it does not re-verify sources/timestamps, so never ship an HTML that wasn't derived from a gated .md.
      Theme lives entirely in :root — recolor by editing variables, never per-element hex. -->
 <!doctype html>
 <html lang="en">
