@@ -287,7 +287,9 @@ report passed; FALSIFY scoped the needle to **task-level proven, org-level unpro
 vendor/self-report. Two purpose-aligned cuts fell out (plus a first-principles insight: *the machinery isn't the pitch*):
 - **✓ Cycle 16 — evidence-strength tiers (E1–E4)** (A): the differentiator made legible. Convention (report template +
   LAW 0) + a skeptic-judge **evidence-inflation** cue (an E3/E4 claim stated as proven → weak→fatal). NOT a brittle
-  deterministic gate (Cycle-2 lesson: evidence strength is semantic → judge). Judge red-team in flight.
+  deterministic gate (Cycle-2 lesson: evidence strength is semantic → judge). Judge red-team **4/4**: flags an E3/E4
+  claim stated as proven (mode 3 fatal) **and** — the key false-positive probe — does NOT over-flag an honestly-labeled,
+  scoped E3 item ("cannot confirm beyond self-report"). The cue targets *inflation*, not honest use of weak evidence.
 - **✓ Cycle 17 — non-developer output mode** (B): the human-facing **brief** leads with answer + **Confidence** +
   what-to-do in plain language; the compliance block is an **audit appendix**, not the headline. Doc/template only;
   audit 100/0/0. (im-designer output-mode multiplexing + im-human plain language.)

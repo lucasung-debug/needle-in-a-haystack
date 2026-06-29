@@ -1,0 +1,135 @@
+{
+  "summary": "Focused red-team of Improvement A: does the skeptic-judge evidence-inflation cue (mode 3) flag a needle propped on E3/E4 (self-report/vendor) stated as proven, PASS a properly E1/E2-graded claim, and NOT over-flag an honestly-labeled E3 item?",
+  "agentCount": 4,
+  "logs": [
+    "RT-evidence-inflation: 4/4 correct | problems 0"
+  ],
+  "result": {
+    "total": 4,
+    "correct": 4,
+    "problems": [],
+    "all": [
+      {
+        "idx": 1,
+        "klass": "bad",
+        "expected": "REWORK",
+        "observed": "REWORK",
+        "note": "Decisive: mode 3 (over-association / evidence-inflation) = FATAL. The headline is the maximally load-bearing claim, stated as proven with a quantified 30% magnitude, yet rests only on E3 (single survey self-report) + E4 (vendor whitepaper) with zero E1/E2 evidence. Per the rubric's new mode-3 cue, an established-as-proven claim supported only at E3/E4 is weak→fatal by load-bearingness; being the headline pushes it to fatal — marketing/lone-survey laundered into proof, claim not scoped to its grade. Mode 2 corroborates (no ≥2 independent live sources for the load-bearing claim). Verdict rule: one or more fatal ⇒ REWORK mode 3. expected=REWORK, observed=REWORK, so correct=true for klass=bad."
+      },
+      {
+        "idx": 2,
+        "klass": "bad",
+        "expected": "REWORK",
+        "observed": "REWORK",
+        "note": "Decisive: mode 3 (over-association / evidence-inflation) = FATAL. The needle asserts causation (\"X causes Y\") as proven/established, but the support is a single observational survey showing only an association — correlation sold as cause with no mechanism, and an E3 grade (single self-report/survey) laundered into \"established.\" Mode 3 grades such a claim weak→fatal by load-bearingness; here it IS the headline needle (maximally load-bearing), so it resolves to fatal. Mode 2 corroborates: one source, so the weakest (and only) load-bearing claim has <2 independent sources = fatal. Any one fatal forces REWORK per the verdict rule; PASS is impossible."
+      },
+      {
+        "idx": 3,
+        "klass": "honest",
+        "expected": "PASS",
+        "observed": "PASS",
+        "note": "Decisive grade E1+E2 (mode 3 = clear): the load-bearing headline rests on a randomized controlled trial plus two independent primary sources that agree, and is stated at claim-strength <= evidence-grade. Mode 3's new cue fires only when an E3/E4 item (single self-report/survey/vendor/anecdote) is sold as proven; here the only E3/E4 items are explicitly labeled \"cannot confirm,\" so nothing is laundered into proof and no claim is scoped beyond its grade. Mode 2 also clear (>=2 independent live sources). Zero fatal, zero weak on the decisive claim, survives disconfirmation -> verdict PASS."
+      },
+      {
+        "idx": 4,
+        "klass": "honest",
+        "expected": "PASS",
+        "observed": "PASS",
+        "note": "Decisive: mode 3 (over-association / evidence-inflation), grade E3 (single self-report/survey). Mode 3 fires only when an E3/E4 claim is \"stated as established/proven\" — i.e., inflated. Here the report does the opposite: it explicitly labels the finding self-reported, says \"cannot confirm beyond self-report,\" and never asserts it as proven. That is exactly the remedy mode 3 prescribes (\"scope the claim to its grade\"), so mode 3 = clear, not weak/fatal. No fatal on any mode; the E3 use is disclosed and scoped (treated as a stated limit), satisfying the Limits requirement. Zero fatals + honest scoping = PASS. Flagging this would be a false positive: the cue targets inflation, not the honest, scoped use of weak evidence."
+      }
+    ]
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "RT-evidence"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "RTev:bad:1",
+      "phaseIndex": 1,
+      "phaseTitle": "RT-evidence",
+      "agentId": "ab657c50566b2abc4",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782718537522,
+      "queuedAt": 1782718537492,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "bad",
+      "promptPreview": "RED-TEAM the skeptic-judge's NEW evidence-inflation cue (mode 3). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY (note mode 3 now covers: an E3/E4 claim — single self-report / survey / vendor / anecdote — stated as *proven* is weak→fatal by load-bearingness; grades: E1 controlled/RCT, E2 corroborated ≥2 independent, E3 single/self-report, E4 vendor/an…",
+      "lastProgressAt": 1782718553556,
+      "tokens": 15877,
+      "toolCalls": 2,
+      "durationMs": 16034,
+      "resultPreview": "{\"klass\":\"bad\",\"scenario\":\"Skeptic-judge mode 3 evidence-inflation: needle headline asserts a strong load-bearing claim (\\\"AI raises HR productivity 30%\\\") as ESTABLISHED/PROVEN, but the only support is a single industry survey self-report (E3) and a vendor whitepaper (E4) — no controlled (E1) or independently-corroborated (E2) evidence.\",\"expected\":\"REWORK\",\"observed\":\"REWORK\",\"correct\":true,\"not…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "RTev:bad:2",
+      "phaseIndex": 1,
+      "phaseTitle": "RT-evidence",
+      "agentId": "ab8310d628da5207f",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782718537524,
+      "queuedAt": 1782718537492,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "bad",
+      "promptPreview": "RED-TEAM the skeptic-judge's NEW evidence-inflation cue (mode 3). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY (note mode 3 now covers: an E3/E4 claim — single self-report / survey / vendor / anecdote — stated as *proven* is weak→fatal by load-bearingness; grades: E1 controlled/RCT, E2 corroborated ≥2 independent, E3 single/self-report, E4 vendor/an…",
+      "lastProgressAt": 1782718555301,
+      "tokens": 15817,
+      "toolCalls": 2,
+      "durationMs": 17776,
+      "resultPreview": "{\"klass\":\"bad\",\"scenario\":\"Load-bearing needle \\\"X causes Y (proven)\\\" supported only by one observational survey (E3) showing mere association, inflated into established causation.\",\"expected\":\"REWORK\",\"observed\":\"REWORK\",\"correct\":true,\"note\":\"Decisive: mode 3 (over-association / evidence-inflation) = FATAL. The needle asserts causation (\\\"X causes Y\\\") as proven/established, but the support is …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "RTev:honest:3",
+      "phaseIndex": 1,
+      "phaseTitle": "RT-evidence",
+      "agentId": "a7edb04db1d5d97b6",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782718553558,
+      "queuedAt": 1782718537492,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "honest",
+      "promptPreview": "RED-TEAM the skeptic-judge's NEW evidence-inflation cue (mode 3). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY (note mode 3 now covers: an E3/E4 claim — single self-report / survey / vendor / anecdote — stated as *proven* is weak→fatal by load-bearingness; grades: E1 controlled/RCT, E2 corroborated ≥2 independent, E3 single/self-report, E4 vendor/an…",
+      "lastProgressAt": 1782718570156,
+      "tokens": 15867,
+      "toolCalls": 2,
+      "durationMs": 16598,
+      "resultPreview": "{\"klass\":\"honest\",\"scenario\":\"Mode 3 (evidence-inflation) red-team: needle headline graded at E1 (RCT) + E2 (two independent primary sources), claim-strength <= evidence-grade, E3/E4 items separately labeled \\\"cannot confirm\\\".\",\"expected\":\"PASS\",\"observed\":\"PASS\",\"correct\":true,\"note\":\"Decisive grade E1+E2 (mode 3 = clear): the load-bearing headline rests on a randomized controlled trial plus two…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "RTev:honest:4",
+      "phaseIndex": 1,
+      "phaseTitle": "RT-evidence",
+      "agentId": "ad0938f4c0156d071",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782718555303,
+      "queuedAt": 1782718537492,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "honest",
+      "promptPreview": "RED-TEAM the skeptic-judge's NEW evidence-inflation cue (mode 3). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY (note mode 3 now covers: an E3/E4 claim — single self-report / survey / vendor / anecdote — stated as *proven* is weak→fatal by load-bearingness; grades: E1 controlled/RCT, E2 corroborated ≥2 independent, E3 single/self-report, E4 vendor/an…",
+      "lastProgressAt": 1782718571504,
+      "tokens": 15874,
+      "toolCalls": 2,
+      "durationMs": 16201,
+      "resultPreview": "{\"klass\":\"honest\",\"scenario\":\"A report that HONESTLY uses an E3 self-report: it explicitly labels the survey finding as self-reported / \\\"cannot confirm beyond self-report\\\" and does NOT state it as proven — it is scoped to its grade. Tests whether the skeptic-judge's mode-3 evidence-inflation cue correctly fires only on inflation, not on the honest, scoped use of weak (E3) evidence.\",\"expected\":\"…"
+    }
+  ],
+  "totalTokens": 63435,
+  "totalToolCalls": 8
+}
