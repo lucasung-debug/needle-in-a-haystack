@@ -87,6 +87,24 @@ Standing plan; the top item moves each cycle.
 This campaign runs as a self-paced `/loop`: each cycle is checked by subagents (ultracode) — a plan-vs-research
 **adequacy critic** plus an adversarial **red-team** — before it ships. ≥5 cycles.
 
+**Campaign complete (Cycles 11-15, 2026-06-29).** Final review: adequacy **sound**, regression **clean**, completeness
+**lean — near diminishing returns ("consolidate, don't keep adding gates")**. The verification earned its keep:
+Cycle 11 shipped 6 high link-check bugs the red-team caught + fixed in-cycle; Cycle 12's `[NULL]=PASS` skeptic dodge
+was caught + closed in-cycle. Fixed the one HIGH the final review found (the preserved dogfood example was missing
+`[SKEPTIC]` after Cycle 12 made it mandatory → it now passes its own gate). **Loop stopped here** per the
+completeness recommendation.
+
+**Forward backlog (decisions for the user — surfaced by the completeness review, not auto-applied):**
+- **`[L2]` vault-integration is PASS-required but has no implementation** — honor-system prose the gate can't verify,
+  diluting the "validator-as-gate, not honor-system" claim. Make it actionable (an inbox-write/dedup helper) or demote
+  it from PASS-required to a note. (Part of the deliberate 4-layer design — your call.)
+- **Handoff mechanism is documented but unscaffolded** (`.claude/handoffs/handoff-<ts>.json`) — add a tiny handoff
+  template (mirroring `framed-question.template.md`) or trim the claim.
+- **Parser hardening (deferred LOW)** — scope gate-line parsing to the fenced block + normalize a verdict to its first
+  token, closing the annotated-verdict and stray-`[GATE]:`-line quirks uniformly. Do it only if it bites a real report.
+- **soft-404 plain-200** — a removed page returning 200 with no redirect still reads "live"; bounded, reassigned to the
+  skeptic-judge (semantic), documented not chased.
+
 **Known low-pri (deferred, surfaced by red-team — affect all gates, not one cycle):** annotated verdicts inside a
 bracket (`[PASS — note]`) are read as non-PASS; a `[GATE]:` line placed *outside* the fenced compliance block can
 overwrite a recorded verdict. Fix uniformly (normalize to the first token; scope parsing to the fence) if/when it
@@ -216,7 +234,7 @@ per cycle below.
   `link_check_effective: false`; `--check-links` is now a **no-op on HTML**; the URL regex stops at quotes; a
   wall-clock budget + truncation note bound the worst case; `--json` adds link keys only when the flag is set.
   Proved by an **offline unit test** (`tests/test_check_links.py`, mocked network → dead 2 · nxdomain 1 · suspect 1 ·
-  unverified 6 · live 3), now run in CI. Default eval 11/11, audit 100/0/0. Evidence preserved:
+  unverified 7 · live 3), now run in CI. Default eval 11/11, audit 100/0/0. Evidence preserved:
   `eval/dogfood-cbdc-2026-06-29.md`. Wired `--check-links` into `[L1]`/REPORT (research.md + SKILL.md).
 - **ACT** — **shipped.** Re-red-team came back **clean** (0 high, 0 regression, 23 items confirmed closed via a real
   local-server test). It surfaced one MED — `gaierror` was over-classified as NXDOMAIN, so a *transient* DNS failure

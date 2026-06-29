@@ -40,5 +40,6 @@ in Congress, but a permanent standalone statute is **not confirmed enacted**. `[
 [L4]:      Fallbacks and missing/blocked sources disclosed                  [PASS]
 [COST]:    Paid sources used? [NO]                                          [NO]
 [NULL]:    NEEDLE NOT FOUND was available and not fabricated over           [NA]
+[SKEPTIC]: leader (H3 prohibited) survived; H1/H2 broken; single-outlet statute claim downgraded to unconfirmed [PASS]
 [FINAL]:   VALID
 ```
