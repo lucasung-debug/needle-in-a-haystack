@@ -169,6 +169,13 @@ def analyze_html(text):
 _LINK_UA = {"User-Agent": "needle-in-a-haystack-linkcheck/1.0"}
 
 
+def _is_nxdomain(err):
+    """True only for a genuine 'name does not exist' (EAI_NONAME). Transient resolver failure (EAI_AGAIN) and
+    SERVFAIL (EAI_FAIL) are NOT fabrication evidence — they degrade to 'unverified', never failing the gate."""
+    reason = getattr(err, "reason", None)
+    return isinstance(reason, socket.gaierror) and getattr(reason, "errno", None) == socket.EAI_NONAME
+
+
 def _probe_once(url, method, timeout):
     req = urllib.request.Request(url, method=method, headers=_LINK_UA)
     with urllib.request.urlopen(req, timeout=timeout) as r:
@@ -194,13 +201,13 @@ def _classify_url(url, timeout):
             except urllib.error.HTTPError as e2:
                 code, final = e2.code, url
             except urllib.error.URLError as e2:
-                return ("nxdomain", None) if isinstance(getattr(e2, "reason", None), socket.gaierror) else ("unverified", "unreachable")
+                return ("nxdomain", None) if _is_nxdomain(e2) else ("unverified", "unreachable")
             except Exception:
                 return ("unverified", "unreachable")
         else:
             code, final = e.code, url
     except urllib.error.URLError as e:
-        return ("nxdomain", None) if isinstance(getattr(e, "reason", None), socket.gaierror) else ("unverified", "unreachable")
+        return ("nxdomain", None) if _is_nxdomain(e) else ("unverified", "unreachable")
     except Exception:
         return ("unverified", "unreachable")
 

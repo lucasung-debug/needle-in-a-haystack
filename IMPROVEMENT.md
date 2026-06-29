@@ -38,7 +38,8 @@ the loop that makes that repeatable instead of ad hoc.
 | skill-enhancer audit | quality | 100 | 100 |
 | FALSIFY failure modes (skeptic-judge) | trust | 0 | 7, per-claim (red-team 11/11 · 6/6) |
 | report formats | refinement | 1 (md) | 2 (md + html) |
-| CI regression guard | stability | none | GitHub Actions (eval on push/PR) |
+| CI regression guard | stability | none | GitHub Actions: eval + link-classifier unit test (push/PR) |
+| opt-in link-liveness | trust | none | --check-links (unit-tested, in CI) |
 
 ## Backlog (ranked; move the top item each cycle)
 
@@ -77,7 +78,7 @@ Standing plan; the top item moves each cycle.
 - **Coverage**: keep adding verified, free-first source domains + recipes as questions demand them.
 
 **Dogfood-derived backlog** (real cuts surfaced by running the skill end-to-end on a live CBDC question, 2026-06-29; ranked by trust value):
-- **Cycle 11 — link liveness** (opt-in `--check-links`): the gate claimed `[L1] live` but verified nothing.
+- **✓ Cycle 11 — link liveness** (opt-in `--check-links`): the gate claimed `[L1] live` but verified nothing. Shipped (red-team found + fixed 6 high; unit-tested; in CI).
 - **Cycle 12 — bind the skeptic scorecard to the gate** (`[SKEPTIC]` structural presence/PASS): the judge verdict floated free of the report.
 - **Cycle 13 — retrieval-timestamp helper**: timestamps were hand-written (friction + fabrication temptation).
 - **Cycle 14 — lite-mode trigger**: full FRAME is heavy for a quick "is this true?" check.
@@ -212,7 +213,13 @@ per cycle below.
   Proved by an **offline unit test** (`tests/test_check_links.py`, mocked network → dead 2 · nxdomain 1 · suspect 1 ·
   unverified 6 · live 3), now run in CI. Default eval 11/11, audit 100/0/0. Evidence preserved:
   `eval/dogfood-cbdc-2026-06-29.md`. Wired `--check-links` into `[L1]`/REPORT (research.md + SKILL.md).
-- **ACT** — committed the fix + test; **re-red-team in flight** to confirm the 6 highs are closed with no regression.
+- **ACT** — **shipped.** Re-red-team came back **clean** (0 high, 0 regression, 23 items confirmed closed via a real
+  local-server test). It surfaced one MED — `gaierror` was over-classified as NXDOMAIN, so a *transient* DNS failure
+  (EAI_AGAIN / SERVFAIL) on a live source could fail the gate — fixed (NXDOMAIN now requires `EAI_NONAME`; the unit
+  test covers EAI_NONAME→nxdomain vs EAI_AGAIN→unverified). Documented residual *boundaries* (not regressions): a
+  plain-200 soft-404 with no redirect still reads "live" (the limit of a status-only probe — the skeptic-judge's
+  semantic job), and a suspect-only probe still reports `effective:true`. The loop caught a buggy first cut and
+  converged it to correct **in-cycle** — which is the point.
 
 ### Red-team campaign — 2026-06-22 — 5 rounds, 21/21 (goal: "반증 5회")
 - **RT1 HTML gate 7/7 · RT2 NNF gate 4/4 · RT3 skeptic-judge 4/4 · RT4 whole-gate sweep 4/4 · RT5 end-to-end 2/2.**

@@ -48,7 +48,8 @@ def _make_opener(table):
 
 
 def run():
-    nx = urllib.error.URLError(socket.gaierror(-2, "Name or service not known"))
+    nx = urllib.error.URLError(socket.gaierror(socket.EAI_NONAME, "Name or service not known"))
+    dnsagain = urllib.error.URLError(socket.gaierror(socket.EAI_AGAIN, "Temporary failure in name resolution"))
     transient = urllib.error.URLError(TimeoutError("timed out"))
     table = {
         "https://a/live": (200, 200),                              # live
@@ -61,7 +62,8 @@ def run():
         "https://a/teapot501": (501, 501),                         # not-implemented -> unverified
         "https://a/ratelimited": (429, 429),                       # rate -> unverified
         "https://a/badhead-get200": (400, 200),                    # 400 on HEAD, live GET -> live
-        "https://nope.invalidtld/x": (nx, nx),                     # NXDOMAIN -> nxdomain
+        "https://nope.invalidtld/x": (nx, nx),                     # NXDOMAIN (EAI_NONAME) -> nxdomain
+        "https://flaky.dnsagain/x": (dnsagain, dnsagain),          # transient DNS (EAI_AGAIN) -> unverified
         "https://a/timeout": (transient, transient),               # transient -> unverified
         "https://a/deep/path": ((200, "https://a/"), (200, "https://a/")),  # 200 but redirected to root -> suspect
     }
@@ -86,7 +88,8 @@ def run():
         "nxdomain": {"https://nope.invalidtld/x"},
         "suspect": {"https://a/deep/path"},
         "unverified": {"https://a/persist503", "https://a/forbidden", "https://a/method",
-                       "https://a/teapot501", "https://a/ratelimited", "https://a/timeout"},
+                       "https://a/teapot501", "https://a/ratelimited", "https://a/timeout",
+                       "https://flaky.dnsagain/x"},
         "live": {"https://a/live", "https://a/head500-get200", "https://a/badhead-get200"},
     }
     for k in expect:
