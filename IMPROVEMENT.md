@@ -76,6 +76,16 @@ Standing plan; the top item moves each cycle.
   independent-source count (weakest wins), not just the headline.
 - **Coverage**: keep adding verified, free-first source domains + recipes as questions demand them.
 
+**Dogfood-derived backlog** (real cuts surfaced by running the skill end-to-end on a live CBDC question, 2026-06-29; ranked by trust value):
+- **Cycle 11 — link liveness** (opt-in `--check-links`): the gate claimed `[L1] live` but verified nothing.
+- **Cycle 12 — bind the skeptic scorecard to the gate** (`[SKEPTIC]` structural presence/PASS): the judge verdict floated free of the report.
+- **Cycle 13 — retrieval-timestamp helper**: timestamps were hand-written (friction + fabrication temptation).
+- **Cycle 14 — lite-mode trigger**: full FRAME is heavy for a quick "is this true?" check.
+- **Cycle 15 — primary-over-secondary nudge**: a blog was cited for an EO instead of the Federal Register primary.
+
+This campaign runs as a self-paced `/loop`: each cycle is checked by subagents (ultracode) — a plan-vs-research
+**adequacy critic** plus an adversarial **red-team** — before it ships. ≥5 cycles.
+
 **Hardening campaign:** every new deterministic check earns an adversarial red-team (FP + bypass). This round runs
 five — RT1 HTML gate · RT2 NNF gate · RT3 deeper skeptic-judge · RT4 whole-gate sweep · RT5 end-to-end — recorded
 per cycle below.
@@ -181,6 +191,18 @@ per cycle below.
   (including the "UNANSWERABLE" phrasing); a found-needle report mentioning "needle not found" only in *prose* was
   correctly NOT false-positived.
 - **ACT** — shipped.
+
+### Cycle 11 — 2026-06-29 — Trust: opt-in link-liveness (dogfood cut #1)
+- **PLAN** — a real dogfood run (the CBDC question) showed the gate *claims* `[L1] verified live` but verifies
+  nothing: a dead or fabricated URL with valid format passes. Close it without breaking the offline gate.
+- **DO** — `compliance_check.py --check-links` (opt-in): probes each cited URL (HEAD→GET, stdlib `urllib`); a
+  definitively-gone URL (4xx/5xx, excluding 401/403/429 = access/rate) → violation; transient / TLS / proxy →
+  "unverified", never fails the gate. Network-dependent, so deliberately OUTSIDE the frozen eval/CI. Default behavior
+  unchanged.
+- **CHECK** — default eval 11/11, audit 100/0/0, `py_compile` OK; `--check-links` smoke degrades gracefully (this
+  proxied env marks all "unverified", gate still passes — the resilient path). Ultracode verification (plan-vs-research
+  adequacy critic + adversarial red-team of the link-check logic) **in flight**.
+- **ACT** — committed build; finalize after the workflow.
 
 ### Red-team campaign — 2026-06-22 — 5 rounds, 21/21 (goal: "반증 5회")
 - **RT1 HTML gate 7/7 · RT2 NNF gate 4/4 · RT3 skeptic-judge 4/4 · RT4 whole-gate sweep 4/4 · RT5 end-to-end 2/2.**

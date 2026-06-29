@@ -16,6 +16,8 @@ import argparse
 import json
 import re
 import sys
+import urllib.error
+import urllib.request
 
 REQUIRED_GATES = ["FRAME", "ABDUCT", "FALSIFY", "INDEP", "C", "L1", "L2", "L3", "L4", "COST", "NULL", "FINAL"]
 # Gates whose only acceptable resolved verdict is PASS:
@@ -161,10 +163,53 @@ def analyze_html(text):
     return list(dict.fromkeys(v))
 
 
+def check_links_live(text, timeout=6, limit=40):
+    """Opt-in (--check-links) best-effort liveness probe for cited URLs. Network-dependent, so it lives OUTSIDE
+    the deterministic gate/eval. Returns (dead, unverified): dead = definitively gone (4xx/5xx that mean 'not here');
+    unverified = transient / unreachable / TLS / access-limited — reported, never failed (a flaky network or a proxy
+    must not fail the gate). 401/403/429 are access/rate signals, not 'gone', so they are unverified, not dead."""
+    dead, unverified, seen = [], [], set()
+    ua = {"User-Agent": "needle-in-a-haystack-linkcheck/1.0"}
+    for raw_url in URL.findall(text):
+        url = raw_url.rstrip(".,);]")
+        if url in seen:
+            continue
+        seen.add(url)
+        if len(seen) > limit:
+            break
+
+        def fetch(method):
+            req = urllib.request.Request(url, method=method, headers=ua)
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return getattr(r, "status", None) or r.getcode()
+
+        try:
+            code = fetch("HEAD")
+        except urllib.error.HTTPError as e:
+            code = e.code
+            if code in (403, 405, 501):  # HEAD is often refused; confirm with a GET before judging
+                try:
+                    code = fetch("GET")
+                except urllib.error.HTTPError as e2:
+                    code = e2.code
+                except Exception:
+                    unverified.append((url, "unreachable")); continue
+        except Exception:
+            unverified.append((url, "unreachable")); continue
+
+        if code in (401, 403, 429):
+            unverified.append((url, f"http {code}"))
+        elif 400 <= code < 600:
+            dead.append((url, code))
+    return dead, unverified
+
+
 def main():
     ap = argparse.ArgumentParser(description="Compliance gate for needle-in-a-haystack outputs.")
     ap.add_argument("path", help="path to a finished research output (markdown)")
     ap.add_argument("--json", action="store_true", help="emit JSON report")
+    ap.add_argument("--check-links", action="store_true",
+                    help="best-effort network liveness probe of cited URLs (opt-in; NOT part of the offline gate)")
     args = ap.parse_args()
 
     try:
@@ -178,6 +223,14 @@ def main():
         violations, gates = analyze_html(text), {}
     else:
         violations, gates = analyze(text)
+
+    link_notes = []
+    if args.check_links:
+        dead, unverified = check_links_live(text)
+        for url, code in dead:
+            violations.append(f"cited source appears dead (HTTP {code}): {url} — LAW 0 live-link discipline")
+        link_notes = [f"unverified ({why}, not counted against the gate): {u}" for u, why in unverified]
+    violations = list(dict.fromkeys(violations))
     passed = not violations
 
     if args.json:
@@ -186,6 +239,7 @@ def main():
             "passed": passed,
             "violations": violations,
             "gates_found": sorted(gates.keys()),
+            "link_unverified": link_notes,
         }, ensure_ascii=False, indent=2))
     else:
         if passed:
@@ -194,6 +248,8 @@ def main():
             print("FAIL — compliance gate violations:")
             for v in violations:
                 print(f"  - {v}")
+        for n in link_notes:
+            print(f"  · {n}")
     print(f"compliance_pass: {1 if passed else 0}")
     sys.exit(0 if passed else 1)
 
