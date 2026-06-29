@@ -14,5 +14,6 @@
   "good-report-html": 0,
   "bad-report-html-external": 1,
   "bad-nnf-contradiction": 1,
-  "bad-skeptic-fail": 1
+  "bad-skeptic-fail": 1,
+  "bad-null-dodge": 1
 }

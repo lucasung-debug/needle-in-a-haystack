@@ -131,6 +131,10 @@ def analyze(text):
     )
     if final_valid and headline_nnf and null_verdict == "NA":
         violations.append("the answer declares NEEDLE NOT FOUND / UNANSWERABLE but [NULL]=NA (NA means a needle was found) — set [NULL]=PASS for a genuine null result")
+    # Symmetric half: [NULL]=PASS claims a null result, so the headline MUST be NEEDLE NOT FOUND. Otherwise a
+    # found-needle output could mark [NULL]=PASS to dodge the §9 [SKEPTIC] requirement (the exemption is forgeable).
+    if final_valid and null_verdict == "PASS" and not headline_nnf:
+        violations.append("[NULL]=PASS declares a null result but the answer/headline asserts a found needle — set [NULL]=NA and supply a PASS [SKEPTIC] verdict (or make the headline NEEDLE NOT FOUND)")
 
     # 9. Skeptic-judge binding: a found-needle VALID output (FALSIFY=PASS, not a null result) must carry a *resolved
     #    PASS* [SKEPTIC] verdict — the falsify-skeptic.md scorecard — so the judge's verdict is auditable in the gated

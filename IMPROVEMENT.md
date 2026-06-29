@@ -30,10 +30,10 @@ the loop that makes that repeatable instead of ad hoc.
 
 | Metric | Vector | Baseline | Now |
 |---|---|---|---|
-| detection rate | trust · stability | 1.00 (8/8) | 1.00 (12/12) |
+| detection rate | trust · stability | 1.00 (8/8) | 1.00 (13/13) |
 | false-positive rate | trust | 0.00 (0/2) | 0.00 (0/3) |
-| compliance checks | trust | 13 | 17 |
-| eval fixtures | stability | 10 | 15 |
+| compliance checks | trust | 13 | 18 |
+| eval fixtures | stability | 10 | 16 |
 | source-catalog domains | coverage | 6 | 10 |
 | skill-enhancer audit | quality | 100 | 100 |
 | FALSIFY failure modes (skeptic-judge) | trust | 0 | 7, per-claim (red-team 11/11 · 6/6) |
@@ -86,6 +86,11 @@ Standing plan; the top item moves each cycle.
 
 This campaign runs as a self-paced `/loop`: each cycle is checked by subagents (ultracode) — a plan-vs-research
 **adequacy critic** plus an adversarial **red-team** — before it ships. ≥5 cycles.
+
+**Known low-pri (deferred, surfaced by red-team — affect all gates, not one cycle):** annotated verdicts inside a
+bracket (`[PASS — note]`) are read as non-PASS; a `[GATE]:` line placed *outside* the fenced compliance block can
+overwrite a recorded verdict. Fix uniformly (normalize to the first token; scope parsing to the fence) if/when it
+bites a real output — neither is reachable by a normally-formatted, template-following report.
 
 **Hardening campaign:** every new deterministic check earns an adversarial red-team (FP + bypass). This round runs
 five — RT1 HTML gate · RT2 NNF gate · RT3 deeper skeptic-judge · RT4 whole-gate sweep · RT5 end-to-end — recorded
@@ -229,9 +234,17 @@ per cycle below.
   substance — Cycle 2 lesson). Added `[SKEPTIC]` to the compliance-block snippet + research.md block; wired
   falsify-skeptic.md + SKILL.md to record it; fixture `bad-skeptic-fail` (`[SKEPTIC]=REWORK` → caught); good-positive
   gains `[SKEPTIC]=PASS`. Null results, HTML, and INVALID outputs are exempt.
-- **CHECK** — eval **12/12**, FP 0/3, audit 100/0/0, link unit test green; `bad-skeptic-fail` caught by the §9 check
-  alone. Ultracode verification (adequacy + red-team) **in flight**.
-- **ACT** — committed build; finalize after the workflow.
+- **CHECK** — eval 12/12, FP 0/3, audit 100/0/0; ultracode verification (adequacy + red-team) **confirmed a HIGH
+  loophole live**: the `[NULL]=PASS` exemption was *forgeable* — a found-needle could mark `[NULL]=PASS`, drop
+  `[SKEPTIC]`, and pass clean (§8 only caught the inverse: NNF headline + `[NULL]=NA`).
+- **FIX (same cycle)** — added the **symmetric §8 check**: `final_valid` + `[NULL]=PASS` + a non-NNF headline →
+  violation ("declares a null result but the answer asserts a found needle"). Fixture `bad-null-dodge` (found-needle
+  headline + `[NULL]=PASS` + no `[SKEPTIC]`) is caught by it alone; `good-negative` (NNF headline + `[NULL]=PASS`)
+  stays exempt. eval **13/13**, FP 0/3, audit 100/0/0, unit test green.
+- **ACT** — **shipped.** Adequacy verdict: grounded + correctly scoped (structural, not a semantic gate — Cycle 2
+  lesson held). Two LOW *pre-existing* parser quirks the red-team noted (annotated `[PASS — note]` verdicts;
+  a `[GATE]:` prose line *outside* the fenced block overwriting a verdict) affect **all** gates, not §9 — logged to
+  the backlog, deferred.
 
 ### Red-team campaign — 2026-06-22 — 5 rounds, 21/21 (goal: "반증 5회")
 - **RT1 HTML gate 7/7 · RT2 NNF gate 4/4 · RT3 skeptic-judge 4/4 · RT4 whole-gate sweep 4/4 · RT5 end-to-end 2/2.**
