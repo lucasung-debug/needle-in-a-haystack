@@ -15,8 +15,11 @@ Exit 0 = passes the gate; exit 1 = a violation was found (do not ship the output
 import argparse
 import json
 import re
+import socket
 import sys
+import time
 import urllib.error
+import urllib.parse
 import urllib.request
 
 REQUIRED_GATES = ["FRAME", "ABDUCT", "FALSIFY", "INDEP", "C", "L1", "L2", "L3", "L4", "COST", "NULL", "FINAL"]
@@ -25,7 +28,7 @@ PASS_ONLY = ["FRAME", "ABDUCT", "FALSIFY", "INDEP", "C", "L1", "L2", "L3", "L4"]
 
 GATE_LINE = re.compile(r"^\[([A-Z0-9]+)\]\s*:\s*(.*)$")
 BRACKET = re.compile(r"\[([^\]]*)\]")
-URL = re.compile(r"https?://[^\s)>\]]+", re.I)
+URL = re.compile(r"https?://[^\s)>\]\"']+", re.I)
 ISO_TS = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z")
 FABRICATION_SMELLS = [
     "example.com", "<url>", "todo", "lorem ipsum", "placeholder-url", "http://example",
@@ -163,45 +166,83 @@ def analyze_html(text):
     return list(dict.fromkeys(v))
 
 
-def check_links_live(text, timeout=6, limit=40):
-    """Opt-in (--check-links) best-effort liveness probe for cited URLs. Network-dependent, so it lives OUTSIDE
-    the deterministic gate/eval. Returns (dead, unverified): dead = definitively gone (4xx/5xx that mean 'not here');
-    unverified = transient / unreachable / TLS / access-limited — reported, never failed (a flaky network or a proxy
-    must not fail the gate). 401/403/429 are access/rate signals, not 'gone', so they are unverified, not dead."""
-    dead, unverified, seen = [], [], set()
-    ua = {"User-Agent": "needle-in-a-haystack-linkcheck/1.0"}
-    for raw_url in URL.findall(text):
-        url = raw_url.rstrip(".,);]")
-        if url in seen:
-            continue
-        seen.add(url)
-        if len(seen) > limit:
-            break
+_LINK_UA = {"User-Agent": "needle-in-a-haystack-linkcheck/1.0"}
 
-        def fetch(method):
-            req = urllib.request.Request(url, method=method, headers=ua)
-            with urllib.request.urlopen(req, timeout=timeout) as r:
-                return getattr(r, "status", None) or r.getcode()
 
+def _probe_once(url, method, timeout):
+    req = urllib.request.Request(url, method=method, headers=_LINK_UA)
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return (getattr(r, "status", None) or r.getcode()), r.geturl()
+
+
+def _classify_url(url, timeout):
+    """Probe one URL. Returns one of:
+      ('dead', code)        — 404/410: definitively not here.
+      ('nxdomain', None)    — the domain does not resolve (strong fabrication/dead signal).
+      ('suspect', why)      — 2xx but a deep path redirected to the bare origin (likely soft-404 / removed).
+      ('unverified', why)   — transient/5xx/access(401/403/405/429/451/501)/TLS/proxy/timeout: a flaky or
+                              policy-restricted network must NEVER fail the gate, so these never count as dead.
+      ('live', code)        — reachable, real content path.
+    Only 404/410 and NXDOMAIN ever become gate violations; everything the probe could not positively kill is
+    'unverified'. HEAD is often refused/transient, so access/method/5xx codes are confirmed with a GET first."""
+    try:
+        code, final = _probe_once(url, "HEAD", timeout)
+    except urllib.error.HTTPError as e:
+        if e.code in (400, 401, 403, 405, 429, 451, 501) or e.code >= 500:
+            try:
+                code, final = _probe_once(url, "GET", timeout)
+            except urllib.error.HTTPError as e2:
+                code, final = e2.code, url
+            except urllib.error.URLError as e2:
+                return ("nxdomain", None) if isinstance(getattr(e2, "reason", None), socket.gaierror) else ("unverified", "unreachable")
+            except Exception:
+                return ("unverified", "unreachable")
+        else:
+            code, final = e.code, url
+    except urllib.error.URLError as e:
+        return ("nxdomain", None) if isinstance(getattr(e, "reason", None), socket.gaierror) else ("unverified", "unreachable")
+    except Exception:
+        return ("unverified", "unreachable")
+
+    if code in (404, 410):
+        return ("dead", code)
+    if code in (401, 403, 405, 429, 451, 501) or 500 <= code < 600:
+        return ("unverified", f"http {code}")
+    if 200 <= code < 400:
         try:
-            code = fetch("HEAD")
-        except urllib.error.HTTPError as e:
-            code = e.code
-            if code in (403, 405, 501):  # HEAD is often refused; confirm with a GET before judging
-                try:
-                    code = fetch("GET")
-                except urllib.error.HTTPError as e2:
-                    code = e2.code
-                except Exception:
-                    unverified.append((url, "unreachable")); continue
+            want = urllib.parse.urlsplit(url).path.strip("/")
+            got = urllib.parse.urlsplit(final).path.strip("/")
         except Exception:
-            unverified.append((url, "unreachable")); continue
+            want = got = ""
+        if want and not got:  # deep path redirected to bare origin -> likely soft-404 / moved
+            return ("suspect", "redirected to homepage")
+        return ("live", code)
+    return ("unverified", f"http {code}")
 
-        if code in (401, 403, 429):
-            unverified.append((url, f"http {code}"))
-        elif 400 <= code < 600:
-            dead.append((url, code))
-    return dead, unverified
+
+def check_links_live(text, timeout=5, limit=40, budget=60.0):
+    """Opt-in (--check-links) best-effort liveness probe for cited URLs. Network-dependent, so it lives OUTSIDE the
+    deterministic gate/eval. Returns a dict: dead [(url,code)] (404/410), nxdomain [url], suspect [(url,why)],
+    unverified [(url,why)], skipped (count past limit/time budget), probed (count reached). Only dead + nxdomain
+    become gate violations; a flaky or policy-restricted network can never fail the gate (it degrades to unverified).
+    A global wall-clock budget bounds the worst case (HEAD+GET doubling × slow hosts)."""
+    out = {"dead": [], "nxdomain": [], "suspect": [], "unverified": [], "skipped": 0, "probed": 0}
+    seen = []
+    for raw_url in URL.findall(text):
+        u = raw_url.rstrip(".,;")
+        if u not in seen:
+            seen.append(u)
+    start = time.monotonic()
+    for u in seen:
+        if out["probed"] >= limit or (time.monotonic() - start) > budget:
+            out["skipped"] = len(seen) - out["probed"]
+            break
+        out["probed"] += 1
+        kind, detail = _classify_url(u, timeout)
+        if kind == "live":
+            continue
+        out[kind].append(u if kind == "nxdomain" else (u, detail))
+    return out
 
 
 def main():
@@ -219,28 +260,40 @@ def main():
         print(f"compliance_pass: 0\nerror: cannot read {args.path}: {exc}", file=sys.stderr)
         sys.exit(2)
 
-    if args.path.lower().endswith((".html", ".htm")):
+    is_html = args.path.lower().endswith((".html", ".htm"))
+    if is_html:
         violations, gates = analyze_html(text), {}
     else:
         violations, gates = analyze(text)
 
     link_notes = []
-    if args.check_links:
-        dead, unverified = check_links_live(text)
-        for url, code in dead:
-            violations.append(f"cited source appears dead (HTTP {code}): {url} — LAW 0 live-link discipline")
-        link_notes = [f"unverified ({why}, not counted against the gate): {u}" for u, why in unverified]
+    link_effective = None
+    if args.check_links and not is_html:  # link-check applies to markdown reports, not the HTML view
+        lc = check_links_live(text)
+        for url, code in lc["dead"]:
+            violations.append(f"cited source is dead (HTTP {code}): {url} — LAW 0 live-link discipline")
+        for url in lc["nxdomain"]:
+            violations.append(f"cited source domain does not resolve (NXDOMAIN): {url} — likely fabricated or dead (LAW 0)")
+        for url, why in lc["suspect"]:
+            link_notes.append(f"SUSPECT ({why}; a 200 is not proof the cited content exists — verify): {url}")
+        for url, why in lc["unverified"]:
+            link_notes.append(f"unverified ({why}, not counted against the gate): {url}")
+        if lc["skipped"]:
+            link_notes.append(f"link check truncated: {lc['skipped']} URL(s) beyond the limit/time budget were not probed")
+        # Inert-probe warning: if every reachable answer was 'unverified', the probe confirmed nothing.
+        link_effective = bool(lc["probed"]) and (lc["probed"] - len(lc["unverified"])) > 0
+        if lc["probed"] and not link_effective:
+            print("WARNING: --check-links was INERT — no cited URL could be reached "
+                  "(offline / proxy / network policy). Liveness is UNVERIFIED, not confirmed.", file=sys.stderr)
     violations = list(dict.fromkeys(violations))
     passed = not violations
 
+    payload = {"path": args.path, "passed": passed, "violations": violations, "gates_found": sorted(gates.keys())}
+    if args.check_links and not is_html:
+        payload["link_notes"] = link_notes
+        payload["link_check_effective"] = link_effective
     if args.json:
-        print(json.dumps({
-            "path": args.path,
-            "passed": passed,
-            "violations": violations,
-            "gates_found": sorted(gates.keys()),
-            "link_unverified": link_notes,
-        }, ensure_ascii=False, indent=2))
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
     else:
         if passed:
             print("OK — compliance gate passed")

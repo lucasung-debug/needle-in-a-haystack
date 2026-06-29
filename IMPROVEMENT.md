@@ -199,10 +199,20 @@ per cycle below.
   definitively-gone URL (4xx/5xx, excluding 401/403/429 = access/rate) → violation; transient / TLS / proxy →
   "unverified", never fails the gate. Network-dependent, so deliberately OUTSIDE the frozen eval/CI. Default behavior
   unchanged.
-- **CHECK** — default eval 11/11, audit 100/0/0, `py_compile` OK; `--check-links` smoke degrades gracefully (this
-  proxied env marks all "unverified", gate still passes — the resilient path). Ultracode verification (plan-vs-research
-  adequacy critic + adversarial red-team of the link-check logic) **in flight**.
-- **ACT** — committed build; finalize after the workflow.
+- **CHECK** — ultracode verification (adequacy critic + 4-lens red-team) found the first cut **buggy**: adequacy
+  verdict "adequate but evidence-thin", and the red-team confirmed **6 high** + 9 med — the probe failed *live*
+  sources (5xx/405/501/400 → DEAD), let *dead* ones pass (soft-404 HTTP 200, NXDOMAIN, 403-gone), ran on the HTML
+  path, swallowed trailing quotes (`href="…"` → false 404), and was a silent **no-op** under a proxy/offline (all
+  "unverified", gate green = false assurance).
+- **FIX (same cycle)** — redesigned `check_links_live`: **dead = only 404/410 + NXDOMAIN**; everything the probe
+  can't positively kill (5xx, 401/403/405/429/451/501, TLS/proxy/timeout) → `unverified` (never fails the gate);
+  a 2xx that redirected a deep path to the bare origin → `suspect`; an inert probe → loud `WARNING` +
+  `link_check_effective: false`; `--check-links` is now a **no-op on HTML**; the URL regex stops at quotes; a
+  wall-clock budget + truncation note bound the worst case; `--json` adds link keys only when the flag is set.
+  Proved by an **offline unit test** (`tests/test_check_links.py`, mocked network → dead 2 · nxdomain 1 · suspect 1 ·
+  unverified 6 · live 3), now run in CI. Default eval 11/11, audit 100/0/0. Evidence preserved:
+  `eval/dogfood-cbdc-2026-06-29.md`. Wired `--check-links` into `[L1]`/REPORT (research.md + SKILL.md).
+- **ACT** — committed the fix + test; **re-red-team in flight** to confirm the 6 highs are closed with no regression.
 
 ### Red-team campaign — 2026-06-22 — 5 rounds, 21/21 (goal: "반증 5회")
 - **RT1 HTML gate 7/7 · RT2 NNF gate 4/4 · RT3 skeptic-judge 4/4 · RT4 whole-gate sweep 4/4 · RT5 end-to-end 2/2.**

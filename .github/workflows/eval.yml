@@ -15,6 +15,8 @@ jobs:
         with:
           python-version: "3.x"
       - name: Syntax check
-        run: python -m py_compile scripts/compliance_check.py eval/runner.py
+        run: python -m py_compile scripts/compliance_check.py eval/runner.py tests/test_check_links.py
       - name: Frozen eval (detection==1.0, FP==0)
         run: python eval/runner.py
+      - name: Link-classifier unit test (offline, mocked network)
+        run: python tests/test_check_links.py
