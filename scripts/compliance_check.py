@@ -132,6 +132,18 @@ def analyze(text):
     if final_valid and headline_nnf and null_verdict == "NA":
         violations.append("the answer declares NEEDLE NOT FOUND / UNANSWERABLE but [NULL]=NA (NA means a needle was found) — set [NULL]=PASS for a genuine null result")
 
+    # 9. Skeptic-judge binding: a found-needle VALID output (FALSIFY=PASS, not a null result) must carry a *resolved
+    #    PASS* [SKEPTIC] verdict — the falsify-skeptic.md scorecard — so the judge's verdict is auditable in the gated
+    #    artifact instead of floating free. (Structural only: the token must be present and PASS; the judge owns the
+    #    substance.) Null results ([NULL]=PASS) and non-VALID outputs are exempt.
+    falsify_pass = gates.get("FALSIFY", {}).get("verdict") == "PASS"
+    if final_valid and falsify_pass and null_verdict != "PASS":
+        skeptic = gates.get("SKEPTIC")
+        if skeptic is None:
+            violations.append("a found-needle VALID output carries no [SKEPTIC] verdict — bind the skeptic-judge scorecard (falsify-skeptic.md) into the compliance block; it must not float free")
+        elif "/" not in skeptic["verdict"] and skeptic["verdict"] != "PASS":
+            violations.append(f"[SKEPTIC] is {skeptic['verdict'] or 'empty'} — the skeptic-judge did not pass; rework the finding, do not ship")
+
     # de-duplicate while preserving order
     violations = list(dict.fromkeys(violations))
     return violations, gates

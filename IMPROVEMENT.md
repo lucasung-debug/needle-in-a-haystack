@@ -30,10 +30,10 @@ the loop that makes that repeatable instead of ad hoc.
 
 | Metric | Vector | Baseline | Now |
 |---|---|---|---|
-| detection rate | trust · stability | 1.00 (8/8) | 1.00 (11/11) |
+| detection rate | trust · stability | 1.00 (8/8) | 1.00 (12/12) |
 | false-positive rate | trust | 0.00 (0/2) | 0.00 (0/3) |
-| compliance checks | trust | 13 | 16 |
-| eval fixtures | stability | 10 | 14 |
+| compliance checks | trust | 13 | 17 |
+| eval fixtures | stability | 10 | 15 |
 | source-catalog domains | coverage | 6 | 10 |
 | skill-enhancer audit | quality | 100 | 100 |
 | FALSIFY failure modes (skeptic-judge) | trust | 0 | 7, per-claim (red-team 11/11 · 6/6) |
@@ -79,7 +79,7 @@ Standing plan; the top item moves each cycle.
 
 **Dogfood-derived backlog** (real cuts surfaced by running the skill end-to-end on a live CBDC question, 2026-06-29; ranked by trust value):
 - **✓ Cycle 11 — link liveness** (opt-in `--check-links`): the gate claimed `[L1] live` but verified nothing. Shipped (red-team found + fixed 6 high; unit-tested; in CI).
-- **Cycle 12 — bind the skeptic scorecard to the gate** (`[SKEPTIC]` structural presence/PASS): the judge verdict floated free of the report.
+- **✓ Cycle 12 — bind the skeptic scorecard to the gate** (`[SKEPTIC]` structural presence/PASS): a found-needle VALID output must carry `[SKEPTIC]=PASS`. Shipped (build); verify in flight.
 - **Cycle 13 — retrieval-timestamp helper**: timestamps were hand-written (friction + fabrication temptation).
 - **Cycle 14 — lite-mode trigger**: full FRAME is heavy for a quick "is this true?" check.
 - **Cycle 15 — primary-over-secondary nudge**: a blog was cited for an EO instead of the Federal Register primary.
@@ -220,6 +220,18 @@ per cycle below.
   plain-200 soft-404 with no redirect still reads "live" (the limit of a status-only probe — the skeptic-judge's
   semantic job), and a suspect-only probe still reports `effective:true`. The loop caught a buggy first cut and
   converged it to correct **in-cycle** — which is the point.
+
+### Cycle 12 — 2026-06-29 — Trust: bind the skeptic scorecard to the gate (dogfood cut #2)
+- **PLAN** — the dogfood showed the skeptic-judge verdict floated free of the report: a found-needle could ship with
+  `[FALSIFY]=PASS` but no auditable scorecard verdict in the gated artifact.
+- **DO** — `compliance_check.py` §9: a found-needle VALID output (FALSIFY=PASS, not a null result) must carry a
+  resolved **`[SKEPTIC]=PASS`**; absent or non-PASS → violation. Structural only (token presence/PASS; the judge owns
+  substance — Cycle 2 lesson). Added `[SKEPTIC]` to the compliance-block snippet + research.md block; wired
+  falsify-skeptic.md + SKILL.md to record it; fixture `bad-skeptic-fail` (`[SKEPTIC]=REWORK` → caught); good-positive
+  gains `[SKEPTIC]=PASS`. Null results, HTML, and INVALID outputs are exempt.
+- **CHECK** — eval **12/12**, FP 0/3, audit 100/0/0, link unit test green; `bad-skeptic-fail` caught by the §9 check
+  alone. Ultracode verification (adequacy + red-team) **in flight**.
+- **ACT** — committed build; finalize after the workflow.
 
 ### Red-team campaign — 2026-06-22 — 5 rounds, 21/21 (goal: "반증 5회")
 - **RT1 HTML gate 7/7 · RT2 NNF gate 4/4 · RT3 skeptic-judge 4/4 · RT4 whole-gate sweep 4/4 · RT5 end-to-end 2/2.**

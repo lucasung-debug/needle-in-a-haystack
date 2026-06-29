@@ -50,8 +50,10 @@ Score each: **clear** (attack fails, finding holds) · **weak** (a real soft spo
 - **NEEDLE NOT FOUND** — if no candidate can be made to survive, that is the correct terminal state (LAW: never
   fabricate a survivor). An honest null result is judged on modes 4–6 only; 1–3 (which need a positive needle) are `NA`.
 
-Record the verdict in `templates/skeptic-scorecard.snippet.md` and keep it with the output. An `[FALSIFY]=PASS` whose
-scorecard is missing, unresolved, or itself `REWORK` is not an honest pass.
+Record the verdict in `templates/skeptic-scorecard.snippet.md` and keep it with the output, **and carry the PASS/REWORK
+result into the compliance block as `[SKEPTIC]`** — the deterministic gate requires `[SKEPTIC]=PASS` for any shipped
+needle, so the judge's verdict is auditable and cannot float free. An `[FALSIFY]=PASS` whose scorecard is missing,
+unresolved, or itself `REWORK` is not an honest pass.
 
 ## Why this is a judge, not a regex
 

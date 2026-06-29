@@ -147,6 +147,7 @@ defects (incl. the no-needle case) at detection==1.0 & FP==0. Every research out
 [L4]:      Fallbacks and missing/blocked sources disclosed                  [PASS/FAIL]
 [COST]:    Paid sources used? [YES/NO]  If YES, explicit consent recorded [YES/NO]
 [NULL]:    NEEDLE NOT FOUND was available and not fabricated over           [PASS/FAIL/NA]
+[SKEPTIC]: Skeptic-judge scorecard verdict (falsify-skeptic.md); PASS required to ship a needle [PASS/REWORK]
 [FINAL]:   VALID / INVALID (redo if invalid)
 ```
 

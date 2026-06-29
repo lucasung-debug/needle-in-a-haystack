@@ -13,5 +13,6 @@
   "bad-unsourced-claim": 1,
   "good-report-html": 0,
   "bad-report-html-external": 1,
-  "bad-nnf-contradiction": 1
+  "bad-nnf-contradiction": 1,
+  "bad-skeptic-fail": 1
 }
