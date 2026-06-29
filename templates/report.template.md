@@ -21,9 +21,10 @@
 ## Conflicts / gaps
 - {{conflicting source or open gap, flagged not silently resolved}}
 
-## Confirmed vs. unconfirmed
-- **Confirmed** (retrieved + corroborated by ≥2 independent sources): {{claim}} `[retrieved]`
-- **Unconfirmed / unknown** (write "cannot confirm", never a hedge): {{open item}} `[assumed]`
+## Confirmed vs. unconfirmed (evidence-graded)
+Grade each load-bearing claim — **E1** controlled (RCT / experiment / systematic review) · **E2** corroborated (≥2 independent primary/observational sources agree) · **E3** single / self-report (one source, or a survey self-report) · **E4** vendor / anecdote (marketing or unverified). State the claim no stronger than its grade.
+- **Confirmed** (E1–E2): {{claim}} `[retrieved · E1|E2]`
+- **Unconfirmed / treat as a claim** (E3–E4 — write "cannot confirm", never present as proven): {{item}} `[assumed · E3|E4]`
 
 ## What would change the answer
 - {{the evidence that would overturn this}}

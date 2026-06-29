@@ -30,8 +30,10 @@ Score each: **clear** (attack fails, finding holds) · **weak** (a real soft spo
    **≥2 independent live sources**? One source — or one source recited under different URLs/outlets that trace to the
    same origin — ⇒ `fatal` (or `weak` if that source is a primary authority and the claim is narrow). Score the
    *weakest* load-bearing claim: a fully-sourced needle with one unsourced critical sub-claim is still `fatal`.
-3. **Over-association** — Is correlation / co-occurrence / name-match sold as **cause or identity**? Mechanism asserted
-   without a mechanism shown ⇒ `weak`→`fatal` by how load-bearing it is.
+3. **Over-association / evidence-inflation** — Is correlation / co-occurrence / name-match sold as **cause or identity**?
+   Mechanism asserted without a mechanism shown ⇒ `weak`→`fatal` by how load-bearing it is. **Also grade the evidence:**
+   a load-bearing claim stated as *established* but supported only at **E3/E4** (single self-report / survey / vendor /
+   anecdote) is `weak`→`fatal` — don't launder marketing or a lone survey into proof; scope the claim to its grade.
 4. **Source-bias transfer** — Do the sources share one origin, vendor, or agenda, so the finding just inherits their
    bias? No independent or *adversarial* source consulted ⇒ `weak`→`fatal`. Citing only *secondary* commentary for a
    fact that has a reachable *primary* source (official text/dataset/ruling) is `weak` — fetch and cite the primary.

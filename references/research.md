@@ -41,6 +41,9 @@ Timestamp format is ISO-8601 UTC (`YYYY-MM-DDThh:mm:ssZ`). Each source carries a
 `live | dead | throttled | paywalled | unverified`, checked at retrieval and again during L1 before shipping.
 **Prefer the primary source** — the official text/spec/dataset/ruling itself — over secondary commentary; if only a
 secondary source is at hand for a primary fact, cite it **and** link the primary (e.g. the Federal Register entry, not a blog about it).
+**Grade evidence strength** on each load-bearing claim — **E1** controlled (RCT/experiment/review) · **E2** corroborated
+(≥2 independent) · **E3** single/self-report · **E4** vendor/anecdote — and never state an E3/E4 claim as proven. A
+finding's claim strength ≤ its evidence grade (this is what separates a researched answer from laundered hype).
 
 ---
 
