@@ -33,7 +33,8 @@ Score each: **clear** (attack fails, finding holds) · **weak** (a real soft spo
 3. **Over-association** — Is correlation / co-occurrence / name-match sold as **cause or identity**? Mechanism asserted
    without a mechanism shown ⇒ `weak`→`fatal` by how load-bearing it is.
 4. **Source-bias transfer** — Do the sources share one origin, vendor, or agenda, so the finding just inherits their
-   bias? No independent or *adversarial* source consulted ⇒ `weak`→`fatal`.
+   bias? No independent or *adversarial* source consulted ⇒ `weak`→`fatal`. Citing only *secondary* commentary for a
+   fact that has a reachable *primary* source (official text/dataset/ruling) is `weak` — fetch and cite the primary.
 5. **Stale / retracted / superseded** — Is the newest authoritative source checked? Is any cited source retracted,
    deprecated, or superseded by a later version? Unchecked recency on a time-sensitive claim ⇒ `weak`→`fatal`.
 6. **Sycophancy / premise-adoption** — Does the finding mirror the asker's expectation or smuggle in their premise

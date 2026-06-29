@@ -82,7 +82,8 @@ If unsure which reference a phase needs, read `references/_index.md` first, then
 
 ## Templates & gates
 - `templates/` — fill placeholders only: `proposal.template.md` (조사계획서), `report.template.md`, `report.html` (self-contained, zero-dep shareable view), `framed-question.template.md`, `compliance-block.snippet.md`, `skeptic-scorecard.snippet.md`, `askuserquestion.snippet.json`.
-- `scripts/compliance_check.py` — the validator-as-gate for every output (exit non-zero = don't ship).
+- `scripts/compliance_check.py` — the validator-as-gate for every output (exit non-zero = don't ship). Add `--check-links` when online to verify `[L1]` live-links.
+- `scripts/now.py` — prints the current ISO-8601 UTC timestamp to stamp `[retrieved … Z]` source lines (don't hand-type it).
 - `eval/runner.py` — frozen regression: `python ${CLAUDE_SKILL_DIR}/eval/runner.py` (exit 0 = detection==1.0 & FP==0). After editing `compliance_check.py`, rerun it; raise the bar by adding adversarial fixtures, never by editing the judge.
 
 Keep scaffolding minimal — load depth only when the phase needs it. If the scaffolding becomes the haystack, the needle gets missed.

@@ -80,9 +80,9 @@ Standing plan; the top item moves each cycle.
 **Dogfood-derived backlog** (real cuts surfaced by running the skill end-to-end on a live CBDC question, 2026-06-29; ranked by trust value):
 - **✓ Cycle 11 — link liveness** (opt-in `--check-links`): the gate claimed `[L1] live` but verified nothing. Shipped (red-team found + fixed 6 high; unit-tested; in CI).
 - **✓ Cycle 12 — bind the skeptic scorecard to the gate** (`[SKEPTIC]` structural presence/PASS): a found-needle VALID output must carry `[SKEPTIC]=PASS`. Shipped (build); verify in flight.
-- **Cycle 13 — retrieval-timestamp helper**: timestamps were hand-written (friction + fabrication temptation).
-- **Cycle 14 — lite-mode trigger**: full FRAME is heavy for a quick "is this true?" check.
-- **Cycle 15 — primary-over-secondary nudge**: a blog was cited for an EO instead of the Federal Register primary.
+- **✓ Cycle 13 — retrieval-timestamp helper** (`scripts/now.py`): stamp sources at retrieval instead of hand-typing.
+- **✓ Cycle 14 — lite-mode trigger**: explicit rule for when to compress FRAME (one verifiable fact → lite; else full).
+- **✓ Cycle 15 — primary-over-secondary nudge**: prefer the official primary; if only a secondary, also link the primary.
 
 This campaign runs as a self-paced `/loop`: each cycle is checked by subagents (ultracode) — a plan-vs-research
 **adequacy critic** plus an adversarial **red-team** — before it ships. ≥5 cycles.
@@ -245,6 +245,23 @@ per cycle below.
   lesson held). Two LOW *pre-existing* parser quirks the red-team noted (annotated `[PASS — note]` verdicts;
   a `[GATE]:` prose line *outside* the fenced block overwriting a verdict) affect **all** gates, not §9 — logged to
   the backlog, deferred.
+
+### Cycle 13 — 2026-06-29 — Ergonomics: retrieval-timestamp helper (dogfood cut #3)
+- **PLAN/DO** — `scripts/now.py` prints the current ISO-8601 UTC stamp (stdlib one-liner) so authors stamp sources at
+  retrieval instead of hand-typing (which invites fabrication/drift). Wired into COLLECT (research.md), SKILL.md, and
+  the report template. **CHECK** — output matches the gate's `ISO_TS` exactly; `py_compile` OK; eval/audit unaffected.
+  Trivial helper → verified inline (no red-team warranted; ponytail). **ACT** — shipped.
+
+### Cycle 14 — 2026-06-29 — Ergonomics: sharpen the lite-mode trigger (dogfood cut #4)
+- **PLAN/DO** — the full framing dialogue was heavy for a quick "is this true?". Added an explicit lite-mode **trigger**
+  to research.md §Modes: lite when scope is obvious and the answer is one verifiable fact; full when
+  open/contested/multi-part/high-stakes; default to full when unsure. **CHECK** — doc-only; audit 100/0/0. **ACT** — shipped.
+
+### Cycle 15 — 2026-06-29 — Trust discipline: primary-over-secondary sources (dogfood cut #5)
+- **PLAN/DO** — the dogfood cited a law-firm blog for an executive order instead of the Federal Register primary. Added
+  a "prefer the primary source; if only a secondary is at hand, cite it AND link the primary" rule to LAW 0
+  (research.md) + a matching `weak` cue in falsify-skeptic.md mode 4 (source-bias). **CHECK** — doc-only; audit
+  100/0/0. **ACT** — shipped. Campaign-level adequacy/completeness review in flight.
 
 ### Red-team campaign — 2026-06-22 — 5 rounds, 21/21 (goal: "반증 5회")
 - **RT1 HTML gate 7/7 · RT2 NNF gate 4/4 · RT3 skeptic-judge 4/4 · RT4 whole-gate sweep 4/4 · RT5 end-to-end 2/2.**

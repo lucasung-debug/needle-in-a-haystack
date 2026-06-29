@@ -4,7 +4,8 @@
      A "needle found" output should keep a real, non-empty Ruled-out candidates / contrary-evidence entry —
      recorded falsification is a quality requirement (assessed in review, not by the format gate).
      Separate confirmed from unconfirmed; for anything unconfirmed, write "cannot confirm / 확인할 수 없습니다"
-     rather than hedging ("probably", "maybe", "I think", "아마", "대충") — state what the evidence supports, flag the rest. -->
+     rather than hedging ("probably", "maybe", "I think", "아마", "대충") — state what the evidence supports, flag the rest.
+     Stamp each source's retrieval time with scripts/now.py (ISO-8601 UTC) — never hand-type it. -->
 
 # BLUF — {{one-line answer, or "NEEDLE NOT FOUND / UNANSWERABLE"}}
 

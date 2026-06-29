@@ -24,7 +24,7 @@ Each phase carries the enforceable gate from `philosophy.md` §1. Loop back on a
 | **0 · FRAME** | FRAME | Run the **staged framing dialogue** (`dialogue.md`): doubt the request, surface assumptions, extract the real question with no premature topic/method. Use the **paradigm lens** (`paradigm.md`) to *branch the direction* of questioning — regularity/measurement · meaning · mechanism · what-works · power/change — which steers what counts as evidence. Output the negative condition (what shows there is no answerable needle). Don't fix a topic on reflex. | Framed-question object produced; inquiry direction set; sharpened question + success criteria + negative condition written **before** any search. |
 | **1 · DESIGN** | ABDUCT → DEDUCE | Generate **≥2** candidate answers *or* research designs. For a planning request, load `methodology.md` and emit the research proposal (조사계획서) from `../templates/proposal.template.md`; for a quick question, just hold ≥2 hypotheses. | ≥2 candidates held; each with checkable predictions / operationalized indicators. |
 | **2 · ROUTE & COST** | DEDUCE | Map each evidence need → source/API via `sources.md` (free/keyless first, then BYOK). Estimate calls + cost; apply the paid-consent interlock. When the best-fit source needs a key the user lacks, surface a **NICE-TO-HAVE** note (what it unlocks, tier, env var) instead of silently skipping the evidence. | Routing + cost plan stated; no paid call without recorded consent; missing-key sources surfaced, not dropped. |
-| **3 · COLLECT** | INDUCE | Retrieve. Test predictions against actual source text with exact locus. Run L3 isolation on everything fetched. Tag each fact `[retrieved | inferred]`. | Judgment uses retrieved evidence, never memory. |
+| **3 · COLLECT** | INDUCE | Retrieve. Test predictions against actual source text with exact locus. Run L3 isolation on everything fetched. Tag each fact `[retrieved | inferred]` and stamp each source at the moment of retrieval with `${CLAUDE_SKILL_DIR}/scripts/now.py` (ISO-8601 UTC) — never hand-type the time. | Judgment uses retrieved evidence, never memory. |
 | **4 · FALSIFY** | FALSIFY | Run the **skeptic-judge** (`falsify-skeptic.md`, author ≠ reviewer): attack the leading candidate across the seven named failure modes — confirmation-only, single-source/laundering, over-association, source-bias transfer, stale/retracted, sycophancy/premise, scope overreach — and fill `../templates/skeptic-scorecard.snippet.md`. | Scorecard verdict is **PASS** (zero `fatal` · leader survived ≥1 disconfirmation · ≥2 independent live sources); `[FALSIFY]=PASS` rests on that scorecard. |
 | **5 · SELF-CORRECT** | SELF-CORRECT | Scorecard PASS → Phase 6. `REWORK <mode#>`, tie, or contradiction → back to Phase 1 or 3, fix *that* mode, re-judge. No survivor → `NEEDLE NOT FOUND / UNANSWERABLE`. | Fabrication forbidden; "not found" is a valid, required terminal state. |
 | **6 · REPORT** | REPORT | Run L1 verification, draft from `../templates/report.template.md` (optionally also render `../templates/report.html` — a self-contained, zero-dep shareable view, rendered *from* the gate-passing `report.md`), then **gate the output**: `python ${CLAUDE_SKILL_DIR}/scripts/compliance_check.py <output.md>` must exit 0 before shipping. When network is available, add `--check-links` so `[L1] live` is *verified*, not asserted (offline → `unverified` is acceptable; never fabricate "live"). | Claim strength ≤ evidence strength; the gate script passes; `[L1] live` is backed by `--check-links` when online. |
@@ -39,6 +39,8 @@ finding — it is a hypothesis, and must be labeled as such.**
 
 Timestamp format is ISO-8601 UTC (`YYYY-MM-DDThh:mm:ssZ`). Each source carries a live-link status:
 `live | dead | throttled | paywalled | unverified`, checked at retrieval and again during L1 before shipping.
+**Prefer the primary source** — the official text/spec/dataset/ruling itself — over secondary commentary; if only a
+secondary source is at hand for a primary fact, cite it **and** link the primary (e.g. the Federal Register entry, not a blog about it).
 
 ---
 
@@ -110,7 +112,9 @@ The full cycle is the default; the abduction loop is *mandatory at every size*. 
 - **Plan mode** — request asks for a study/investigation/조사계획서. Run all 7 phases; load `methodology.md`; Phase 1
   emits the full research proposal; Phase 6 may ship the proposal alone (plan deliverable) or proposal + executed findings.
 - **Full-cycle mode** — open research question. All 7 phases; `methodology.md` loaded only if a design decision needs it.
-- **Lite / chat mode** — a single factual question in conversation. Compress the framing dialogue to one pass
+- **Lite / chat mode** — a single factual question in conversation. **Trigger:** scope is obvious and the answer is one
+  verifiable fact ("is X true?", "what's the default of Y?"); if the question is open, contested, multi-part, or
+  high-stakes, use full-cycle — when unsure, default to full. Compress the framing dialogue to one pass
   (`dialogue.md` §5) and Phases 1–2 (hold ≥2 hypotheses in-head, skip the formal proposal and routing table), but
   **never drop**: a one-line FRAME + an implied inquiry direction + negative condition, ≥2 candidates, a falsification pass,
   provenance on every claim, the `NEEDLE NOT FOUND` option, and a confidence + what-would-change-it line.
