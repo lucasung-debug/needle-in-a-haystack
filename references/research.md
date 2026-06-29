@@ -29,6 +29,11 @@ Each phase carries the enforceable gate from `philosophy.md` §1. Loop back on a
 | **5 · SELF-CORRECT** | SELF-CORRECT | Scorecard PASS → Phase 6. `REWORK <mode#>`, tie, or contradiction → back to Phase 1 or 3, fix *that* mode, re-judge. No survivor → `NEEDLE NOT FOUND / UNANSWERABLE`. | Fabrication forbidden; "not found" is a valid, required terminal state. |
 | **6 · REPORT** | REPORT | Run L1 verification, draft from `../templates/report.template.md` (optionally also render `../templates/report.html` — a self-contained, zero-dep shareable view, rendered *from* the gate-passing `report.md`), then **gate the output**: `python ${CLAUDE_SKILL_DIR}/scripts/compliance_check.py <output.md>` must exit 0 before shipping. When network is available, add `--check-links` so `[L1] live` is *verified*, not asserted (offline → `unverified` is acceptable; never fabricate "live"). | Claim strength ≤ evidence strength; the gate script passes; `[L1] live` is backed by `--check-links` when online. |
 
+> **Audience rendering (any mode).** Lead the human-facing output with the answer + a one-word **Confidence** +
+> what-to-do, in plain language — no `[SKEPTIC]`/LAW-0 jargon in the headline. Keep the compliance block + provenance
+> as an *audit appendix*. The deterministic gate always runs on the full artifact (`templates/report.template.md`);
+> the brief is the view of it (like `templates/report.html`). The machinery is how we earn trust, not how we pitch it.
+
 ---
 
 ## LAW 0 — PROVENANCE (the one rule above all else)

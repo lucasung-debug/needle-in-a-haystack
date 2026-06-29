@@ -281,6 +281,17 @@ per cycle below.
   (research.md) + a matching `weak` cue in falsify-skeptic.md mode 4 (source-bias). **CHECK** — doc-only; audit
   100/0/0. **ACT** — shipped. Campaign-level adequacy/completeness review in flight.
 
+### Dogfood #2 (HR × AI productivity) → Cycles 16-17 — 2026-06-29
+Ran the skill end-to-end on a real, hype-prone question ("AI for HR productivity", non-developer angle). The gated
+report passed; FALSIFY scoped the needle to **task-level proven, org-level unproven** — separating RCT evidence from
+vendor/self-report. Two purpose-aligned cuts fell out (plus a first-principles insight: *the machinery isn't the pitch*):
+- **✓ Cycle 16 — evidence-strength tiers (E1–E4)** (A): the differentiator made legible. Convention (report template +
+  LAW 0) + a skeptic-judge **evidence-inflation** cue (an E3/E4 claim stated as proven → weak→fatal). NOT a brittle
+  deterministic gate (Cycle-2 lesson: evidence strength is semantic → judge). Judge red-team in flight.
+- **✓ Cycle 17 — non-developer output mode** (B): the human-facing **brief** leads with answer + **Confidence** +
+  what-to-do in plain language; the compliance block is an **audit appendix**, not the headline. Doc/template only;
+  audit 100/0/0. (im-designer output-mode multiplexing + im-human plain language.)
+
 ### Red-team campaign — 2026-06-22 — 5 rounds, 21/21 (goal: "반증 5회")
 - **RT1 HTML gate 7/7 · RT2 NNF gate 4/4 · RT3 skeptic-judge 4/4 · RT4 whole-gate sweep 4/4 · RT5 end-to-end 2/2.**
   Zero problems. Record: `eval/redteam-campaign-5.json`.
