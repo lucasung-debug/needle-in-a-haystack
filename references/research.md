@@ -34,6 +34,16 @@ Each phase carries the enforceable gate from `philosophy.md` §1. Loop back on a
 > as an *audit appendix*. The deterministic gate always runs on the full artifact (`templates/report.template.md`);
 > the brief is the view of it (like `templates/report.html`). The machinery is how we earn trust, not how we pitch it.
 
+> **Resolve, don't defer (no lazy "확인 필요").** "Cannot confirm / 확인 필요" is reserved for the **genuinely
+> indeterminate** — a future or unlegislated event, a private fact only the user holds, a number no source reports.
+> It is **not** an exit for a *resolvable* fact (an enacted law's effective date, an official figure, who-passed-what-when)
+> that conflicting secondary summaries merely left murky. When sources disagree on something knowable, **loop back
+> (Phase 5 → 3) and re-research toward the authoritative/primary record** — the statute & its 부칙, the legislature's own
+> vote, the issuing agency's release — until it resolves; that *is* the SELF-CORRECT loop doing its job. Ship the
+> resolved fact with provenance; flag as unknown only what survives that effort. A "확인 필요" a few more targeted
+> searches would have closed is a defect, not honesty. (If a primary page is access-blocked, say so and converge on it
+> via independent authoritative sources — a stated access limit ≠ an indeterminate fact.)
+
 ---
 
 ## LAW 0 — PROVENANCE (the one rule above all else)

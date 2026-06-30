@@ -360,3 +360,21 @@ Ruled-out) carried a genuinely messy real task. What the skill did, in order:
 - **Result**: `compliance_pass: 1`; frozen eval unaffected (13/13, FP 0/3). New gate-passing worked example
   `eval/labor-law-kr-2026-06-30.md`. Lesson reinforced: the skeptic-judge is the layer that catches an *honest author's
   over-grade* on contested timing — exactly the failure a format gate can't see (Cycle-2 lesson holds).
+
+### Cycle 19 — 2026-06-30 — "Resolve, don't defer" (no lazy 확인 필요) — from Dogfood #4 follow-up
+User feedback after Dogfood #4: *"확인필요가 나오면 안돼. 몇 번이고 재조사해서 찾아야해. 신뢰도 있는 소스를 기준으로."* The brief
+had parked the 임금체불 5년 timing as "확인 필요" — but that was a **resolvable** fact, not a genuinely unknown one.
+- **DO (the re-research it asked for)** — looped back to COLLECT and dug to the authoritative record: the 법정형 3년→5년
+  bill **passed the National Assembly 2026-03-12 (재석 179·찬성 177·반대 1·기권 1)** and sits in the government's own
+  "2026 하반기 달라지는 것" release (퇴직급여 9월·임금 10월) — a **separate** law from the 2025-10-23 상습체불근절법
+  (명단공개·3배 배상). A bill that passed in 2026-03 cannot be "in force since 2025-10-23"; the conflict was sloppy
+  secondary conflation. ④ re-UPGRADED E3→**E2 with a fixed date**; the "확인 필요" was deleted, not shipped.
+- **PLAN/ACT (bake it in)** — added a **"Resolve, don't defer"** rule to `research.md` (after Audience rendering) and a
+  **"Deferral-as-shortcut"** cue to `falsify-skeptic.md` mode 4: "cannot confirm / 확인 필요" is for the **genuinely
+  indeterminate** (future/unlegislated, private-to-user, unreported) — *not* an exit for a resolvable fact left murky by
+  secondary summaries. When knowable sources conflict, loop back and re-research to the authoritative/primary record
+  (statute & 부칙, the legislature's vote, the agency release) until it resolves; a 확인 필요 a few more searches would
+  have closed is a **defect**, not honesty. Convention + judge cue, not a brittle regex (Cycle-2 lesson holds).
+- **Honest residual** — 1차 법령/정부 페이지는 이 환경의 egress 정책상 직접 열람 불가(403). 그 한계는 *명시*하되 사실은
+  국회 의결 기록·정책브리핑·전문 노동매체로 수렴 확인 — *stated access limit ≠ indeterminate fact.*
+- **CHECK** — worked example re-gated `compliance_pass: 1`; frozen eval 13/13, FP 0/3; `py_compile` clean.

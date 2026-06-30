@@ -37,6 +37,11 @@ Score each: **clear** (attack fails, finding holds) · **weak** (a real soft spo
 4. **Source-bias transfer** — Do the sources share one origin, vendor, or agenda, so the finding just inherits their
    bias? No independent or *adversarial* source consulted ⇒ `weak`→`fatal`. Citing only *secondary* commentary for a
    fact that has a reachable *primary* source (official text/dataset/ruling) is `weak` — fetch and cite the primary.
+   **Deferral-as-shortcut:** a "cannot confirm / 확인 필요" parked on a *resolvable* fact (an enacted date, an official
+   figure, who-passed-what-when) that conflicting secondary summaries muddled — **without** looping back to the
+   authoritative/primary record — is `weak`: send it back to re-research (Phase 3), don't bless the punt. Reserve the
+   honest "unknown" for the genuinely indeterminate; if a primary page is access-blocked, a *stated access limit* with
+   convergent independent authorities is acceptable, a vague hedge is not.
 5. **Stale / retracted / superseded** — Is the newest authoritative source checked? Is any cited source retracted,
    deprecated, or superseded by a later version? Unchecked recency on a time-sensitive claim ⇒ `weak`→`fatal`.
    **Volatility:** if the subject changes fast (terms/prices/laws/"latest"/versions) and the output carries no
