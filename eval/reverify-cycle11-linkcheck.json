@@ -1,0 +1,148 @@
+{
+  "summary": "Re-red-team the FIXED --check-links (PDCA Cycle 11): confirm the 6 high-severity bugs (live-source false-FAILs, soft-404/NXDOMAIN/403 bypasses, HTML run, quote corruption, inert no-op) are closed, with no regression to the offline gate.",
+  "agentCount": 3,
+  "logs": [
+    "Cycle 11 re-verify: closed 23 | residual 3 (high 0, regressions 0)"
+  ],
+  "result": {
+    "closed_count": 23,
+    "residual_high": 0,
+    "regressions": 0,
+    "clean": true,
+    "residual": [
+      {
+        "lens": "false-positive+portability",
+        "issue": "_classify_url treats ANY socket.gaierror as NXDOMAIN without checking errno (compliance_check.py lines 197 and 203: `isinstance(getattr(e, 'reason', None), socket.gaierror)`). gaierror covers EAI_AGAIN (-3, 'Temporary failure in name resolution') and EAI_FAIL (-4, resolver SERVFAIL), not just EAI_NONAME (-2, true NXDOMAIN). I demonstrated by injecting EAI_AGAIN and EAI_FAIL on a real live domain (en.wikipedia.org): both classified ('nxdomain', None), which becomes a gate VIOLATION (compliance_pass:0). This is a portability false-positive that directly contradicts the fix's stated contract ('TLS/proxy/timeout -> unverified, never fail the gate'; 'a flaky or policy-restricted network can never fail the gate'). It bites exactly in the proxy/offline/DNS-outage environments the fix claims to protect: a transient resolver outage on a genuinely live cited source fails the gate. Fix: gate the nxdomain branch on `getattr(e.reason, 'errno', None) == socket.EAI_NONAME` (else 'unverified'). Severity tempered to med because (a) it is opt-in via --check-links, (b) it requires a specific trigger — DNS resolves with a transient/SERVFAIL error rather than NOTFOUND — and (c) when fully offline the inert WARNING still fires, but the spurious nxdomain violation overrides the green pass.",
+        "severity": "med",
+        "regression": false
+      },
+      {
+        "lens": "bypass",
+        "issue": "KNOWN residual confirmed: a soft-404 / fabricated page that returns a plain HTTP 200 with NO redirect (final URL == requested deep path) is classified 'live' and is indistinguishable from a real page by this probe — a fabricated-content URL that returns 200 still reads green. It is documented in IMPROVEMENT.md as a design boundary (the 'suspect' heuristic only catches the redirect-to-origin variant), so it is surfaced and not silently undocumented, but it is NOT flagged at runtime for the no-redirect case. This is the inherent limit of a status-only liveness probe (no content inspection). Documented, not a regression.",
+        "severity": "med",
+        "regression": false
+      },
+      {
+        "lens": "bypass",
+        "issue": "Honesty/assurance gap in the 'effective' signal for a SUSPECT-only run: when the only probed URL(s) resolve to 'suspect' (soft-404 redirect), main() reports link_check_effective:true and the gate PASSES (exit 0), with the soft-404 warning appearing only as a quiet link_notes line rather than the loud stderr WARNING reserved for the all-unverified case. So a report whose sole verified signal was a likely-removed page still gets green + effective:true, slightly overstating assurance. Surfaced (link_notes present) but the effective flag treats a suspect as a successful verification. Not a regression (new-design behavior).",
+        "severity": "low",
+        "regression": false
+      }
+    ],
+    "reports": [
+      {
+        "lens": "false-positive+portability",
+        "summary": "Re-red-teamed the fixed opt-in --check-links in /home/user/needle-in-a-haystack/scripts/compliance_check.py (check_links_live + _classify_url + main wiring) by actually running everything, not trusting the claims. Ran the offline unit test (tests/test_check_links.py) PASS and the frozen eval (eval/runner.py) 11/11 detection, 0 FP — no offline regression. Then stood up a REAL local HTTP server (127.0.0.1, in NO_PROXY so urllib hits it directly) and ran --check-links end-to-end: live URLs returning 500/502/503/405/501/400/401/403/429/451 ALL became 'unverified' and the gate PASSED (exit 0, compliance_pass:1) — the central false-positive bug (failing live sources) is confirmed closed. Verified against the real server: genuine 404/410 still FAIL the gate; HEAD-error then GET-200 retry yields 'live'; 503-HEAD then 404-GET yields 'dead'; 403/403 and 503/503 yield 'unverified' (never fail). Confirmed: inert all-unverified probe prints the loud WARNING + link_check_effective:false yet still passes (no silent false assurance); HTML path is a genuine no-op (no link keys emitted, 404 links not failed); URL regex terminates at quotes/parens/angle+square brackets and trailing .,; is stripped (no false 404 from href quotes); a deep-path redirect to bare origin is 'suspect' (notes only, not a violation) while canonical trailing-slash/moved-but-deep redirects stay 'live'; only dead+nxdomain ever reach violations[]; the wall-clock budget bounds runtime (1.0s budget with 0.3s/probe stopped after 4 probes, skipped 46). One residual false-positive remains (DNS errno over-classification).",
+        "closed": [
+          "Bug 1 (FALSE-POSITIVE, the core one): live sources returning 5xx/405/501/400/401/403/429/451 are no longer marked dead. Confirmed against a REAL local server — every one of 500/502/503/405/501/400/401/403/429/451 classified 'unverified' and the gate passed (exit 0). _classify_url maps 404/410->dead and everything else (5xx, 401/403/405/429/451/501, TLS/proxy/timeout)->unverified.",
+          "Bug 2 (dead ones passing): soft-404 (HTTP 200 deep-path redirect to bare origin) now flagged 'suspect'; real NXDOMAIN flagged via real DNS; genuine 404/410 still fail the gate (verified end-to-end on the local server).",
+          "Bug 3 (ran on HTML path): --check-links is now a no-op on .html/.htm — verified an HTML file with href to /s404 and /s410 emits no link_notes/link_check_effective keys and does NOT fail the gate.",
+          "Bug 4 (trailing-quote URL swallow): URL regex now stops at quotes/parens/angle+square brackets; verified extraction on href=\\\"...\\\", '...', (...), <...>, and markdown [t](url); trailing .,; stripped in check_links_live.",
+          "Bug 5 (silent no-op false assurance under proxy/offline): all-unverified probe now prints a loud stderr WARNING and sets link_check_effective:false while still passing the gate — verified live.",
+          "Bug 6 (--json link keys leaking when flag absent): markdown run WITHOUT --check-links emits no link_notes/link_check_effective keys; keys appear only when the flag is set."
+        ]
+      },
+      {
+        "lens": "bypass",
+        "summary": "Independently re-red-teamed the fixed opt-in --check-links (scripts/compliance_check.py: check_links_live + _classify_url + main() wiring). Ran the bundled tests/test_check_links.py (green: dead=2 nxdomain=1 suspect=1 unverified=6 live=3) AND wrote my own adversarial harness (mocked network) covering: each of the 6 prior bugs as regression checks, TLS/proxy/407 leakage, redirect corner cases, the known plain-200 residual, raw-3xx codes, main() inert-warning wiring, HTML no-op, and URL-regex quote handling. Did not trust the bundled test alone. All 6 prior highs confirmed fixed: (1) live sources no longer fail as dead — 5xx/405/501/400 retried via GET, never classed dead; (2) dead/fabricated now caught/surfaced — NXDOMAIN→violation (exit 1), soft-404 deep-path→origin redirect→'suspect' link_note, 403/401/429/451/501/proxy→'unverified' documented as 'not proof'; (3) HTML path is a true no-op (0 probe calls, no link keys in JSON, exit unaffected); (4) URL regex now stops at quotes (href='...' parsed clean); (5) inert probe (all unverified) → loud stderr WARNING + link_check_effective:false so green != assurance; (6) --json adds link keys only when flag set, trailing punctuation stripped+deduped, limit/budget truncation count accurate. Dead and NXDOMAIN are the only states that fail the gate; suspect/unverified correctly never flip exit code. The known residual (plain HTTP 200 soft-404 with NO redirect reads 'live') is real and reproduced — it is documented in IMPROVEMENT.md as a design boundary (suspect only catches the redirect-to-origin variant), so it is surfaced rather than silently undocumented, though a fabricated 200-page is still trusted as live.",
+        "closed": [
+          "Prior bug #1 (live-as-dead): persistent 5xx/503/500, 405, 501, and 400-on-HEAD no longer classed 'dead' — they retry via GET and degrade to 'unverified' or 'live'. Verified at unit level (Test A) and they never feed gate violations.",
+          "Prior bug #2a (soft-404 HTTP 200 passes): a 2xx whose deep path redirects to the bare origin is now classed 'suspect' and surfaced as a SUSPECT link_note stating 'a 200 is not proof'. Verified for path, query-string, and trailing-slash variants.",
+          "Prior bug #2b (NXDOMAIN passes): a non-resolving domain (socket.gaierror) is now 'nxdomain' and produces a gate violation (exit 1). Confirmed via main() wiring test.",
+          "Prior bug #2c (403-gone passes silently as if fine): 401/403/405/429/451/501 are now 'unverified' and explicitly documented as access/policy signals that are 'not proof' of liveness — never silently trusted as live, never failed as dead.",
+          "Prior bug #3 (ran on HTML path): --check-links is now a no-op for .html/.htm — 0 network calls and no link keys in the JSON payload (Test G).",
+          "Prior bug #4 (swallowed trailing quotes -> false 404): URL regex char class now excludes quotes; href='https://a/z' and \"https://...\" parse to clean URLs (Test H).",
+          "Prior bug #5 (silent no-op under proxy/offline = false green assurance): an inert probe (every reachable answer 'unverified') now prints a loud stderr WARNING and sets link_check_effective:false; a mixed run with >=1 live/dead/suspect correctly reports effective:true (Test F).",
+          "Prior bug #6 (--json shape / budget): --json adds link_notes + link_check_effective only when --check-links is set; wall-clock budget + limit truncation produce an accurate 'skipped' count and a truncation note (verified probed/skipped arithmetic)."
+        ]
+      },
+      {
+        "lens": "integration+regression",
+        "summary": "Independently re-ran and verified the fixed opt-in --check-links in /home/user/needle-in-a-haystack/scripts/compliance_check.py (check_links_live + _classify_url + main wiring). All claims hold.\n\nOFFLINE GATE / NO REGRESSION: `python eval/runner.py` = 11/11 detection (1.00), FP 0/3 (0.00), eval_pass:1, exit 0. Default (no --check-links) plain-text output unchanged (\"OK — compliance gate passed\" / \"FAIL ...\") and exit codes unchanged (good→0, bad→1; spot-checked bad-dead-link default exit 1, still caught by the OFFLINE rule-7(a) regex independent of the network probe). eval/runner.py never references --check-links, so the frozen gate stays purely offline.\n\nDEFAULT JSON: no-flag --json emits exactly path/passed/violations/gates_found — NO link_notes / link_check_effective keys (confirmed on good-positive).\n\n--json + --check-links (markdown): adds link_notes and link_check_effective ONLY when the flag is set (confirmed). On good-positive the github.com/example-project URL genuinely returns 404 via the proxy → correctly classified dead → gate fails under the flag; this is expected opt-in network behavior and does NOT affect the offline eval.\n\nHTML NO-OP: --check-links --json on .html (good-report-html) and on a copied .htm file produces ZERO link_ keys, no network probe, no inert warning. is_html short-circuits both the probe and the payload keys.\n\nURL REGEX: now r'https?://[^\\s)>\\]\\\"']+' — stops at single and double quotes. href=\\\"https://...\\\" extracts the bare URL with no trailing quote; ) ] are structurally excluded by the regex so the slimmed rstrip(\\\".,;\\\") is sufficient (no trailing-punctuation regression).\n\nCLASSIFICATION (mocked network, all 6 bug classes + edge cases): live (5xx/405/501/400 HEAD then GET 200), suspect (200 deep-path→bare-origin soft-404), nxdomain (gaierror), 401/403/405/429/451/501 + persistent 5xx → unverified, only 404/410 + NXDOMAIN → dead. Edge cases also correct: 5xx-HEAD/404-GET→dead, 5xx-HEAD/nxdomain-GET→nxdomain, raw TimeoutError/socket.timeout→unverified, bare origin & path→path redirects stay live, 3xx final code live. Matches tests/test_check_links.py expectations (dead 2 / nxdomain 1 / suspect 1 / unverified 6 / live 3).\n\nINERT PROBE: link_check_effective=False + loud stderr WARNING when every probed URL is unverified; effective=True when at least one URL is conclusively classified (dead/nxdomain/suspect/live), even mixed with unverified; warning gated on probed>0 so zero-URL reports never warn spuriously.\n\nLIMIT/BUDGET/DEDUP: limit truncates (probed=3/skipped=7 over 10 @ limit 3), exhausted budget breaks immediately (probed=0/skipped=10), duplicate URLs deduped.\n\nCI: tests/test_check_links.py passes (exit 0) and is wired into .github/workflows/eval.yml (step \"Link-classifier unit test\", line 22) plus py_compile of all three files (line 18) and the frozen eval (line 20). Full local CI pipeline reproduces green.",
+        "closed": [
+          "BUG1 (failed LIVE sources): 5xx/405/501/400 on HEAD now retried with GET and classified live when GET succeeds; only 404/410 are dead. Verified via mocks (live 500/405/501/400→GET200) and the unit test's head500-get200 / badhead-get200 cases.",
+          "BUG2 (soft-404 HTTP 200 let dead pass): a 2xx whose deep path redirected to the bare origin is now classified 'suspect' (link_notes warning), not silently live. Verified via mock and unit test https://a/deep/path.",
+          "BUG3 (NXDOMAIN let dead pass): gaierror (on HEAD or GET) now → nxdomain → gate violation. Verified via mock and unit test https://nope.invalidtld/x.",
+          "BUG4 (403-gone misclassification): 401/403/405/429/451/501 now → unverified (never fails the gate), so a flaky/policy-restricted network cannot wrongly fail OR wrongly pass. Verified via mocks.",
+          "BUG5 (ran on the HTML path): --check-links is now a no-op when path ends .html/.htm — no probe, no link_ JSON keys, no warning. Verified on .html and .htm.",
+          "BUG6 (swallowed trailing quotes, href=\\\"...\\\"→false 404): URL regex now excludes \\\" and ' so href-wrapped URLs extract cleanly without a trailing quote. Verified across single/double-quote and bracket/paren cases.",
+          "False-assurance no-op under proxy/offline: inert probe now emits a loud stderr WARNING and sets link_check_effective:false when all probes are unverified. Verified via offline mock.",
+          "No regression to offline gate: eval 11/11 + FP 0/3 (exit 0); default plain-text and JSON output and exit codes unchanged; runner.py stays offline.",
+          "CI wiring: tests/test_check_links.py passes and is run in .github/workflows/eval.yml alongside py_compile and the frozen eval."
+        ]
+      }
+    ]
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Re-red-team"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "reverify:false-positive+portability",
+      "phaseIndex": 1,
+      "phaseTitle": "Re-red-team",
+      "agentId": "a4db1720589b3f1d3",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782707516438,
+      "queuedAt": 1782707516415,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "false-positive+portability",
+      "promptPreview": "You are RE-RED-TEAMING the FIXED opt-in --check-links in the \"needle-in-a-haystack\" skill (file /home/user/needle-in-a-haystack/scripts/compliance_check.py, function check_links_live + _classify_url + main() wiring). A prior red-team found 6 high-severity bugs; they have now been fixed. Your job: independently CONFIRM the fixes hold and hunt for any regression or new break. Lens: false-positive+po…",
+      "lastProgressAt": 1782707810805,
+      "tokens": 48270,
+      "toolCalls": 32,
+      "durationMs": 294367,
+      "resultPreview": "{\"lens\":\"false-positive+portability\",\"summary\":\"Re-red-teamed the fixed opt-in --check-links in /home/user/needle-in-a-haystack/scripts/compliance_check.py (check_links_live + _classify_url + main wiring) by actually running everything, not trusting the claims. Ran the offline unit test (tests/test_check_links.py) PASS and the frozen eval (eval/runner.py) 11/11 detection, 0 FP — no offline regress…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "reverify:bypass",
+      "phaseIndex": 1,
+      "phaseTitle": "Re-red-team",
+      "agentId": "a410f8163d6fe44da",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782707516440,
+      "queuedAt": 1782707516415,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "bypass",
+      "promptPreview": "You are RE-RED-TEAMING the FIXED opt-in --check-links in the \"needle-in-a-haystack\" skill (file /home/user/needle-in-a-haystack/scripts/compliance_check.py, function check_links_live + _classify_url + main() wiring). A prior red-team found 6 high-severity bugs; they have now been fixed. Your job: independently CONFIRM the fixes hold and hunt for any regression or new break. Lens: bypass.\n\nConfirm …",
+      "lastProgressAt": 1782707705313,
+      "tokens": 49214,
+      "toolCalls": 17,
+      "durationMs": 188873,
+      "resultPreview": "{\"lens\":\"bypass\",\"summary\":\"Independently re-red-teamed the fixed opt-in --check-links (scripts/compliance_check.py: check_links_live + _classify_url + main() wiring). Ran the bundled tests/test_check_links.py (green: dead=2 nxdomain=1 suspect=1 unverified=6 live=3) AND wrote my own adversarial harness (mocked network) covering: each of the 6 prior bugs as regression checks, TLS/proxy/407 leakage,…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "reverify:integration+regression",
+      "phaseIndex": 1,
+      "phaseTitle": "Re-red-team",
+      "agentId": "a95c9f19f8aa0f276",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782707705316,
+      "queuedAt": 1782707516415,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "integration+regression",
+      "promptPreview": "You are RE-RED-TEAMING the FIXED opt-in --check-links in the \"needle-in-a-haystack\" skill (file /home/user/needle-in-a-haystack/scripts/compliance_check.py, function check_links_live + _classify_url + main() wiring). A prior red-team found 6 high-severity bugs; they have now been fixed. Your job: independently CONFIRM the fixes hold and hunt for any regression or new break. Lens: integration+regre…",
+      "lastProgressAt": 1782707951876,
+      "tokens": 48192,
+      "toolCalls": 27,
+      "durationMs": 246560,
+      "resultPreview": "{\"lens\":\"integration+regression\",\"summary\":\"Independently re-ran and verified the fixed opt-in --check-links in /home/user/needle-in-a-haystack/scripts/compliance_check.py (check_links_live + _classify_url + main wiring). All claims hold.\\n\\nOFFLINE GATE / NO REGRESSION: `python eval/runner.py` = 11/11 detection (1.00), FP 0/3 (0.00), eval_pass:1, exit 0. Default (no --check-links) plain-text outp…"
+    }
+  ],
+  "totalTokens": 145676,
+  "totalToolCalls": 76
+}

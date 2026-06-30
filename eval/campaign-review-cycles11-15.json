@@ -1,0 +1,180 @@
+{
+  "summary": "Final review of the 5-cycle dogfood-driven PDCA campaign (Cycles 11-15): a plan-vs-research ADEQUACY critic (was planning balanced against evidence?), a COMPLETENESS critic (what is still missing/weakest?), and a REGRESSION/consistency sweep (do the claims match the repo state?).",
+  "agentCount": 3,
+  "logs": [
+    "campaign review: adequacy=sound · completeness=lean / a-few-real-gaps (near diminishing returns — consolidate, don't keep adding gates) · regression=clean | findings 13 (high 1)"
+  ],
+  "result": {
+    "verdicts": {
+      "adequacy": "sound",
+      "completeness": "lean / a-few-real-gaps (near diminishing returns — consolidate, don't keep adding gates)",
+      "regression": "clean"
+    },
+    "high_findings": [
+      {
+        "role": "completeness",
+        "point": "Self-inconsistency / trust regression: the skill's own dogfood output (eval/dogfood-cbdc-2026-06-29.md), preserved as Cycle 11 evidence, now FAILS its own gate — it ends [FINAL]: VALID with [FALSIFY]=PASS and [NULL]=NA but carries no [SKEPTIC] line, which Cycle 12 made mandatory. `python scripts/compliance_check.py eval/dogfood-cbdc-2026-06-29.md` exits 1. The canonical worked example a reader would copy is now non-compliant. This is the clearest 'what real use hits next': anyone dogfooding or pattern-matching off this file ships a gate-failing report. Fix is one line (add [SKEPTIC]=PASS) but it signals nobody re-runs the preserved artifacts after a gate change.",
+        "severity": "high"
+      }
+    ],
+    "all_findings": [
+      {
+        "role": "adequacy",
+        "point": "Cycle 11 and 12 are strongly grounded and self-corrected: the dogfood cuts map directly onto the fixes, and both in-cycle defects (Cycle 11's 6 highs; Cycle 12's NULL=PASS skeptic-bypass) were caught by run-confirming verification subagents, not merely claimed. Verified live: eval 13/13 / FP 0/3, the §8 symmetric check and bad-null-dodge fixture are present in HEAD.",
+        "severity": "low"
+      },
+      {
+        "role": "adequacy",
+        "point": "No cycle was over-engineered or solved a non-problem. The trust cuts honored the Cycle-2 lesson (structural token checks, substance left to the author!=reviewer judge) instead of building brittle semantic regex gates; the doc cuts (13-15) stayed minimal. This is the correct plan/research balance, not gold-plating.",
+        "severity": "low"
+      },
+      {
+        "role": "adequacy",
+        "point": "Cycle 12 shipped behind a real loophole that the FIRST verification pass caught (the NULL=PASS dodge was a pre-existing asymmetry, not introduced by §9, but Cycle 12 newly made it a one-token bypass of the whole cycle). The loop closed it in-cycle, but it shows the original Cycle-12 plan under-scoped the exemption surface — a near-miss that depended on the red-team rather than the plan.",
+        "severity": "med"
+      },
+      {
+        "role": "adequacy",
+        "point": "Cycles 13, 14, 15 carry no adversarial red-team and only inline/self-check verification ('no red-team warranted; ponytail'). Defensible for doc-only/trivial-helper changes, but Cycle 15's primary-over-secondary rule and Cycle 14's lite-mode trigger are discipline cues with no fixture or test pinning them, so regressions to that guidance would go unnoticed by the gate.",
+        "severity": "low"
+      },
+      {
+        "role": "adequacy",
+        "point": "Two LOW pre-existing parser quirks (annotated '[PASS — note]' verdicts read as non-PASS; a '[GATE]:' prose line outside the fence overwriting a verdict) were surfaced by the Cycle-12 red-team and deferred to the backlog rather than fixed. Correctly triaged as unreachable by template-following output and affecting all gates, but they remain open debt across the gate, not just one cycle.",
+        "severity": "low"
+      },
+      {
+        "role": "adequacy",
+        "point": "Documented residual boundaries are honest but real: a plain-200 soft-404 with no redirect still reads 'live' (status-only probe limit) and a suspect-only --check-links run still reports effective:true. These are surfaced in IMPROVEMENT.md and reassigned to the skeptic-judge rather than hidden, which is the right call, but they cap how much trust --check-links actually adds.",
+        "severity": "low"
+      },
+      {
+        "role": "completeness",
+        "point": "Self-inconsistency / trust regression: the skill's own dogfood output (eval/dogfood-cbdc-2026-06-29.md), preserved as Cycle 11 evidence, now FAILS its own gate — it ends [FINAL]: VALID with [FALSIFY]=PASS and [NULL]=NA but carries no [SKEPTIC] line, which Cycle 12 made mandatory. `python scripts/compliance_check.py eval/dogfood-cbdc-2026-06-29.md` exits 1. The canonical worked example a reader would copy is now non-compliant. This is the clearest 'what real use hits next': anyone dogfooding or pattern-matching off this file ships a gate-failing report. Fix is one line (add [SKEPTIC]=PASS) but it signals nobody re-runs the preserved artifacts after a gate change.",
+        "severity": "high"
+      },
+      {
+        "role": "completeness",
+        "point": "[L2] vault-integration is a declared compliance gate ([L2]: Vault/dedup path considered) yet has zero implementation: no knowledge/00_inbox path, no template, no script, no fixture testing it. It is pure honor-system prose that the deterministic gate cannot verify, so [L2]=PASS means nothing — every report just asserts it. Either make it actionable (a real inbox-write/dedup step or helper) or demote it from a PASS-required gate to a note. As-is it dilutes the credibility of the 'validator-as-gate, not honor-system' claim that the whole skill rests on.",
+        "severity": "med"
+      },
+      {
+        "role": "completeness",
+        "point": "The handoff mechanism is documented prominently in SKILL.md (write .claude/handoffs/handoff-<ts>.json, resume by reading it) but there is no template, no helper, no example, and no .claude/handoffs dir — it is described capability with no scaffolding. A plan→execute session split (a real multi-session research use) would land here with nothing to follow. Either add a tiny handoff template/snippet (mirroring framed-question.template.md) or trim the claim. Low-reach but it is the one documented workflow with zero support.",
+        "severity": "med"
+      },
+      {
+        "role": "completeness",
+        "point": "Deferred parser quirks (logged in IMPROVEMENT.md, confirmed live): gate-line parsing is NOT scoped to the fenced compliance block — compliance_check.py scans the whole document for ^[GATE]: lines, so a stray [GATE]: line in prose outside the fence can overwrite a recorded verdict, and an annotated verdict like [PASS — note] is read as non-PASS (the last-bracket rule). Both are reachable by an unusual-but-honest report (e.g. an author who annotates a verdict). Genuinely low-severity since a template-following report avoids them, but they are latent false-positive/bypass surfaces in the one piece of code everything trusts. A single normalization pass (scope to fence + first-token verdict) closes both.",
+        "severity": "low"
+      },
+      {
+        "role": "completeness",
+        "point": "Link-liveness (--check-links) has an acknowledged blind spot the team itself flagged as a residual boundary: a plain-200 soft-404 with no redirect still reads 'live'. This is correctly assigned to the skeptic-judge's semantic job rather than the probe, so it is documented-not-fixed, which is the right call. Noting it only so it is not mistaken for a closed gap — it is the realistic next thing a dead-but-200 source would slip through, and it is bounded, not a defect to chase.",
+        "severity": "low"
+      },
+      {
+        "role": "completeness",
+        "point": "Usability/onboarding: there is no end-to-end worked example that PASSES the current gate. The dogfood (now failing) was the de-facto example; good-positive is a terse fixture, not a teaching artifact. A first-time user has the templates and the directive but no single 'here is a complete real report that exits 0' reference. Minor, but it is the gap between a correct skill and an easily-adopted one.",
+        "severity": "low"
+      },
+      {
+        "role": "regression",
+        "point": "Minor stale prose count in IMPROVEMENT.md Cycle 11 FIX paragraph (line 219): it states the unit test classifies 'unverified 6', but the actual test (tests/test_check_links.py) and live run report unverified=7. This is internally consistent with the SAME cycle's ACT note (line 224), which adds the EAI_AGAIN→unverified case ('the unit test covers EAI_NONAME→nxdomain vs EAI_AGAIN→unverified'), bumping unverified 6→7. So the FIX-stage snapshot (6) is a pre-ACT figure that was not updated after the in-cycle EAI_AGAIN addition. The authoritative artifact (the green test) is correct; only the narrative count is one behind.",
+        "severity": "low"
+      }
+    ],
+    "reports": [
+      {
+        "role": "adequacy",
+        "verdict": "sound",
+        "summary": "All five cycles (11-15) trace to a single real dogfood run (eval/dogfood-cbdc-2026-06-29.md): the gate claimed \"[L1] verified live\" while verifying nothing (Cycle 11), the skeptic verdict floated free of the gated artifact (Cycle 12), sources were hand-stamped (Cycle 13), framing was heavy for a one-fact query (Cycle 14), and a law-firm blog was cited for an executive order instead of the Federal Register primary (Cycle 15) — each cut is visible in the actual artifact, not invented. Planning was well balanced against research: trust-bearing changes (11, 12) got code + frozen fixtures + 3-4 independent run-confirming subagents, while the ergonomic/doc cuts (13, 14, 15) were correctly kept lightweight per the \"ponytail\" shortest-diff rule rather than over-engineered. Critically, the headline in-cycle catches were genuinely caught by verification, not asserted: I independently confirmed Cycle 11's 6 highs are closed (eval 13/13, the _is_nxdomain EAI_NONAME fix is in the code) and Cycle 12's NULL=PASS dodge was run-confirmed live by two separate red-team lenses (exit 0 on the dodge) and is now closed by the symmetric §8 check at lines 136-137 plus the bad-null-dodge fixture. The loop demonstrably stopped brittle/incomplete first cuts from shipping — exactly its purpose.",
+        "recommendation": "Ship/keep all five cycles — the campaign is sound and evidence-grounded. To raise it from sound to airtight: (1) Treat the Cycle-12 near-miss as a process signal — when a new gate adds an EXEMPTION (null/HTML/INVALID), the plan should pre-enumerate the symmetric forge path before DO, so the red-team confirms rather than discovers it. (2) Add at least the cheap exemption-boundary fixture the adequacy critic flagged (good-negative must keep passing without [SKEPTIC]) so future §9 hardening can't silently false-positive honest null reports. (3) Pin Cycle 14/15 discipline cues with a lightweight check or example fixture if they ever regress in practice. (4) Schedule the two deferred parser quirks (first-token normalization + scope parsing to the fence) as a single small uniform hardening cycle before they bite a real output. No cycle needs reverting."
+      },
+      {
+        "role": "completeness",
+        "verdict": "lean / a-few-real-gaps (near diminishing returns — consolidate, don't keep adding gates)",
+        "summary": "After Cycles 11-15 the skill is mature and well-disciplined: a deterministic compliance gate (16 fixtures, detection 1.0 / FP 0), a semantic skeptic-judge, opt-in link-liveness, HTML self-containment, CI, and a tight PDCA log. Coverage (10 source domains), trust (per-claim corroboration, primary-over-secondary, skeptic binding), and robustness (red-teamed gates) are all strong. The genuine remaining gaps are narrow and mostly about loose ends that earlier cycles created or left unfinished — not missing capability. The single most telling one: the skill's own dogfood artifact now FAILS its own gate, because Cycle 12 added [SKEPTIC] but nobody back-filled the dogfood. Two declared gates ([L2] vault, the handoff mechanism) are prose-only with no implementation, so they are honor-system checks the deterministic gate can't actually enforce. The deferred parser quirks are real but low-reach. I recommend consolidating (fix the self-inconsistency, decide whether [L2]/handoff are real or should be demoted) and then stopping the add-a-gate loop — further deterministic checks risk gold-plating and Cycle-2-style brittleness.",
+        "recommendation": "Consolidate, then stop the add-a-gate loop — the skill is at diminishing returns on new checks. Do a short cleanup cycle, not more capability: (1) HIGH — back-fill [SKEPTIC]=PASS into eval/dogfood-cbdc-2026-06-29.md so the canonical example passes its own gate, and add a one-line CHECK step to the PDCA loop that re-runs the gate over preserved artifacts after any gate change (prevents this class of regression). (2) MED — resolve the two prose-only gates honestly: either give [L2] and the handoff real scaffolding (a tiny helper/template + one fixture each) or demote them from PASS-required gates to documented notes, so every deterministic gate is actually enforceable. (3) LOW/optional — fold the deferred parser normalization (fence-scope + first-token verdict) into the same cleanup since it touches the trusted code path. Do NOT add new failure-mode gates, new source domains, or new output formats unless a real run demands them — that would be gold-plating and risks Cycle-2-style brittleness. After the cleanup cycle, declare the skill stable and switch the loop from 'improve' to 'maintain' (run on real questions; only reopen when a genuine dogfood cut appears)."
+      },
+      {
+        "role": "regression",
+        "verdict": "clean",
+        "summary": "Ran the full regression sweep against the repo at /home/user/needle-in-a-haystack. (1) python eval/runner.py → detection 1.00 (13/13 seeded defects caught), false_positive_rate 0.00 (0/3 honest outputs flagged), eval_pass: 1, exit 0 — matches the campaign claim exactly. (2) python tests/test_check_links.py → \"check_links_live classification OK — dead=2 nxdomain=1 suspect=1 unverified=7 live=3\", exit 0. (3) py_compile of scripts/compliance_check.py, scripts/now.py, eval/runner.py, tests/test_check_links.py → all clean. Verified the IMPROVEMENT.md dashboard + cycle claims against the actual code/docs: §9 [SKEPTIC] bind exists (compliance_check.py lines 139-149: found-needle VALID + FALSIFY=PASS + NULL≠PASS must carry resolved [SKEPTIC]=PASS); the symmetric §8 NULL check exists (lines 136-137: final_valid + [NULL]=PASS + non-NNF headline → violation, the Cycle 12 forgeable-exemption fix); scripts/now.py emits %Y-%m-%dT%H:%M:%SZ which matches the gate's ISO_TS regex (line 32) and live output 2026-06-29T05:02:45Z confirms; --check-links is a no-op on HTML (guarded by `and not is_html` at lines 294 and 315); the [SKEPTIC] line is present in BOTH templates/compliance-block.snippet.md:18 and references/research.md:154 (identical text). Dashboard counts verified: 16 eval fixtures on disk (13 bad → expect 1, 3 good → expect 0), expected.json has those 16 entries + a _comment = 17 keys, all aligned with detection 13/13 and FP 0/3. now.py wiring into COLLECT/REPORT is present in research.md (now.py at §3 COLLECT line 27; --check-links at §6 REPORT line 30).",
+        "recommendation": "No functional drift — every gate, check, fixture, and wiring claim in IMPROVEMENT.md is TRUE against the repo, and all three command suites pass (13/13 detection, 0/3 FP, link-classifier test, py_compile). Optional cosmetic cleanup: update the Cycle 11 FIX line (IMPROVEMENT.md:219) from 'unverified 6' to 'unverified 7' so the prose snapshot matches the post-ACT EAI_AGAIN case the same entry describes. Not blocking; safe to ship as-is."
+      }
+    ]
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Review"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "adequacy",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "aff11add8ef3ee2dd",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782709299761,
+      "queuedAt": 1782709299740,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "adequacy",
+      "promptPreview": "You judge PLAN-vs-RESEARCH ADEQUACY across the whole 5-cycle PDCA campaign (Cycles 11-15) of the \"needle-in-a-haystack\" skill. Read /home/user/needle-in-a-haystack/IMPROVEMENT.md (the Cycle 11-15 log + dashboard + dogfood backlog) and the recorded evidence files /home/user/needle-in-a-haystack/eval/*.json (dogfood + red-team records). Judge: was each cycle GROUNDED in real evidence (the dogfood ru…",
+      "lastProgressAt": 1782709351590,
+      "tokens": 50974,
+      "toolCalls": 8,
+      "durationMs": 51829,
+      "resultPreview": "{\"role\":\"adequacy\",\"verdict\":\"sound\",\"summary\":\"All five cycles (11-15) trace to a single real dogfood run (eval/dogfood-cbdc-2026-06-29.md): the gate claimed \\\"[L1] verified live\\\" while verifying nothing (Cycle 11), the skeptic verdict floated free of the gated artifact (Cycle 12), sources were hand-stamped (Cycle 13), framing was heavy for a one-fact query (Cycle 14), and a law-firm blog was ci…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "completeness",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "aaf516297069e28ad",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782709299763,
+      "queuedAt": 1782709299740,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "completeness",
+      "promptPreview": "You are a COMPLETENESS critic. Scan the whole skill at /home/user/needle-in-a-haystack (SKILL.md, references/, scripts/, templates/, eval/) and ask: after Cycles 11-15, what is STILL missing or weakest — what would real use hit next that none of these cycles addressed? Consider gaps in coverage, trust, robustness, and usability. Be concrete and ranked. Do NOT invent work for its own sake (respect …",
+      "lastProgressAt": 1782709387450,
+      "tokens": 56496,
+      "toolCalls": 13,
+      "durationMs": 87686,
+      "resultPreview": "{\"role\":\"completeness\",\"verdict\":\"lean / a-few-real-gaps (near diminishing returns — consolidate, don't keep adding gates)\",\"summary\":\"After Cycles 11-15 the skill is mature and well-disciplined: a deterministic compliance gate (16 fixtures, detection 1.0 / FP 0), a semantic skeptic-judge, opt-in link-liveness, HTML self-containment, CI, and a tight PDCA log. Coverage (10 source domains), trust (p…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "regression",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a2e357853e9727c24",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782709351592,
+      "queuedAt": 1782709299740,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "regression",
+      "promptPreview": "You are a REGRESSION/CONSISTENCY sweep. Verify the campaign's claims match reality: run python /home/user/needle-in-a-haystack/eval/runner.py (expect 13/13 detection, 0/3 FP), python /home/user/needle-in-a-haystack/tests/test_check_links.py (expect pass), and python -m py_compile on the scripts. Then check that IMPROVEMENT.md's dashboard + cycle claims are TRUE against the actual code/docs (e.g. §…",
+      "lastProgressAt": 1782709422396,
+      "tokens": 40500,
+      "toolCalls": 10,
+      "durationMs": 70804,
+      "resultPreview": "{\"role\":\"regression\",\"verdict\":\"clean\",\"summary\":\"Ran the full regression sweep against the repo at /home/user/needle-in-a-haystack. (1) python eval/runner.py → detection 1.00 (13/13 seeded defects caught), false_positive_rate 0.00 (0/3 honest outputs flagged), eval_pass: 1, exit 0 — matches the campaign claim exactly. (2) python tests/test_check_links.py → \\\"check_links_live classification OK — d…"
+    }
+  ],
+  "totalTokens": 147970,
+  "totalToolCalls": 31
+}

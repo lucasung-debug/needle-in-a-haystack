@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>retry_backoff_ms default — research report</title>
+<style>
+  :root{--fg:#1c1c1e;--accent:#2563eb;--line:#e5e7eb}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--fg);max-width:800px;margin:0 auto;padding:24px;line-height:1.55}
+  h1{font-size:1.5rem} .tag{color:var(--accent);font-family:ui-monospace,Menlo,monospace}
+  table{border-collapse:collapse;width:100%} td,th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}
+</style>
+</head>
+<body>
+  <h1>retry_backoff_ms default</h1>
+  <section><strong>Answer:</strong> The default is <code>2000</code> ms. <span class="tag">[retrieved]</span></section>
+  <h2>Key sources</h2>
+  <table>
+    <tr><th>Source</th><th>Supports</th><th>Status</th><th>Retrieved (UTC)</th></tr>
+    <tr><td><a href="https://docs.python.org/3/library/re.html">official docs</a></td><td>states the default is 2000 ms</td><td>live</td><td>2026-06-22T14:30:00Z</td></tr>
+    <tr><td><a href="https://peps.python.org/pep-0008/">second source</a></td><td>confirms the default</td><td>live</td><td>2026-06-22T14:31:10Z</td></tr>
+  </table>
+  <h2>Confirmed vs. unconfirmed</h2>
+  <p><strong>Confirmed:</strong> the 2000 ms default (two independent live sources). <strong>Unconfirmed:</strong> behavior on an unreleased branch — cannot confirm.</p>
+</body>
+</html>

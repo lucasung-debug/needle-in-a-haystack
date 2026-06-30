@@ -1,0 +1,19 @@
+{
+  "_comment": "Frozen judge for the compliance gate. exit 0 = output passes the gate, 1 = a violation is caught. Gate holds when detection==1.0 over the bad fixtures and FP==0 over the good ones. Do not edit to make a failing gate pass — add adversarial fixtures instead.",
+  "good-positive": 0,
+  "good-negative": 0,
+  "bad-unresolved": 1,
+  "bad-final-invalid": 1,
+  "bad-gate-fail": 1,
+  "bad-fabricated": 1,
+  "bad-missing-block": 1,
+  "bad-sycophantic": 1,
+  "bad-dead-link": 1,
+  "bad-no-timestamp": 1,
+  "bad-unsourced-claim": 1,
+  "good-report-html": 0,
+  "bad-report-html-external": 1,
+  "bad-nnf-contradiction": 1,
+  "bad-skeptic-fail": 1,
+  "bad-null-dodge": 1
+}

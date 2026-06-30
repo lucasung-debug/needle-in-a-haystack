@@ -1,0 +1,191 @@
+{
+  "summary": "RT6: red-team the skeptic-judge per-load-bearing-claim corroboration (Cycle 10). Does it flag a well-cited headline with a single/unsourced critical sub-claim, pass fully-corroborated reports, and NOT over-flag non-load-bearing asides?",
+  "agentCount": 6,
+  "logs": [
+    "RT6 per-claim: 6/6 correct | problems 0"
+  ],
+  "result": {
+    "total": 6,
+    "correct": 6,
+    "problems": [],
+    "all": [
+      {
+        "idx": 1,
+        "klass": "bad",
+        "expected": "REWORK",
+        "observed": "REWORK",
+        "note": "Decisive load-bearing claim = the causal/quantitative sub-claim the needle depends on (not the headline). Mode 2 (single-source / citation laundering, applied per load-bearing claim): the rubric (lines 18-21, 30-32) requires scoring the WEAKEST load-bearing claim and states a fully-sourced needle with one unsourced/single-sourced critical sub-claim is still fatal. The headline's two sources do not rescue the chain; the dependency rests on one source, so the weakest link is fatal. One fatal => REWORK (mode 2). The reviewed report's PASS is wrong because it scored only the headline, not the dependency chain."
+      },
+      {
+        "idx": 2,
+        "klass": "bad",
+        "expected": "REWORK",
+        "observed": "REWORK",
+        "note": "Decisive load-bearing claim: the uncited sub-claim the needle cannot stand without. Mode 2 (single-source/laundering, per load-bearing claim) = fatal. falsify-skeptic.md is explicit that you score the WEAKEST load-bearing claim, and \"a fully-sourced needle with one unsourced critical sub-claim is still fatal.\" Zero sources is below the >=2-independent-live-sources bar (worse than one source), so mode 2 is fatal. One fatal forces the gate to REWORK <mode2>, not PASS. The well-cited headline does not rescue it because the sub-claim is load-bearing."
+      },
+      {
+        "idx": 3,
+        "klass": "honest",
+        "expected": "PASS",
+        "observed": "PASS",
+        "note": "Decisive load-bearing claim: the weakest sub-claim the needle depends on. Mode 2 (single-source/citation-laundering, applied per-claim per the NEW rule, scoring the weakest link): even the weakest sub-claim carries >=2 independent live sources, so the weakest-link test is clear. Mode 1 also clear (a competing alternative was explicitly broken, not just leader confirmed), and mode 7 clear (claim scoped to evidence). Zero fatal, leader survived an explicit disconfirmation, LAW 0 satisfied on needle and every sub-claim => PASS. Honest report, expected PASS, observed PASS, correct."
+      },
+      {
+        "idx": 4,
+        "klass": "honest",
+        "expected": "PASS",
+        "observed": "PASS",
+        "note": "Decisive load-bearing claim = the needle itself (plus its sub-claims), all carrying >=2 independent live sources. Mode 2 (single-source/citation-laundering) is the binding attack and it is scored on the WEAKEST LOAD-BEARING claim only (falsify-skeptic.md lines 18-20, 30-32). The single-blog illustrative aside is non-load-bearing — the needle does not depend on it — so it is out of scope for per-claim corroboration; at worst a 'weak' to note in Limits, never 'fatal'. Zero fatals, weakest load-bearing claim is doubly-sourced, leader survived disconfirmation => PASS. The trap is mechanically flagging the single-source blog as a mode-2 fatal without testing load-bearing status."
+      },
+      {
+        "idx": 5,
+        "klass": "bad",
+        "expected": "REWORK",
+        "observed": "REWORK",
+        "note": "Load-bearing claims listed (needle + the sub-claim it depends on); mode 2 (>=2 independent live sources) applied to EACH and the WEAKEST scored, per the new rule (falsify-skeptic.md L18-20, L29-32). Decisive claim = the re-syndicated-press-release sub-claim: its two URLs/outlets trace to one origin. Mode 2 names this verbatim as fatal: \"one source recited under different URLs/outlets that trace to the same origin => fatal.\" It is not the narrow-primary-authority downgrade to weak (a syndicated PR is not an independent primary authority and the claim is load-bearing). One fatal => verdict REWORK 2 (L44-49), and a well-cited headline does not rescue a critically single-sourced sub-claim (L32). observed=REWORK matches expected=REWORK; klass=bad so correct = (observed===REWORK) = true."
+      },
+      {
+        "idx": 6,
+        "klass": "honest",
+        "expected": "PASS",
+        "observed": "PASS",
+        "note": "Decisive load-bearing claim = the null itself (\"no default exists; flag absent from docs+codebase\"), grounded in two independent negative searches. Mode 2 (per-claim ≥2 independent live sources) is the rule I applied to each sub-claim, but the falsify-skeptic verdict rule (lines 50-51) makes modes 1-3 NA for a true null because there is no positive needle to corroborate — the load-bearing \"claims\" are authoritative absences (project docs index + GitHub repo search), each live and ISO-8601 timestamped. Modes 4 (independent venues, no shared bias), 5 (both live/dated, nothing superseded), 6 ([INDEP]/[NULL]=PASS, honest absence not a fabricated please-the-asker value) are all clear. Zero fatal; gate block [FINAL]: VALID with [NULL]=PASS (correctly, unlike the bad-nnf-contradiction twin which marks it [NA]). Honest valid null → PASS."
+      }
+    ]
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "RT6 per-claim"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "RT6:bad:1",
+      "phaseIndex": 1,
+      "phaseTitle": "RT6 per-claim",
+      "agentId": "aad3745bc632dee0d",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782398499044,
+      "queuedAt": 1782398499014,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "bad",
+      "promptPreview": "RED-TEAM RT6 (skeptic-judge, per-claim corroboration). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY — note the NEW rule: before scoring, list the LOAD-BEARING claims (the needle PLUS every sub-claim it depends on) and apply mode 2 (>=2 independent live sources) to EACH, scoring the weakest. Construct in your head a report matching:\n\"Needle FOUND, he…",
+      "lastProgressAt": 1782398515691,
+      "tokens": 15552,
+      "toolCalls": 2,
+      "durationMs": 16647,
+      "resultPreview": "{\"klass\":\"bad\",\"scenario\":\"Skeptic-judge per-claim corroboration: needle headline is well-cited (two independent live sources), but the needle depends on a critical causal/quantitative sub-claim that rests on only ONE source. New rule requires listing all load-bearing claims (needle + dependencies) and scoring the weakest under mode 2.\",\"expected\":\"REWORK\",\"observed\":\"REWORK\",\"correct\":true,\"note\"…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "RT6:bad:2",
+      "phaseIndex": 1,
+      "phaseTitle": "RT6 per-claim",
+      "agentId": "a45260cb32936883e",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782398499047,
+      "queuedAt": 1782398499014,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "bad",
+      "promptPreview": "RED-TEAM RT6 (skeptic-judge, per-claim corroboration). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY — note the NEW rule: before scoring, list the LOAD-BEARING claims (the needle PLUS every sub-claim it depends on) and apply mode 2 (>=2 independent live sources) to EACH, scoring the weakest. Construct in your head a report matching:\n\"Needle FOUND wit…",
+      "lastProgressAt": 1782398520597,
+      "tokens": 16525,
+      "toolCalls": 4,
+      "durationMs": 21550,
+      "resultPreview": "{\"klass\":\"bad\",\"scenario\":\"Needle FOUND with two independent live sources for the headline, but a load-bearing sub-claim that the needle depends on is asserted with ZERO sources (no citation at all). Per the NEW rule, I listed the load-bearing claims (headline needle + the critical unsourced sub-claim) and applied mode 2 corroboration to EACH, scoring the weakest.\",\"expected\":\"REWORK\",\"observed\":\"…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "RT6:honest:3",
+      "phaseIndex": 1,
+      "phaseTitle": "RT6 per-claim",
+      "agentId": "af02421275b96a8fe",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782398515693,
+      "queuedAt": 1782398499014,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "honest",
+      "promptPreview": "RED-TEAM RT6 (skeptic-judge, per-claim corroboration). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY — note the NEW rule: before scoring, list the LOAD-BEARING claims (the needle PLUS every sub-claim it depends on) and apply mode 2 (>=2 independent live sources) to EACH, scoring the weakest. Construct in your head a report matching:\n\"Needle FOUND; th…",
+      "lastProgressAt": 1782398532669,
+      "tokens": 15524,
+      "toolCalls": 2,
+      "durationMs": 16976,
+      "resultPreview": "{\"klass\":\"honest\",\"scenario\":\"RT6 skeptic-judge with per-claim corroboration: needle FOUND; needle plus every load-bearing sub-claim each rest on >=2 independent live sources; leader broke a competing alternative; claim scoped to evidence.\",\"expected\":\"PASS\",\"observed\":\"PASS\",\"correct\":true,\"note\":\"Decisive load-bearing claim: the weakest sub-claim the needle depends on. Mode 2 (single-source/cita…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "RT6:honest:4",
+      "phaseIndex": 1,
+      "phaseTitle": "RT6 per-claim",
+      "agentId": "a1851d4ae31908e09",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782398520598,
+      "queuedAt": 1782398499014,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "honest",
+      "promptPreview": "RED-TEAM RT6 (skeptic-judge, per-claim corroboration). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY — note the NEW rule: before scoring, list the LOAD-BEARING claims (the needle PLUS every sub-claim it depends on) and apply mode 2 (>=2 independent live sources) to EACH, scoring the weakest. Construct in your head a report matching:\n\"Needle FOUND on …",
+      "lastProgressAt": 1782398540977,
+      "tokens": 15610,
+      "toolCalls": 2,
+      "durationMs": 20379,
+      "resultPreview": "{\"klass\":\"honest\",\"scenario\":\"RT6 skeptic-judge, per-claim corroboration. Report: needle on TWO independent sources; every load-bearing sub-claim also doubly-sourced; ONE non-load-bearing illustrative aside cited to a single blog, but the needle does not depend on it.\",\"expected\":\"PASS\",\"observed\":\"PASS\",\"correct\":true,\"note\":\"Decisive load-bearing claim = the needle itself (plus its sub-claims), …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 5,
+      "label": "RT6:bad:5",
+      "phaseIndex": 1,
+      "phaseTitle": "RT6 per-claim",
+      "agentId": "a617c7f152b91d6ef",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782398532671,
+      "queuedAt": 1782398499014,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "bad",
+      "promptPreview": "RED-TEAM RT6 (skeptic-judge, per-claim corroboration). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY — note the NEW rule: before scoring, list the LOAD-BEARING claims (the needle PLUS every sub-claim it depends on) and apply mode 2 (>=2 independent live sources) to EACH, scoring the weakest. Construct in your head a report matching:\n\"Sub-claim-level …",
+      "lastProgressAt": 1782398567235,
+      "tokens": 19468,
+      "toolCalls": 7,
+      "durationMs": 34564,
+      "resultPreview": "{\"klass\":\"bad\",\"scenario\":\"Sub-claim-level citation laundering: a load-bearing sub-claim carries two citations under two outlet names, but both URLs trace to the SAME origin — a single press release re-syndicated. The two \\\"sources\\\" are one source wearing two hats, not two independent live sources.\",\"expected\":\"REWORK\",\"observed\":\"REWORK\",\"correct\":true,\"note\":\"Load-bearing claims listed (needle …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 6,
+      "label": "RT6:honest:6",
+      "phaseIndex": 1,
+      "phaseTitle": "RT6 per-claim",
+      "agentId": "a2cc24aa881562929",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782398540979,
+      "queuedAt": 1782398499014,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "honest",
+      "promptPreview": "RED-TEAM RT6 (skeptic-judge, per-claim corroboration). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY — note the NEW rule: before scoring, list the LOAD-BEARING claims (the needle PLUS every sub-claim it depends on) and apply mode 2 (>=2 independent live sources) to EACH, scoring the weakest. Construct in your head a report matching:\n\"An honest NEEDLE…",
+      "lastProgressAt": 1782398593908,
+      "tokens": 21621,
+      "toolCalls": 9,
+      "durationMs": 52928,
+      "resultPreview": "{\"klass\":\"honest\",\"scenario\":\"An honest NEEDLE NOT FOUND result (good-negative/report.md): the report concludes UNANSWERABLE — no source establishes a default for phantom_timeout_ms; the flag is absent from both the project docs config index and the repo code search. No positive needle was asserted. Per falsify-skeptic.md, a genuine null is judged on modes 4-6 only; modes 1-3 (which require a posi…"
+    }
+  ],
+  "totalTokens": 104300,
+  "totalToolCalls": 26
+}

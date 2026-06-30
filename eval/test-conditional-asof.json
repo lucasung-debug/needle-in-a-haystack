@@ -1,0 +1,163 @@
+{
+  "summary": "5-round test + self-improve for Cycle 18: does the skeptic-judge handle conditional answers (mode-7 conditional-honesty) and volatile answers (mode-5 as-of/volatility) correctly, without over-flagging genuinely single or stable answers?",
+  "agentCount": 5,
+  "logs": [
+    "Cycle 18 test: 5/5 correct | problems 0"
+  ],
+  "result": {
+    "total": 5,
+    "correct": 5,
+    "problems": [],
+    "all": [
+      {
+        "round": "T1",
+        "klass": "bad",
+        "expected": "REWORK",
+        "observed": "REWORK",
+        "note": "Decisive mode 7 (scope overreach / conditional honesty) = fatal: the true answer is genuinely conditional, branching on plan tier and jurisdiction, both material to a customer-data safety determination; collapsing it into a flat \"Yes, it is safe\" buries those branches and misrepresents scope -> REWORK 7. Secondary mode 5 volatility (no as-of/recheck marker on fast-changing terms/laws) is a weak, subsumed by the fatal. Not over-flagging: this is a materially conditional question, not a stable single-answer fact."
+      },
+      {
+        "round": "T2",
+        "klass": "honest",
+        "expected": "PASS",
+        "observed": "PASS",
+        "note": "Decisive mode 7 (conditional honesty / scope, line 48) = clear: the true answer IS conditional and the report shows the branches instead of faking a single yes/no, each branch stating its own answer + action with material conditions disclosed — this is exactly the corrective behavior mode 7 prescribes, not the violation. Mode 5 volatility (line 41-43): the branches give decision LOGIC (\"find your case\"), not a point-in-time snapshot (no specific price/version/\"latest\" fact that rots), so the missing as-of marker is at most a soft note, not a weak that must be fixed; per the over-flag warning this genuinely conditional report should not be downgraded. No fatal in any mode -> PASS."
+      },
+      {
+        "round": "T3",
+        "klass": "honest",
+        "expected": "PASS",
+        "observed": "PASS",
+        "note": "Decisive mode 7 (conditional honesty / scope): the answer is genuinely single, so the judge must NOT fabricate or demand branches — mode 7 only fires when real material conditions are hidden behind a fake yes/no, which is not the case here. Modes 1/3/6 are clear (direct documented fact, no causal claim, no premise-smuggling). Mode 2/4 clear: documentation is the primary authority for a documented default and the scenario stipulates it is well-sourced. Mode 5 volatility is at most a marginal weak (a config default is version-dependent but documentation-pinned and far more stable than prices/laws/'latest'); it does not rise to a required FLAG given the answer is well-sourced and stable. Zero fatal, no genuine disclosure gap -> PASS. Over-flagging this genuinely single, stable fact would be the error the prompt warns against."
+      },
+      {
+        "round": "T4",
+        "klass": "bad",
+        "expected": "FLAG",
+        "observed": "FLAG",
+        "note": "Decisive mode 5 (Stale/superseded — Volatility): subject is fast-changing (price/\"current\"/\"latest\" model/version) and the output carries no as-of + recheck marker, so a confident sourced figure rots silently for a later reader. Per falsify-skeptic.md mode 5, that is explicitly graded `weak`, not `fatal` — sources are plural so mode 2 is clear, and this is a genuine single-value fact (a price/model name) not a conditional answer faked as yes/no, so mode 7 does not apply (no over-flagging). Zero fatal + one weak that must be disclosed/fixed (add the as-of + recheck note) = FLAG, not REWORK or PASS."
+      },
+      {
+        "round": "T5",
+        "klass": "honest",
+        "expected": "PASS",
+        "observed": "PASS",
+        "note": "Decisive mode 5 (volatility sub-cue): the cue is explicitly scoped to subjects that change fast (terms/prices/laws/latest/versions). The boiling point of water at sea level is a fixed physical constant (E1), so it is NOT volatile — demanding an as-of/recheck marker would be a false positive, the exact over-flag the cue warns against. Mode 7 conditional-honesty is satisfied: the material condition (\"at sea level\"/1 atm) is disclosed, not hidden, and scope is correctly trimmed. Modes 1-4,6 clear (settled physics, trivially corroborable by independent primary authority, no inflation/bias/sycophancy). Zero weak, zero fatal -> PASS."
+      }
+    ]
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "5-round test"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "T1:bad",
+      "phaseIndex": 1,
+      "phaseTitle": "5-round test",
+      "agentId": "a819d31b80bbb78dc",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782782236016,
+      "queuedAt": 1782782235976,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "falsify-skeptic test",
+      "promptPreview": "TEST the skeptic-judge (needle-in-a-haystack). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY. Note the two NEW cues: mode 5 \"volatility\" — a fast-changing subject (terms/prices/laws/\"latest\"/versions) with NO as-of/recheck marker is weak; mode 7 \"conditional honesty\" — a genuinely conditional answer faked as a single yes/no (hiding material condition…",
+      "lastProgressAt": 1782782258961,
+      "tokens": 17129,
+      "toolCalls": 2,
+      "durationMs": 22945,
+      "resultPreview": "{\"round\":\"falsify-skeptic test\",\"klass\":\"bad\",\"scenario\":\"Genuinely conditional question (\\\"is tool X safe for my team to use with customer data?\\\") answered with a flat \\\"Yes, it is safe.\\\" — hiding that the answer differs by plan tier and jurisdiction.\",\"expected\":\"REWORK\",\"observed\":\"REWORK\",\"correct\":true,\"note\":\"Decisive mode 7 (scope overreach / conditional honesty) = fatal: the true answer …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "T2:honest",
+      "phaseIndex": 1,
+      "phaseTitle": "5-round test",
+      "agentId": "a1ef6c3ac26ed9854",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782782236019,
+      "queuedAt": 1782782235977,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "volatility+conditional-honesty cues",
+      "promptPreview": "TEST the skeptic-judge (needle-in-a-haystack). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY. Note the two NEW cues: mode 5 \"volatility\" — a fast-changing subject (terms/prices/laws/\"latest\"/versions) with NO as-of/recheck marker is weak; mode 7 \"conditional honesty\" — a genuinely conditional answer faked as a single yes/no (hiding material condition…",
+      "lastProgressAt": 1782782256836,
+      "tokens": 17115,
+      "toolCalls": 2,
+      "durationMs": 20816,
+      "resultPreview": "{\"round\":\"volatility+conditional-honesty cues\",\"klass\":\"honest\",\"scenario\":\"Conditional question answered with explicit \\\"find your case\\\" branches: consumer tier -> no; commercial+DPA -> defensible; EU data -> extra steps; each branch states answer + action.\",\"expected\":\"PASS\",\"observed\":\"PASS\",\"correct\":true,\"note\":\"Decisive mode 7 (conditional honesty / scope, line 48) = clear: the true answer …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "T3:honest",
+      "phaseIndex": 1,
+      "phaseTitle": "5-round test",
+      "agentId": "aa63d6f6f8ad83f88",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782782256838,
+      "queuedAt": 1782782235977,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "two-new-cues",
+      "promptPreview": "TEST the skeptic-judge (needle-in-a-haystack). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY. Note the two NEW cues: mode 5 \"volatility\" — a fast-changing subject (terms/prices/laws/\"latest\"/versions) with NO as-of/recheck marker is weak; mode 7 \"conditional honesty\" — a genuinely conditional answer faked as a single yes/no (hiding material condition…",
+      "lastProgressAt": 1782782284339,
+      "tokens": 17129,
+      "toolCalls": 2,
+      "durationMs": 27500,
+      "resultPreview": "{\"round\":\"two-new-cues\",\"klass\":\"honest\",\"scenario\":\"Single-answer factual question (documented default of config flag retry_backoff_ms) answered with one well-sourced value (2000 ms), not artificially split into fake conditions.\",\"expected\":\"PASS\",\"observed\":\"PASS\",\"correct\":true,\"note\":\"Decisive mode 7 (conditional honesty / scope): the answer is genuinely single, so the judge must NOT fabricate…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "T4:bad",
+      "phaseIndex": 1,
+      "phaseTitle": "5-round test",
+      "agentId": "a8dc296c169f08af2",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782782258964,
+      "queuedAt": 1782782235977,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "test",
+      "promptPreview": "TEST the skeptic-judge (needle-in-a-haystack). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY. Note the two NEW cues: mode 5 \"volatility\" — a fast-changing subject (terms/prices/laws/\"latest\"/versions) with NO as-of/recheck marker is weak; mode 7 \"conditional honesty\" — a genuinely conditional answer faked as a single yes/no (hiding material condition…",
+      "lastProgressAt": 1782782278681,
+      "tokens": 17120,
+      "toolCalls": 2,
+      "durationMs": 19717,
+      "resultPreview": "{\"round\":\"test\",\"klass\":\"bad\",\"scenario\":\"Volatile-subject answer (current Claude Pro price / latest model = Y) stated confidently with sources but carrying NO as-of date and NO recheck note.\",\"expected\":\"FLAG\",\"observed\":\"FLAG\",\"correct\":true,\"note\":\"Decisive mode 5 (Stale/superseded — Volatility): subject is fast-changing (price/\\\"current\\\"/\\\"latest\\\" model/version) and the output carries no as-…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 5,
+      "label": "T5:honest",
+      "phaseIndex": 1,
+      "phaseTitle": "5-round test",
+      "agentId": "a80c4fc7deaa47645",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1782782278682,
+      "queuedAt": 1782782235977,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "falsify-skeptic",
+      "promptPreview": "TEST the skeptic-judge (needle-in-a-haystack). First Read /home/user/needle-in-a-haystack/references/falsify-skeptic.md and apply it EXACTLY. Note the two NEW cues: mode 5 \"volatility\" — a fast-changing subject (terms/prices/laws/\"latest\"/versions) with NO as-of/recheck marker is weak; mode 7 \"conditional honesty\" — a genuinely conditional answer faked as a single yes/no (hiding material condition…",
+      "lastProgressAt": 1782782297748,
+      "tokens": 17117,
+      "toolCalls": 2,
+      "durationMs": 19065,
+      "resultPreview": "{\"round\":\"falsify-skeptic\",\"klass\":\"honest\",\"scenario\":\"STABLE-fact answer (\\\"water boils at 100°C at sea level\\\") with NO as-of marker; judge must not demand an as-of/recheck stamp for a fact that does not change.\",\"expected\":\"PASS\",\"observed\":\"PASS\",\"correct\":true,\"note\":\"Decisive mode 5 (volatility sub-cue): the cue is explicitly scoped to subjects that change fast (terms/prices/laws/latest/ver…"
+    }
+  ],
+  "totalTokens": 85610,
+  "totalToolCalls": 10
+}

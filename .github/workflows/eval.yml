@@ -1,0 +1,22 @@
+name: eval
+# Regression guard: the frozen compliance-gate judge must hold on every push/PR.
+# Stdlib-only (no deps to install). Fails if detection != 1.0 or false-positive rate != 0.
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Syntax check
+        run: python -m py_compile scripts/compliance_check.py eval/runner.py tests/test_check_links.py
+      - name: Frozen eval (detection==1.0, FP==0)
+        run: python eval/runner.py
+      - name: Link-classifier unit test (offline, mocked network)
+        run: python tests/test_check_links.py
