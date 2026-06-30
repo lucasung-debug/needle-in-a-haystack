@@ -339,3 +339,24 @@ over-flagging genuinely single or stable answers. Record: `eval/test-conditional
   *aside* → PASS — no false positive, because the judge tested *load-bearing status* rather than mere single-sourcing;
   honest NEEDLE NOT FOUND → PASS (modes 1-3 NA). Record: `eval/redteam-cycle10-per-claim.json`.
 - **ACT** — shipped.
+
+### Dogfood #4 (KR 하반기 노동법 변경 — real HR team-meeting brief) → 2026-06-30
+Ran the skill end-to-end on a **live, high-stakes, timing-disputed legal** request: compile the H2-2026 Korean
+labor-law / parental-leave changes for a People-team meeting (user supplied a 연합뉴스 article link). This was the
+first dogfood where the **skeptic-judge forced an evidence downgrade**, and the first run against hostile source
+access. No new convention was needed — the existing machinery (E1–E4 grading + skeptic modes 3/4/7 + as-of marker +
+Ruled-out) carried a genuinely messy real task. What the skill did, in order:
+- **Excluded a fabrication trap**: one search returned stale **2003–04** content ("주5일 44→40시간·월차폐지·외국인고용허가
+  8/17"); FALSIFY ruled it out on date mismatch (Ruled-out). It also demoted already-in-force **2025** items (육아휴직
+  1년→1년6개월, 배우자휴가 10→20일) to "현행 제도" rather than mislabel them as new — the NULL-over-fabrication instinct
+  applied to *timing*, not just existence.
+- **Skeptic forced a REWORK #3/#7**: the independent judge (separate sub-agent, author≠reviewer) ran its own searches
+  and found the 임금체불 "3년→5년 상향" was widely reported as **already in force 2025-10-23** (상습임금체불 근절법), conflicting
+  with the H2-2026 framing — yet the draft graded it **E2-Confirmed**. Fixes: downgraded ④ to **E3 / timing-disputed**,
+  corrected 업무분담지원금 from a "conflict" to a verified **firm-size band** (30인 미만 60만 / 30인 이상 40만), and added a
+  **single-origin-event** caveat (many outlets, one government release; primaries unread). Re-gated → PASS.
+- **Honest source-access disclosure**: the user's 연합뉴스 article and several gov primaries (moel.go.kr, korea.kr) were
+  **403/blocked**; corroborated via cross-outlet WebSearch and disclosed the block + the single-origin limit in L4/Limits.
+- **Result**: `compliance_pass: 1`; frozen eval unaffected (13/13, FP 0/3). New gate-passing worked example
+  `eval/labor-law-kr-2026-06-30.md`. Lesson reinforced: the skeptic-judge is the layer that catches an *honest author's
+  over-grade* on contested timing — exactly the failure a format gate can't see (Cycle-2 lesson holds).

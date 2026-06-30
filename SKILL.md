@@ -87,5 +87,6 @@ If unsure which reference a phase needs, read `references/_index.md` first, then
 - `eval/runner.py` — frozen regression: `python ${CLAUDE_SKILL_DIR}/eval/runner.py` (exit 0 = detection==1.0 & FP==0). After editing `compliance_check.py`, rerun it; raise the bar by adding adversarial fixtures, never by editing the judge.
 - `eval/hr-ai-research-2026-06-29.md` — a complete, **gate-passing worked example** (evidence-graded E1–E4, non-dev brief up front, compliance block as an audit appendix) to copy from.
 - `eval/hr-data-claude-2026-06-29.md` — a **conditional + volatile** worked example (an "If it depends — find your case" branch table + an "As of / recheck" stamp).
+- `eval/labor-law-kr-2026-06-30.md` — a **timing-disputed, high-stakes legal** worked example: excludes a stale result + already-in-force items, and shows the skeptic-judge forcing an **evidence downgrade** (REWORK → E3/timing-disputed → re-gated PASS) under blocked-source conditions.
 
 Keep scaffolding minimal — load depth only when the phase needs it. If the scaffolding becomes the haystack, the needle gets missed.
