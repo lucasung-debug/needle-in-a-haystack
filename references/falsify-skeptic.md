@@ -39,10 +39,13 @@ Score each: **clear** (attack fails, finding holds) · **weak** (a real soft spo
    fact that has a reachable *primary* source (official text/dataset/ruling) is `weak` — fetch and cite the primary.
 5. **Stale / retracted / superseded** — Is the newest authoritative source checked? Is any cited source retracted,
    deprecated, or superseded by a later version? Unchecked recency on a time-sensitive claim ⇒ `weak`→`fatal`.
+   **Volatility:** if the subject changes fast (terms/prices/laws/"latest"/versions) and the output carries no
+   *as-of + recheck* marker, that's `weak` — a confident answer to a volatile question with no expiry rots silently.
 6. **Sycophancy / premise-adoption** — Does the finding mirror the asker's expectation or smuggle in their premise
    rather than follow the evidence (`[INDEP]`)? Evidence reads as reverse-engineered to the wanted answer ⇒ `fatal`.
 7. **Scope overreach** — Is the claim wider (population, time, domain, certainty) than the evidence supports? Trim the
-   claim to the evidence, or `weak`→`fatal`.
+   claim to the evidence, or `weak`→`fatal`. **Conditional honesty:** if the true answer is *conditional*, a single
+   yes/no that hides material conditions is scope-misrepresentation ⇒ `weak`→`fatal` — show the branches instead.
 
 ## Verdict (the gate on `[FALSIFY]`)
 

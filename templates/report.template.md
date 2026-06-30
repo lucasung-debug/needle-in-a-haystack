@@ -8,12 +8,23 @@
      Stamp each source's retrieval time with scripts/now.py (ISO-8601 UTC) — never hand-type it.
      Audience modes: the human-facing BRIEF leads with the answer + Confidence + what-to-do, in plain language (no
      [SKEPTIC]/LAW-0 jargon); the compliance block is an AUDIT appendix, not the headline. The gated artifact is always
-     this full markdown — gate it, then present the brief. -->
+     this full markdown — gate it, then present the brief.
+     If the honest answer is CONDITIONAL ("it depends"), don't fake a single yes/no — fill "If it depends — find your
+     case" with the branches (condition → answer → action). If the subject changes fast (terms, prices, laws, "latest",
+     versions), add an "As of" line so a stale answer can't be trusted blind. -->
 
 # BLUF — {{one-line answer, or "NEEDLE NOT FOUND / UNANSWERABLE"}}
 
 **Answer:** {{the finding, stated at claim-strength ≤ evidence-strength}} `[retrieved | inferred]`
 **Confidence:** {{high | medium | low}} — {{one plain-language reason a non-expert can act on}}
+**As of:** {{YYYY-MM-DD}} — {{recheck when/where}}  *(include ONLY if the subject changes fast — terms, prices, laws, "latest", versions; else delete this line)*
+
+## If it depends — find your case
+*(Use ONLY when the honest answer is conditional; otherwise delete this whole section. Don't fake a single yes/no.)*
+| Your situation | Answer | What to do |
+|---|---|---|
+| {{condition A}} | {{answer for A}} | {{action}} |
+| {{condition B}} | {{answer for B}} | {{action}} |
 
 ## Key sources
 - {{url}} — {{what it supports}} — {{live|dead|throttled|paywalled}}, retrieved {{YYYY-MM-DDThh:mm:ssZ}} `[retrieved]`

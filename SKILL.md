@@ -86,5 +86,6 @@ If unsure which reference a phase needs, read `references/_index.md` first, then
 - `scripts/now.py` — prints the current ISO-8601 UTC timestamp to stamp `[retrieved … Z]` source lines (don't hand-type it).
 - `eval/runner.py` — frozen regression: `python ${CLAUDE_SKILL_DIR}/eval/runner.py` (exit 0 = detection==1.0 & FP==0). After editing `compliance_check.py`, rerun it; raise the bar by adding adversarial fixtures, never by editing the judge.
 - `eval/hr-ai-research-2026-06-29.md` — a complete, **gate-passing worked example** (evidence-graded E1–E4, non-dev brief up front, compliance block as an audit appendix) to copy from.
+- `eval/hr-data-claude-2026-06-29.md` — a **conditional + volatile** worked example (an "If it depends — find your case" branch table + an "As of / recheck" stamp).
 
 Keep scaffolding minimal — load depth only when the phase needs it. If the scaffolding becomes the haystack, the needle gets missed.

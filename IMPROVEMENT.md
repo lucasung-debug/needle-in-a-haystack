@@ -294,6 +294,18 @@ vendor/self-report. Two purpose-aligned cuts fell out (plus a first-principles i
   what-to-do in plain language; the compliance block is an **audit appendix**, not the headline. Doc/template only;
   audit 100/0/0. (im-designer output-mode multiplexing + im-human plain language.)
 
+### Dogfood #3 (may HR put employee data in Claude?) → Cycle 18 — 2026-06-29
+A 2nd dogfood — a **conditional + fast-changing** legal/privacy question — surfaced two cuts the single-needle HR
+question didn't:
+- **✓ Cut 1 — conditional "find your case" answers**: when the honest answer is conditional, the report shows the
+  branches (condition → answer → action) instead of faking a single yes/no. Template section + FRAME detection +
+  skeptic-judge mode-7 "conditional honesty" cue.
+- **✓ Cut 2 — "as-of / recheck" marker**: a fast-changing subject (terms/prices/laws/versions) carries an as-of date +
+  recheck note so a stale answer can't be trusted blind. Template line + FRAME detection + skeptic-judge mode-5
+  "volatility" cue.
+Both are convention + judge (Cycle-2 lesson; no brittle deterministic gate). New gate-passing worked example
+`eval/hr-data-claude-2026-06-29.md` demonstrates both. eval 13/13, audit 100/0/0. **5-round test + self-improve in flight.**
+
 ### Red-team campaign — 2026-06-22 — 5 rounds, 21/21 (goal: "반증 5회")
 - **RT1 HTML gate 7/7 · RT2 NNF gate 4/4 · RT3 skeptic-judge 4/4 · RT4 whole-gate sweep 4/4 · RT5 end-to-end 2/2.**
   Zero problems. Record: `eval/redteam-campaign-5.json`.
