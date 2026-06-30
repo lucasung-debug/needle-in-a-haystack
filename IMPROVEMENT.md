@@ -304,7 +304,11 @@ question didn't:
   recheck note so a stale answer can't be trusted blind. Template line + FRAME detection + skeptic-judge mode-5
   "volatility" cue.
 Both are convention + judge (Cycle-2 lesson; no brittle deterministic gate). New gate-passing worked example
-`eval/hr-data-claude-2026-06-29.md` demonstrates both. eval 13/13, audit 100/0/0. **5-round test + self-improve in flight.**
+`eval/hr-data-claude-2026-06-29.md` demonstrates both. eval 13/13, audit 100/0/0.
+**5-round test: 5/5 clean, self-improve not needed.** T1 conditional-faked-as-single → REWORK; T2 branched → PASS;
+T3 genuine single answer (not over-fragmented) → PASS; T4 volatile-no-as-of → FLAG; T5 stable fact (no as-of) → PASS.
+The catch rounds (T1/T4) fire and the false-positive probes (T3/T5) pass — the cues catch what they should without
+over-flagging genuinely single or stable answers. Record: `eval/test-conditional-asof.json`.
 
 ### Red-team campaign — 2026-06-22 — 5 rounds, 21/21 (goal: "반증 5회")
 - **RT1 HTML gate 7/7 · RT2 NNF gate 4/4 · RT3 skeptic-judge 4/4 · RT4 whole-gate sweep 4/4 · RT5 end-to-end 2/2.**
