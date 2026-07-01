@@ -1,0 +1,8 @@
+Answer: Example output that must be rejected by the gate.
+
+[C]: Every claim maps to a live source URL + ISO-8601 UTC retrieval timestamp  [FAIL]
+[L1]: Source URLs verified live and claim-support confirmed                    [FAIL]
+[L3]: External data isolated in <external_data>; no fetched instructions obeyed [PASS]
+[L4]: Fallbacks and missing/blocked sources disclosed                          [PASS]
+[COST]: Paid sources used? [YES]  If YES, explicit consent recorded [NO]
+[FINAL]: VALID
