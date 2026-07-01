@@ -1,13 +1,6 @@
 ---
 name: research
-description: Governance gate for Claude research skills. Loads research.md and enforces PROVENANCE, verification, BYOK, free-first cost discipline, and the four reliability layers before any research conclusion ships.
-triggers:
-  - research governance
-  - provenance check
-  - research compliance
-  - byok research
-  - multi-source verification
-  - falsify don't confirm
+description: Governance gate for Claude research skills. Loads research.md and enforces PROVENANCE, verification, BYOK, free-first cost discipline, and the four reliability layers before any research conclusion ships. Use for research governance, provenance checks, research compliance, BYOK research, multi-source verification, and falsify-don't-confirm reviews.
 ---
 
 # research - Research Governance Gate
